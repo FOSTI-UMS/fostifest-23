@@ -1,0 +1,45 @@
+.btn-custom {
+  width: 100px;
+  height: 40px;
+  background-color: #5a96e3;
+  color: #fff;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.btn-custom-2 {
+  width: 100px;
+  height: 40px;
+  background-color: #4682a9;
+  color: #fff;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.title-font {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.description-font {
+  font-size: large;
+}
+
+@media (max-width: 768px) {
+  .btn-custom,
+  .btn-custom-2 {
+    font-size: 16px;
+  }
+  .title-font {
+    font-size: 18px;
+  }
+  .description-font {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,30 @@
+.header {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.fostifest-title-font {
+  font-size: 26px;
+  width: 70%;
+}
+
+.fostifest-description-font {
+  font-size: 18px;
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 70vh;
+    align-items: end;
+  }
+  .fostifest-title-font {
+    font-size: 18px;
+    width: 100%;
+  }
+  .fostifest-description-font {
+    font-size: 12px;
+    width: 90%;
+  }
+}
