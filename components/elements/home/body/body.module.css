@@ -1,0 +1,41 @@
+.content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: start;
+}
+
+.title-font {
+  font-size: 2rem;
+  width: 70%;
+}
+.description-font {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .webinar-gif {
+    height: 75%;
+    width: 75%;
+    margin-bottom: 20px;
+  }
+  .lomba-gif {
+    height: 60%;
+    width: 60%;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title-font {
+    font-size: 1.35rem;
+    width: 100%;
+  }
+  .description-font {
+    font-size: 0.7rem;
+    width: 100%;
+  }
+}

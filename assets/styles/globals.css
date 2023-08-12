@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.title-span {
+  color: #4682a9;
+}
+
+.support-media {
+  font-size: 20px;
+}
+
+.logo-image img {
+  width: 70%;
+  aspect-ratio: 4/2;
+  object-fit: contain;
+}
+
+.button1 {
+  height: 30px;
+  width: 100px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+}
+
+.button1:hover {
+  cursor: pointer;
+}
+
+.button1-color {
+  background-color: #4682a9;
+}
+
+.button1-color:hover {
+  background-color: #61b1e6;
+}
+
+.button2 {
+  height: 30px;
+  width: 90%;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+}
+
+.button2:hover {
+  cursor: pointer;
+}
+
+.button2-color {
+  background-color: #5a96e3;
+}
+
+.button2-color:hover {
+  background-color: #61b1e6;
+}
+
+.logo-social-media :hover {
+  cursor: pointer;
+  height: 55px;
+  width: 55px;
+}
+
+@media (max-width: 768px) {
+  .support-media {
+    font-size: 12px;
+  }
+
+  .logo-image img {
+    width: 100%;
+  }
+
+  .social-media h3 {
+    font-size: 1rem;
+  }
+  .social-media p {
+    font-size: 8px;
+  }
+
+  .fosti-ums {
+    font-size: 10px;
+  }
+
+  .link {
+    height: 20px;
+    width: 70px;
+    font-size: 10px;
+  }
+
+  .lottie-login {
+    height: 80%;
+    width: 80%;
+  }
+}

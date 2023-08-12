@@ -1,0 +1,20 @@
+.fostifest-title-font {
+  font-size: 2rem;
+  width: 60%;
+}
+
+.fostifest-description-font {
+  width: 50%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .fostifest-title-font {
+    font-size: 1.3rem;
+    width: 90%;
+  }
+  .fostifest-description-font {
+    font-size: 0.7rem;
+    width: 70%;
+  }
+}
