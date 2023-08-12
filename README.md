@@ -1,6 +1,5 @@
-# fosti-project-template
-Standart Github Repo Template FOSTI UMS
+### Website Resmi FOSTIFEST 2023
 
-# Dokumentasi
+#
 
-# About
+
