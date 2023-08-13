@@ -11,14 +11,14 @@ export default function FormLogin({ title, href, submit, changePage }) {
         minHeight: "100vh",
       }}
     >
-      <div className="row gx-5 pb-5 d-flex align-items-center justify-content-center">
+      <div className="row pb-5 d-flex align-items-center justify-content-center">
         <div className="col-sm">
           <div className="px-2 d-flex align-items-center justify-content-center">
             <Lottie animationData={LoginGif} className="lottie-login" data-aos="fade-right" />
           </div>
         </div>
         <div className="col-sm" data-aos="fade-left">
-          <div className="px-2">
+          <div className="px-3">
             <div className={`text-center container ${styles["form-box"]}`}>
               <div className="fw-bold pt-5">{title}</div>
               <div className="d-flex align-items-center justify-content-center flex-column mb-3 ">
