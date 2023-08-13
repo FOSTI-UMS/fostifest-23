@@ -1,8 +1,11 @@
 export default function MediaPartner() {
   return (
-    <div className="container text-center" style={{
-        marginBottom: 100
-    }}>
+    <div
+      className="container text-center"
+      style={{
+        marginBottom: 100,
+      }}
+    >
       <p className="fw-bold support-media">Media Partner</p>
       <div className="row align-items-start logo-image">
         <div className="col">

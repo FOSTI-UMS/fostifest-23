@@ -18,7 +18,7 @@ export default function Login() {
         </div>
         <div className="col-sm">
           <div className="px-2">
-            <FormLogin title="Login" href="/auth/register" submit="Masuk" change="Register" />
+            <FormLogin title="Login" href="/auth/register" submit="Login" changePage="Belum punya akun?" />
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function Register() {
         </div>
         <div className="col-sm">
           <div className="px-2">
-            <FormLogin title="Register" href="/auth/login" submit="Daftar" change="Login" />
+            <FormLogin title="Register" href="/auth/login" submit="Daftar" changePage="Sudah punya akun?" />
           </div>
         </div>
       </div>

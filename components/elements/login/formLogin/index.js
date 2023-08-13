@@ -1,48 +1,28 @@
-import ButtonComponent from "../../home/button";
+import styles from "./login.module.css";
+import Link from "next/link";
 
-export default function FormLogin({ title, href, submit, change }) {
+export default function FormLogin({ title, href, submit, changePage }) {
   return (
-    <div
-      className=" text-center container"
-      style={{
-        backgroundColor: "white",
-        width: "100%",
-        borderRadius: "20px",
-        border: "1px solid #ccc",
-        boxShadow: "0px 8px 10px rgba(0, 0, 0, 0.2), 0px 15px 10px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+    <div className={`text-center container ${styles["form-box"]}`}>
       <p className="fw-bold pt-5">{title}</p>
       <div className="d-flex align-items-center justify-content-center flex-column mb-3">
-        <label
-          htmlFor="inputEmail5"
-          className="fw-bold form-label me-auto ms-4"
-          style={{
-            fontSize: "12px",
-          }}
-        >
+        <label htmlFor="inputEmail5" className={`fw-bold form-label me-auto ms-4 ${styles["label-custom"]}`}>
           Email
         </label>
-        <input type="email" id="inputEmail5" className="form-control" aria-describedby="emailHelpBlock" style={{ height: "40px", backgroundColor: "whitesmoke", borderRadius: "20px", width: "90%", border: "none", fontSize: "12px" }} />
+        <input type="email" id="inputEmail5" className={`form-control ${styles["input-custom"]}`} aria-describedby="emailHelpBlock" />
       </div>
       <div className="d-flex align-items-center justify-content-center flex-column mb-5">
-        <label
-          htmlFor="inputEmail5"
-          className="form-label fw-bold me-auto ms-4"
-          style={{
-            fontSize: "12px",
-          }}
-        >
+        <label htmlFor="inputPassword5" className={`fw-bold form-label me-auto ms-4 ${styles["label-custom"]}`}>
           Password
         </label>
-        <input type="password" id="inputPassword5" className="form-control" aria-describedby="passwordHelpBlock" style={{ height: "40px", backgroundColor: "whitesmoke", borderRadius: "20px", width: "90%", border: "none" }} />
+        <input type="password" id="inputPassword5" className={`form-control ${styles["input-custom"]}`} aria-describedby="passwordHelpBlock" />
       </div>
-      <div className="pb-2 d-flex align-items-center- justify-content-center">
-        <ButtonComponent text={submit} buttonType="button2" buttonColorType="button1-color" href="#" />
-      </div>
-      <div className="pb-5 mb-4 d-flex align-items-center- justify-content-center">
-        <ButtonComponent text={change} buttonType="button2" buttonColorType="button2-color" href={href} />
-      </div>
+      <Link href={"#"} className="text-white fw-bold text-decoration-none d-flex align-items-center justify-content-center">
+        <div className={`mb-3 d-flex align-items-center justify-content-center ${styles["btn-login"]}`}>{submit}</div>
+      </Link>
+      <Link href={href} className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center">
+        <div className={`${styles["change-page"]}`}>{changePage}</div>
+      </Link>
     </div>
   );
 }
