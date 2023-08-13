@@ -13,10 +13,10 @@ export default function Fostifest() {
         </div>
         <div className="mb-5 flex-column d-flex align-items-center justify-content-center" data-aos="fade-up">
           <div className="col text-center d-flex justify-content-center">
-            <div className={`${styles["fostifest-title-font"]} text-center fw-bold text-center mb-4 `}>
+            <div className={`${styles["fostifest-title-font"]} text-center fw-bold text-center mb-4`}>
               {/* Creative Exploration in Frontend: Building web design with Bootstrap for the Digital Generation */}
               Creative <span className="title-span">Exploration</span> In Frontend: <span className="title-span">Building </span>Web <span className="title-span">Design</span> with <span className="title-span">Bootstrap </span>for the{" "}
-              <span className="title-span"> Digital Generation</span>
+              <span className="title-span"> Digital </span> Generation
             </div>
           </div>
           <div className={`${styles["fostifest-description-font"]} text-center`}>
