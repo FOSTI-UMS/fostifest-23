@@ -14,6 +14,9 @@ export default function Profile() {
             <p>Welcome, {email} <br/> Ini adalah ID User kamu: {userid}</p>
             <br/>
             <Logout />
+            <br/>
+
+            <p>Cobain akses /profile setelah logout</p>
         </div>
     );
 }
