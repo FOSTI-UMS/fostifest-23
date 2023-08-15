@@ -1,5 +1,5 @@
-import FormLogin from "@/components/elements/login/formLogin";
+import FormLogin from "@/components/elements/login";
 
 export default function Login() {
-  return <FormLogin href="/auth/register" title="Login" changePage="Belum punya akun?" submit="Login" />;
+  return <FormLogin />;
 }

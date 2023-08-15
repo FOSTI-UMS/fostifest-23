@@ -1,0 +1,42 @@
+.form-box {
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2), 0px 15px 10px rgba(0, 0, 0, 0.1);
+}
+
+.label-custom {
+  font-size: 11px;
+}
+
+.input-custom {
+  height: 40px;
+  background-color: rgb(239, 238, 238);
+  border-radius: 20px;
+  width: 90%;
+  border: none;
+  font-size: 12px;
+}
+
+.btn-login {
+  height: 40px;
+  width: 90%;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+  background-color: #4682a9;
+}
+
+.btn-login:hover {
+  background-color: #61b1e6;
+}
+
+.change-page {
+  font-size: 11px;
+  font-weight: 300;
+}
+
+.radio-btn {
+  font-size: 12px;
+  font-weight: bold;
+}
