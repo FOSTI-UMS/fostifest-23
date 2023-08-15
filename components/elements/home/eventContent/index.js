@@ -14,10 +14,12 @@ export default function EventContent() {
           <div className="col-12 col-md-7 mt-5" data-aos="fade">
             <div className={`${styles["btn-custom"]} mb-3`}>Webinar</div>
             <div className={`${styles["title-font"]}`}>
-              Exploring <span className="title-span">Modern</span> Web <span className="title-span">Frameworks</span>
+              Creative <span className="title-span">Exploration</span> In Frontend : <span className="title-span">Building </span>Web <span className="title-span">Design</span> with <span className="title-span">Bootstrap </span>for the{" "}
+              <span className="title-span"> Digital </span> Generation
             </div>
             <div className={`${styles["description-font"]}`}>
-              Webinar nasional dan perlombaan membuat Landing Page, bertutujuan menampilkan informasi dan meningkatkan kredibilitas , Webinar kali ini menghadirkan ********** sebagai Front-End Developer
+              Webinar nasional dan perlombaan membuat Landing Page, bertujuan untuk mengusung semangat eksplorasi kreatif dalam pengembangan frontend dengan fokus pada membangun desain web menggunakan kerangka kerja Bootstrap yang sesuai
+              dengan generasi digital saat ini.
             </div>
             <Link href={"/auth/register"} className="text-decoration-none">
               <div className={`${styles["btn-custom-2"]} mt-3`}>Daftar</div>
