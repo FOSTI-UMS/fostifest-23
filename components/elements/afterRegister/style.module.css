@@ -1,0 +1,83 @@
+.content {
+  width: 100%;
+}
+
+.content-pengumpulan {
+  padding-right: 115px;
+  padding-left: 100px;
+}
+.content-tutup {
+  padding-right: 125px;
+  padding-left: 100px;
+}
+
+.title {
+  font-size: 35px;
+  width: 100%;
+}
+
+.description {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+.input {
+  color: grey;
+  border-radius: 20px;
+}
+
+.input::-webkit-file-upload-button {
+  background-color: rgb(198, 198, 198);
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .title {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .description {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .input-box {
+    height: 30px;
+    width: 300px;
+  }
+
+  .input::-webkit-file-upload-button {
+    background-color: rgb(198, 198, 198);
+    border-radius: 20px;
+    height: 30px;
+  }
+
+  .input {
+    width: 100px;
+    height: 30px;
+    font-size: 9px;
+  }
+
+  .content-tutup {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}

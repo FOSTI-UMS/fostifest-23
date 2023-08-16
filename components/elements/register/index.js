@@ -6,13 +6,12 @@ import Lottie from "lottie-react";
 export default function FormRegister() {
   return (
     <div
-      className="container  d-flex align-items-center justify-content-center"
+      className="container d-flex align-items-center justify-content-center"
       style={{
         minHeight: "100vh",
-        // marginTop : "15px"
       }}
     >
-      <div className="row mb-3 mt-3 d-flex align-items-center justify-content-center">
+      <div className="row my-5 d-flex align-items-center justify-content-center">
         <div className="col-sm">
           <div className="px-2 d-flex align-items-center justify-content-center">
             <Lottie animationData={LoginGif} className="lottie-login" data-aos="fade-right" />
@@ -35,8 +34,14 @@ export default function FormRegister() {
                 <input type="text" className={`form-control ${styles["input-custom"]}`} />
               </div>
               <div className="d-flex align-items-center justify-content-center flex-column mb-2 ">
-                <label htmlFor="noHp" className={`fw-bold form-label me-auto ms-4 ${styles["label-custom"]}`}>
-                  No Handphone
+                <label htmlFor="noTelp" className={`fw-bold form-label me-auto ms-4 ${styles["label-custom"]}`}>
+                  No Telp
+                </label>
+                <input type="text" className={`form-control ${styles["input-custom"]}`} />
+              </div>
+              <div className="d-flex align-items-center justify-content-center flex-column mb-2 ">
+                <label htmlFor="instansi" className={`fw-bold form-label me-auto ms-4 ${styles["label-custom"]}`}>
+                  Instansi
                 </label>
                 <input type="text" className={`form-control ${styles["input-custom"]}`} />
               </div>

@@ -1,0 +1,24 @@
+.content-box {
+  width: 100%;
+}
+
+.logo-fostifest {
+  margin-top: 30px;
+}
+
+.find-us-on {
+  margin-top: 70px;
+  border-radius: 15px;
+  height: 40px;
+  width: 110px;
+  background: linear-gradient(to right, #04ae6c, #04697c);
+  font-size: 14px;
+}
+
+.social-media {
+  border-radius: 15px;
+  height: 60px;
+  width: 200px;
+  background: linear-gradient(to right, #04ae6c, #04697c);
+  font-size: 14px;
+}
