@@ -1,11 +1,19 @@
 import styles from "./style.module.css";
 
-export default function Pengumpulan() {
+export default function FileCollection() {
   return (
     <div className={`${styles["content-pengumpulan"]} `}>
-      <div className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}>Pengumpulan Hasil Desain Landing Page</div>
+      <div
+        className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}
+      >
+        Pengumpulan Hasil Desain Landing Page
+      </div>
       <div className={`input-group ${styles["input-box"]}`}>
-        <input type="file" className={`form-control ${styles["input"]}`} id="inputGroupFile02" />
+        <input
+          type="file"
+          className={`form-control ${styles["input"]}`}
+          id="inputGroupFile02"
+        />
       </div>
       <div className={`${styles["description"]}`}>
         <div>

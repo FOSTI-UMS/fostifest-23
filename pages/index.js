@@ -11,18 +11,10 @@ export default function Index() {
       <Fostifest />
       <EventContent />
       <CompetitionEvent />
-      {/* <p
-        className="text-center"
-        style={{
-          marginBottom: 200,
-        }}
-      >
-        Timeline
-      </p>
       <SupportedBy />
       <MediaPartner />
       <SocialMedia />
-      <p className="m-5 text-center fosti-ums">@FOSTI UMS</p> */}
+      <p className="m-5 text-center fosti-ums">@FOSTI UMS</p>
     </div>
   );
 }

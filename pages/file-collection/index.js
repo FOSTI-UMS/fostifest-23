@@ -1,11 +1,11 @@
-import Pengumpulan from "@/components/elements/afterRegister/pengumpulan";
+import FileCollection from "@/components/elements/afterRegister/fileCollection";
 import PendaftaranTutup from "@/components/elements/afterRegister/tutup";
 import SideContentAfterRegist from "@/components/layouts/sideAfterRegist";
 
-export default function HalamanPengumpulan() {
+export default function FileCollectionPage() {
   return (
     <SideContentAfterRegist>
-      <Pengumpulan />
+      <FileCollection />
     </SideContentAfterRegist>
   );
 }

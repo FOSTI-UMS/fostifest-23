@@ -1,11 +1,11 @@
-import LangkahDaftar from "@/components/elements/afterRegister/langkahDaftar";
+import Payments from "@/components/elements/afterRegister/payments";
 import PendaftaranTutup from "@/components/elements/afterRegister/tutup";
 import SideBarAfterRegist from "@/components/layouts/sideAfterRegist";
 
-export default function Competition() {
+export default function PaymentsPage() {
   return (
     <SideBarAfterRegist>
-      <LangkahDaftar page="Lomba" />
+      <Payments />
 
       {/* Kalau Pendaftaran Tutup */}
       {/* <PendaftaranTutup /> */}
