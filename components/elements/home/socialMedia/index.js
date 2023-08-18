@@ -1,8 +1,15 @@
 export default function SocialMedia() {
   return (
-    <div className="container text-center my-5 " data-aos="fade-up">
-      <h3 className="fw-bold">Frequently Asked Question</h3>
-      <p>
+    <div className="container  my-5 " data-aos="fade-up">
+      <h3 className="fw-bold text-center">Frequently Asked Question</h3>
+      <p
+        style={{ fontSize: "14px" }}
+        className="d-none d-md-block w-50 mx-auto text-center"
+      >
+        Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi
+        contact person di bawah ini
+      </p>
+      <p style={{ fontSize: "14px" }} className="d-md-none d-block text-center">
         Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi
         contact person di bawah ini
       </p>
