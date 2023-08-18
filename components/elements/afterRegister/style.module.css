@@ -7,17 +7,8 @@
 }
 
 .logout-btn {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  height: 50px;
-  width: 120px;
-  font-size: 14px;
-  border: none;
-  border-radius: 20px;
   background: linear-gradient(to right, #04ae6c, #04697c);
   color: white;
-  font-weight: bold;
 }
 
 .logout-btn:hover {
@@ -59,6 +50,13 @@
 
 @media (max-width: 768px) {
   .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+  }
+
+  .content-pengumpulan {
     display: flex;
     flex-direction: column;
     justify-content: center;
