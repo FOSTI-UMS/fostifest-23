@@ -14,7 +14,7 @@ export default function FormRegister() {
   const [nama, setNama] = useState('');
   const [alamat, setAlamat] = useState('');
   const [instansi, setInstansi] = useState('');
-  const [jenis, setJenis] = useState('');
+  const [jenis, setJenis] = useState('webinar');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [no_telp, setTelp] = useState('');
@@ -189,11 +189,12 @@ export default function FormRegister() {
                     <select
                       id="inputChoose"
                       name="event"
+                      value={jenis}
                       className={`form-select ${styles["input-custom"]}`}
                       onChange={(e) => setJenis(e.target.value)}
                     >
-                      <option value={"webinar"}>Webinar</option>
-                      <option value={"lomba"}>Lomba Landing Page</option>
+                      <option value="webinar">Webinar</option>
+                      <option value="web design">Lomba Landing Page</option>
                     </select>
                   </div>
                   <div className="d-grid">
