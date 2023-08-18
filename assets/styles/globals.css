@@ -2,6 +2,7 @@
 
 * {
   font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
 }
 
 .title-span {
@@ -16,46 +17,6 @@
   width: 70%;
   aspect-ratio: 4/2;
   object-fit: contain;
-}
-
-.button1 {
-  height: 30px;
-  width: 100px;
-  border-radius: 20px;
-  font-size: 14px;
-  border: none;
-}
-
-.button1:hover {
-  cursor: pointer;
-}
-
-.button1-color {
-  background-color: #4682a9;
-}
-
-.button1-color:hover {
-  background-color: #61b1e6;
-}
-
-.button2 {
-  height: 30px;
-  width: 90%;
-  border-radius: 20px;
-  font-size: 14px;
-  border: none;
-}
-
-.button2:hover {
-  cursor: pointer;
-}
-
-.button2-color {
-  background-color: #5a96e3;
-}
-
-.button2-color:hover {
-  background-color: #61b1e6;
 }
 
 .logo-social-media :hover {
@@ -91,7 +52,7 @@
   }
 
   .lottie-login {
-    height: 80%;
-    width: 80%;
+    height: 70%;
+    width: 70%;
   }
 }

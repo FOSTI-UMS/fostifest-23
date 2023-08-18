@@ -8,12 +8,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav
-      className="navbar navbar-expand-lg fixed-top "
-      style={{
-        backgroundColor: "white",
-        marginBottom: "70px",
-        boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.5)",
-      }}
+      className="navbar navbar-expand-lg bg-white shadow fixed-top "
       data-aos="fade-down"
     >
       <div className="container">
