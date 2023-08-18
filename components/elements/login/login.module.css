@@ -1,10 +1,3 @@
-.form-box {
-  background-color: white;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2), 0px 15px 10px rgba(0, 0, 0, 0.1);
-}
-
 .label-custom {
   font-size: 12px;
 }
@@ -34,4 +27,14 @@
 .change-page {
   font-size: 11px;
   font-weight: 300;
+}
+
+.card-width {
+  width: 75%;
+}
+
+@media screen and (max-width: 768px) {
+  .card-width {
+    width: 100%;
+  }
 }
