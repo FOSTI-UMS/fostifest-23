@@ -48,6 +48,7 @@ export default function SideContentAfterRegist(props) {
           >
             <div
               className={`d-flex bg-primary flex-row align-items-center justify-content-center `}
+              data-aos="fade-right"
               style={{
                 backgroundImage: `url(${BackgroundSide.src})`,
                 backgroundSize: "cover",

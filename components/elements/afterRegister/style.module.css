@@ -11,15 +11,9 @@
   padding-left: 100px;
 }
 
-.title {
-  font-size: 35px;
-  width: 100%;
-}
-
 .description {
-  font-size: 18px;
-  display: flex;
-  flex-direction: column;
+  font-size: 14px;
+  font-weight: bolder;
 }
 
 .input-box {
@@ -42,12 +36,10 @@
 
 @media (max-width: 768px) {
   .content {
-    margin: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 100%;
+    height: 90vh;
   }
   .title {
     font-size: 20px;
@@ -56,7 +48,6 @@
 
   .description {
     font-size: 12px;
-    width: 100%;
   }
 
   .input-box {
