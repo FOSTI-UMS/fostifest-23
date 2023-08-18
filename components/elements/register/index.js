@@ -24,6 +24,9 @@ export default function FormRegister() {
               <div className="fw-bold my-2 text-center">Register</div>
               <form>
                 <div className={page === "first" ? "d-block" : "d-none"}>
+                  <div className="mb-2 d-flex justify-content-end">
+                    <small className="fw-bold text-primary">Step 1</small>
+                  </div>
                   <div className="mb-2">
                     <label
                       htmlFor="namaLengkap"
@@ -52,7 +55,7 @@ export default function FormRegister() {
                       className={`form-control ${styles["input-custom"]}`}
                     />
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-2">
                     <label
                       htmlFor="noTelp"
                       className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
@@ -63,6 +66,21 @@ export default function FormRegister() {
                       type="number"
                       id="noTelp"
                       name="noTelp"
+                      className={`form-control ${styles["input-custom"]}`}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="instansi"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
+                      Asal Instansi{" "}
+                      <span className="text-danger">*opsional</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="instansi"
+                      name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
                     />
                   </div>
@@ -77,13 +95,16 @@ export default function FormRegister() {
                   </div>
                 </div>
                 <div className={page === "second" ? "d-block" : "d-none"}>
-                  <div className="mb-2">
+                  <div className="mb-2 d-flex align-items-center">
                     <a
                       onClick={() => setPage("first")}
                       className={`${styles["btn-back"]} text-decoration-none ms-2`}
                     >
                       Kembali
                     </a>
+                    <small className="fw-bold ms-auto text-primary">
+                      Step 2
+                    </small>
                   </div>
                   <div className="mb-2">
                     <label
