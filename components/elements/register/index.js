@@ -20,7 +20,6 @@ export default function FormRegister() {
   const [no_telp, setTelp] = useState('');
 
   const handleRegist = async (e) => {
-    console.log(jenis);
     e.preventDefault();
     if(password.length<6){
       alert('Password should be at least 6 characters')
