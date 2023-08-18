@@ -3,9 +3,68 @@ import Link from "next/link";
 import { useState } from "react";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/router';
+
+const supabase = createClientComponentClient();
 
 export default function FormRegister() {
   const [page, setPage] = useState("first");
+  const router = useRouter();
+  const [nama, setNama] = useState('');
+  const [alamat, setAlamat] = useState('');
+  const [instansi, setInstansi] = useState('');
+  const [jenis, setJenis] = useState('webinar');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [no_telp, setTelp] = useState('');
+
+  const handleRegist = async (e) => {
+    console.log(jenis);
+    e.preventDefault();
+    if(password.length<6){
+      alert('Password should be at least 6 characters')
+    }
+
+    try {
+      const { data } = await supabase.from("users").select('email').eq('email', email);
+      if(data.length>0){
+        alert('email telah digunakan, gunakan email lain!')
+      }
+      else{
+        
+          const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+          });
+    
+          if (error) {
+            console.error('Error signing in:', error.message);
+          } 
+          else {
+            const { data: users, error: errorInsertUser } = await supabase.from("users").insert(
+              {
+                nama,
+                alamat,
+                instansi,
+                email,
+                jenis,
+                no_telp
+              }
+            ).select();
+            if(errorInsertUser){console.log('ERROR while inserting user :', errorInsertUser.message);}
+            console.log(users);
+            // router.push({
+            //   pathname: '/profile',
+            //   query: { userData: JSON.stringify(data) },
+            // });
+          }
+
+      }
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+    }
+  };
 
   return (
     <div className="container">
@@ -22,7 +81,7 @@ export default function FormRegister() {
           >
             <div className="card-body">
               <div className="fw-bold my-2 text-center">Register</div>
-              <form>
+              <form onSubmit={handleRegist}>
                 <div className={page === "first" ? "d-block" : "d-none"}>
                   <div className="mb-2">
                     <label
@@ -36,6 +95,7 @@ export default function FormRegister() {
                       id="namaLengkap"
                       name="namaLengkap"
                       className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setNama(e.target.value)}
                     />
                   </div>
                   <div className="mb-2">
@@ -50,6 +110,7 @@ export default function FormRegister() {
                       id="alamat"
                       name="alamat"
                       className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setAlamat(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -64,6 +125,7 @@ export default function FormRegister() {
                       id="noTelp"
                       name="noTelp"
                       className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setTelp(e.target.value)}
                     />
                   </div>
                   <div className="d-grid">
@@ -98,6 +160,7 @@ export default function FormRegister() {
                       name="email"
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="emailHelpBlock"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="mb-2">
@@ -113,6 +176,7 @@ export default function FormRegister() {
                       name="password"
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="passwordHelpBlock"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -125,10 +189,12 @@ export default function FormRegister() {
                     <select
                       id="inputChoose"
                       name="event"
+                      value={jenis}
                       className={`form-select ${styles["input-custom"]}`}
+                      onChange={(e) => setJenis(e.target.value)}
                     >
-                      <option value={"webinar"}>Webinar</option>
-                      <option value={"lomba"}>Lomba Landing Page</option>
+                      <option value="webinar">Webinar</option>
+                      <option value="web design">Lomba Landing Page</option>
                     </select>
                   </div>
                   <div className="d-grid">
