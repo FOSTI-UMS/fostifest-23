@@ -1,11 +1,15 @@
+import Link from "next/link";
+
 export default function Custom404() {
     return (
-        <div className="container my-5">
-            <div className="row">
-                <div className="col-12">
-                    <h1 className="text-center">404</h1>
-                    <h2 className="text-center">Not Found</h2>
-                </div>
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">404</h1>
+                <p class="fs-3"> <span class="text-danger">Opps!</span> Page not found.</p>
+                <p class="lead">
+                    The page you're looking for doesn't exist.
+                    </p>
+                <Link href="/" class="btn btn-primary">Go Home</Link>
             </div>
         </div>
     );
