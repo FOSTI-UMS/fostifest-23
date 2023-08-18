@@ -1,8 +1,12 @@
 import styles from "./style.module.css";
+import { FiLogOut } from 'react-icons/fi';
 
 export default function FileCollection() {
   return (
     <div className={`${styles["content-pengumpulan"]} `}>
+       <button className={`${styles["logout-btn"]}`}>
+      <FiLogOut /> Logout
+    </button>
       <div
         className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}
       >

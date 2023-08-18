@@ -2,6 +2,29 @@
   width: 100%;
 }
 
+.title {
+  font-size: 30px;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  height: 50px;
+  width: 120px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(to right, #04ae6c, #04697c);
+  color: white;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(to right, #32cb91, #219ab3);
+  color: white;
+}
+
 .content-pengumpulan {
   padding-right: 115px;
   padding-left: 100px;
@@ -41,6 +64,17 @@
     justify-content: center;
     height: 90vh;
   }
+
+  .logout-btn {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-bottom: 30px;
+    height: 40px;
+    width: 100px;
+    font-size: 12px;
+  }
+
   .title {
     font-size: 20px;
     width: 100%;
