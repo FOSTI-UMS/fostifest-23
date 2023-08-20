@@ -2,8 +2,39 @@ import styles from "./login.module.css";
 import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useState } from "react"
+import { useRouter } from 'next/router';
+
+const supabase = createClientComponentClient();
 
 export default function FormLogin() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.error('Error signing in:', error.message);
+      } else {
+        router.push({
+          pathname: '/profile',
+          query: { userData: JSON.stringify(data) },
+        });
+      }
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row align-items-center" style={{ minHeight: "100vh" }}>
@@ -19,7 +50,7 @@ export default function FormLogin() {
           >
             <div className="card-body">
               <div className="fw-bold pt-5 text-center">Login</div>
-              <form>
+              <form onSubmit={handleLogin}>
                 <div className="d-flex align-items-center justify-content-center flex-column mb-3 ">
                   <label
                     htmlFor="inputEmail5"
@@ -33,6 +64,7 @@ export default function FormLogin() {
                     name="email"
                     className={`form-control ${styles["input-custom"]}`}
                     aria-describedby="emailHelpBlock"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="d-flex align-items-center justify-content-center flex-column mb-5">
@@ -48,6 +80,7 @@ export default function FormLogin() {
                     name="password"
                     className={`form-control ${styles["input-custom"]}`}
                     aria-describedby="passwordHelpBlock"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="text-white fw-bold text-decoration-none d-flex align-items-center justify-content-center">
