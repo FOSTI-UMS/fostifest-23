@@ -3,14 +3,15 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
-export default function GetAllUser() {
+export default function GetDataLomba() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
 
     const fetchUsers = async () => {
         const { data: usersData, error: fetchError } = await supabase
             .from('users')
-            .select();
+            .select()
+            .eq('jenis', 'web design');
 
         if (fetchError) {
             setError(fetchError);
@@ -24,9 +25,9 @@ export default function GetAllUser() {
     }, []);
 
     return (
-        <div className="px-5 mx-auto">
-            {error && <p>Error: {error.message}</p>}
-            {users.length === 0 && <p>No users found.</p>}
+        <div className="pt-3 mt-3 px-5 mx-auto">
+            <p className='fw-bold'>Data User Lomba</p>
+            {users.length === 0 && <p className='text-danger'>Maaf, Tidak/Belum Ada DataPeserta Lomba</p>}
             {users.length > 0 && (
                 <table className="table table-hover">
                     <thead>

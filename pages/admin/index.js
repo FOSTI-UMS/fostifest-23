@@ -1,4 +1,6 @@
-import GetAllUser from "@/components/elements/admin/getData";
+import GetDataWebinar from "@/components/elements/admin/get-data-webinar";
+import GetDataLomba from "@/components/elements/admin/get-data-lomba";
+
 
 export default function Home(){
     return(
@@ -6,7 +8,8 @@ export default function Home(){
             <h3>Selamat Datang, Admin!</h3>
             <hr/>
             <h5>Data Keseluruhan Peserta</h5>
-            <GetAllUser/>
+            <GetDataLomba/>
+            <GetDataWebinar/>
         </div>
     )
 }
