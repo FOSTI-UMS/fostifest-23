@@ -1,0 +1,45 @@
+.search-box {
+  width: 320px;
+  height: 40px;
+  background-color: rgba(90, 90, 90, 0.283);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box input {
+  background-color: transparent;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding-left: 20px;
+  color: white;
+  caret-color: white;
+}
+
+.search-box input:active {
+  border: none;
+}
+
+.search-box input::placeholder {
+  color: white;
+  margin-left: 20px;
+  font-weight: thin;
+}
+
+@media (max-width: 768px) {
+  .table th {
+    display: none;
+  }
+  .table td {
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+  .table td::before {
+    content: attr(data) ": ";
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+}
