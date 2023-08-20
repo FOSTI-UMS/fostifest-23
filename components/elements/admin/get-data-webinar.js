@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
 
 const supabase = createClientComponentClient();
 
 export default function GetDataWebinar() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
+    const router = useRouter();
 
     const fetchUsers = async () => {
         const { data: usersData, error: fetchError } = await supabase
@@ -23,6 +25,27 @@ export default function GetDataWebinar() {
     useEffect(() => {
         fetchUsers();
     }, []);
+
+    const verif = async (id) => {
+        const { error } = await supabase
+            .from('users')
+            .update({ payment_verif: true })
+            .eq('id_user', id)
+            if(error) {
+                alert(error.message);
+            }
+            router.refresh();
+    }
+    const hapus = async (id) => {
+        const { error } = await supabase
+            .from('users')
+            .delete()
+            .eq('id_user', id)
+            if(error) {
+                alert(error.message);
+            }
+            router.refresh();
+    }
 
     return (
         <div className="pt-3 mt-3 px-5 mx-auto">
@@ -54,16 +77,21 @@ export default function GetDataWebinar() {
                                 <td>{user.no_telp}</td>
                                 <td>
                                     <div className="d-flex gap-3">
+                                        {
+                                            user.payment_verif ?
+                                            <button className='btn bg-success btn-sm'>Terverifikasi</button> 
+                                        :
                                         <button className='btn btn-outline-success btn-sm'
                                             onClick={() => {
-                                                window.location.href = `/api/verif/${user.nama}`;
+                                                verif(user.id_user);
                                             }}
                                         >
                                             Verifikasi Pembayaran
                                         </button>
+                                        }
                                         <button className='btn btn-outline-danger btn-sm'
                                             onClick={() => {
-                                                window.location.href = `/api/hapus/${user.nama}`;
+                                                hapus(user.id_user);
                                             }}
                                         >
                                             Hapus User
