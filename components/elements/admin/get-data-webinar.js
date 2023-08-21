@@ -90,7 +90,7 @@ export default function GetDataWebinar() {
                                     <div className="d-flex gap-3">
                                         {
                                             user.payment_verif ?
-                                                <button className='btn bg-success btn-sm'>Terverifikasi</button>
+                                                <button className='btn btn-success btn-disabled btn-sm'>Pembayaran Terverifikasi</button>
                                                 :
                                                 <button className='btn btn-outline-success btn-sm'
                                                     onClick={() => {
