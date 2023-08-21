@@ -45,11 +45,11 @@ export default function FormRegister() {
         .select("email")
         .eq("email", email);
       if (data.length > 0) {
-        // alert("email telah digunakan, gunakan email lain!");
+        // alert("Email telah digunakan, gunakan email lain!");
         setNote((previousState) => {
           return {
             ...previousState,
-            noteEmail: "*email telah digunakan, gunakan email lain!",
+            noteEmail: "*Email telah digunakan, gunakan email lain!",
           };
         });
       } else {
@@ -213,7 +213,16 @@ export default function FormRegister() {
                       aria-describedby="emailHelpBlock"
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <p className="text-danger">{note.noteEmail}</p>
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteEmail}
+                    </p>
                   </div>
                   <div className="mb-2">
                     <label
@@ -230,7 +239,16 @@ export default function FormRegister() {
                       aria-describedby="passwordHelpBlock"
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <p className="text-danger">{note.notePass}</p>
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.notePass}
+                    </p>
                   </div>
                   <div className="mb-4">
                     <label
