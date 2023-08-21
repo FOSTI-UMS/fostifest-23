@@ -84,7 +84,9 @@ export default function FormRegister() {
               errorInsertUser.message
             );
           }
-          console.log(users);
+          // console.log(users);
+          document.cookie = "success=true; path=/";
+          router.replace("/login");
           // router.push({
           //   pathname: '/profile',
           //   query: { userData: JSON.stringify(data) },
