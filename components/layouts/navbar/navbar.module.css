@@ -1,5 +1,43 @@
-@media (max-width: 768px) {
-    .li-navbar-font {
-      font-size: 14px;
-    }
+@media (max-width: 992px) {
+  .li-navbar {
+    margin-top: 5px;
+  }
+
+  .li-navbar-font {
+    font-size: 14px;
+  }
+
+  .burger-menu {
+    height: 2em;
+    width: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .burger-bar {
+    width: 1.8em;
+    height: 0.25em;
+    background: linear-gradient(to right, #04ae6c, #04697c);
+    border-radius: 0.3em;
+  }
+
+  .burger-bar.clicked:nth-child(1) {
+    transform: rotate(45deg) translate(0.35em, 0.3em);
+    transition: ease-out 0.5s;
+  }
+  .burger-bar.clicked:nth-child(2) {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  .burger-bar.clicked:nth-child(3) {
+    transform: rotate(135deg) translate(-0.3em, 0.3em);
+    transition: ease-out 0.5s;
+  }
+
+  .burger-bar.unclicked {
+    transform: rotate(0) translate(0);
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+  }
 }
