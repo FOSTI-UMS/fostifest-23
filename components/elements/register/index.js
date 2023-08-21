@@ -213,7 +213,7 @@ export default function FormRegister() {
                       aria-describedby="emailHelpBlock"
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <p color="red">{note.noteEmail}</p>
+                    <p className="text-danger">{note.noteEmail}</p>
                   </div>
                   <div className="mb-2">
                     <label
@@ -230,7 +230,7 @@ export default function FormRegister() {
                       aria-describedby="passwordHelpBlock"
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <p color="red">{note.notePass}</p>
+                    <p className="text-danger">{note.notePass}</p>
                   </div>
                   <div className="mb-4">
                     <label
