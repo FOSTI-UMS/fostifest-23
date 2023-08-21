@@ -13,45 +13,45 @@ export default function GetDataLomba() {
     const router = useRouter()
 
 
-  const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
-    if (fetchError) {
-      setError(fetchError);
-    } else {
-      setUsers(usersData);
-    }
-  };
+    const fetchUsers = async () => {
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
+        if (fetchError) {
+            setError(fetchError);
+        } else {
+            setUsers(usersData);
+        }
+    };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
-  const handleSearch = (event) => {
-    const sortedUser = users.filter((row) => {
-      return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-    setSearch(sortedUser);
-  };
+    const handleSearch = (event) => {
+        const sortedUser = users.filter((row) => {
+            return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
+        });
+        setSearch(sortedUser);
+    };
 
     const verif = async (id) => {
         const { error } = await supabase
             .from('users')
             .update({ payment_verif: true })
             .eq('id_user', id)
-            if(error) {
-                alert(error.message);
-            }
-            router.refresh();
+        if (error) {
+            alert(error.message);
+        }
+        router.refresh();
     }
     const hapus = async (id) => {
         const { error } = await supabase
             .from('users')
             .delete()
             .eq('id_user', id)
-            if(error) {
-                alert(error.message);
-            }
-            router.refresh();
+        if (error) {
+            alert(error.message);
+        }
+        router.refresh();
     }
 
     return (
@@ -92,15 +92,15 @@ export default function GetDataLomba() {
                                     <div className="d-flex gap-3">
                                         {
                                             user.payment_verif ?
-                                            <button className='btn bg-success btn-sm'>Terverifikasi</button> 
-                                        :
-                                        <button className='btn btn-outline-success btn-sm'
-                                            onClick={() => {
-                                                verif(user.id_user);
-                                            }}
-                                        >
-                                            Verifikasi Pembayaran
-                                        </button>
+                                                <button className='btn bg-success btn-sm'>Terverifikasi</button>
+                                                :
+                                                <button className='btn btn-outline-success btn-sm'
+                                                    onClick={() => {
+                                                        verif(user.id_user);
+                                                    }}
+                                                >
+                                                    Verifikasi Pembayaran
+                                                </button>
                                         }
                                         <button className='btn btn-outline-danger btn-sm'
                                             onClick={() => {
