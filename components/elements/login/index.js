@@ -23,7 +23,7 @@ export default function FormLogin() {
       });
 
       if (error) {
-        console.error('Error signing in:', error.message);
+        alert('Error signing in: '+ error.message);
       } else {
         router.push({
           pathname: '/profile',
