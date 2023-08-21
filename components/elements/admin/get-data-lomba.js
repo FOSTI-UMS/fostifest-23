@@ -1,32 +1,37 @@
+
 import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-
+import styles from "./admin.module.css";
 
 const supabase = createClientComponentClient();
 
 export default function GetDataLomba() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
+    const [search, setSearch] = useState(users);
     const router = useRouter()
 
 
-    const fetchUsers = async () => {
-        const { data: usersData, error: fetchError } = await supabase
-            .from('users')
-            .select()
-            .eq('jenis', 'web design');
+  const fetchUsers = async () => {
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
+    if (fetchError) {
+      setError(fetchError);
+    } else {
+      setUsers(usersData);
+    }
+  };
 
-        if (fetchError) {
-            setError(fetchError);
-        } else {
-            setUsers(usersData);
-        }
-    };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
+  const handleSearch = (event) => {
+    const sortedUser = users.filter((row) => {
+      return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
+    });
+    setSearch(sortedUser);
+  };
 
     const verif = async (id) => {
         const { error } = await supabase
@@ -52,9 +57,15 @@ export default function GetDataLomba() {
     return (
         <div className="pt-3 mt-3 px-5 mx-auto">
             <p className='fw-bold'>Data User Lomba</p>
+//             Dari Frontend:
+//             <div className={`mb-3 ${styles["search-box"]}`}>
+//               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+//             </div>
+//             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
+//             {search.length > 0 && (
             {users.length === 0 && <p className='text-danger'>Maaf, Tidak/Belum Ada DataPeserta Lomba</p>}
             {users.length > 0 && (
-                <table className="table table-hover">
+                <table className={`table table-striped ${styles["table"]}`}>
                     <thead>
                         <tr>
                             <th>ID</th>
