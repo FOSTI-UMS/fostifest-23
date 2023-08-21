@@ -57,12 +57,12 @@ export default function GetDataLomba() {
     return (
         <div className="pt-3 mt-3 px-5 mx-auto">
             <p className='fw-bold'>Data User Lomba</p>
-//             Dari Frontend:
-//             <div className={`mb-3 ${styles["search-box"]}`}>
-//               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
-//             </div>
-//             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
-//             {search.length > 0 && (
+            {/* Dari Frontend:
+            <div className={`mb-3 ${styles["search-box"]}`}>
+              <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+            </div>
+            {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
+            {search.length > 0 && ( */}
             {users.length === 0 && <p className='text-danger'>Maaf, Tidak/Belum Ada DataPeserta Lomba</p>}
             {users.length > 0 && (
                 <table className={`table table-striped ${styles["table"]}`}>

@@ -55,12 +55,12 @@ export default function GetDataWebinar() {
     return (
         <div className="pt-3 mt-3 px-5 mx-auto">
             <p className='fw-bold'>Data User Webinar</p>
-//             DARI FRONTEND:
-//             <div className={`mb-3 ${styles["search-box"]}`}>
-//               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
-//             </div>
-//             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Webinar</p>}
-//             {search.length > 0 && (
+             {/* DARI FRONTEND:
+             <div className={`mb-3 ${styles["search-box"]}`}>
+               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+             </div>
+             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Webinar</p>}
+             {search.length > 0 && ( */}
             {users.length === 0 && <p className='text-danger'>Maaf, Tidak/Belum Ada DataPeserta Webinar</p>}
             {users.length > 0 && (
                 <table className={`table table-striped ${styles["table"]}`}>
