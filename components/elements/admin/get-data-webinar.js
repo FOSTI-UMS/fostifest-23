@@ -31,7 +31,7 @@ export default function GetDataWebinar() {
   };
 
   return (
-    <div className="pt-3 mt-3 px-5 mx-auto">
+    <div className="pt-3 mt-3 container">
       <p className="fw-bold">Data User Webinar</p>
       <div className={`mb-3 ${styles["search-box"]}`}>
         <input

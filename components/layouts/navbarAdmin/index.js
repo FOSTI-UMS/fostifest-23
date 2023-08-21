@@ -23,6 +23,11 @@ const NavbarAdmin = () => {
         <div className="collapse navbar-collapse mt-2 mb-2" id="navbarNav">
           <ul className="navbar-nav ms-auto fw-bold d-flex align-items-start justify-content-start ">
             <li className="nav-item ">
+              <Link className=" nav-link" href="/admin">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item ">
               <Link className=" nav-link" href="/admin/competition/users">
                 Peserta Lomba
               </Link>

@@ -31,7 +31,7 @@ export default function GetDataLomba() {
   };
 
   return (
-    <div className="pt-3 mt-3 px-5 mx-auto">
+    <div className="container pt-3 mt-3">
       <p className="fw-bold">Data User Lomba</p>
       <div className={`mb-3 ${styles["search-box"]}`}>
         <input

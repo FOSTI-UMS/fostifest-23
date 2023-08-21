@@ -1,13 +1,9 @@
-import GetDataWebinar from "@/components/elements/admin/get-data-webinar";
-
 export default function Home() {
   return (
-    <div className="pt-5 mt-5">
-      <h3 className="ms-4 mt-4">Selamat Datang, Admin!</h3>
-      <hr />
-      <h5 className="ms-4">Data Keseluruhan Peserta</h5>
-
-      <GetDataWebinar />
+    <div className="container">
+      <div className="row align-items-center" style={{ height: "100vh" }}>
+        <h3 className="text-center fw-bold">Selamat Datang Admin</h3>
+      </div>
     </div>
   );
 }
