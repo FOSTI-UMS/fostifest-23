@@ -18,8 +18,17 @@ export default function GetDataLomba() {
         }
     };
 
+    const fetchUseridLomba = async () => {
+        // soon, buat checker user udh upload file/blm
+    }
+
     useEffect(() => {
         fetchUsers();
+    }, []);
+
+
+    useEffect(() => {
+        fetchUseridLomba();
     }, []);
 
     const handleSearch = (event) => {
