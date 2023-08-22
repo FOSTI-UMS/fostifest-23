@@ -1,46 +1,25 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import styles from "./admin.module.css";
 import supabase from "@/api/supabase";
+import Lottie from "lottie-react";
+import paymentsImage from "@/assets/gifs/payments.json";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(users);
-  const router = useRouter();
+  const [verif, setVerif] = useState("");
 
   const fetchUsers = async () => {
     const { data: usersData, error: fetchError } = await supabase
       .from("users")
       .select()
-      .eq("jenis", "LOMBA DESIGN");
+      .eq("jenis", "web design");
     if (fetchError) {
       setError(fetchError);
     } else {
       setUsers(usersData);
     }
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const verif = async (id) => {
-    const { error } = await supabase
-      .from("users")
-      .update({ payment_verif: true })
-      .eq("id_user", id);
-    if (error) {
-      alert(error.message);
-    }
-    router.refresh();
-  };
-  const hapus = async (id) => {
-    const { error } = await supabase.from("users").delete().eq("id_user", id);
-    if (error) {
-      alert(error.message);
-    }
-    router.refresh();
   };
 
   useEffect(() => {
@@ -173,7 +152,9 @@ export default function GetDataLomba() {
                         <button
                           type="button"
                           className="btn btn-success rounded-4"
-                          onClick={verif()}
+                          onClick={() => {
+                            window.location.href = `/api/verif/${verif}`;
+                          }}
                         >
                           Confirm
                         </button>
