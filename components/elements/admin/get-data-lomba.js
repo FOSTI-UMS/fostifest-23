@@ -3,14 +3,13 @@ import styles from "./admin.module.css";
 import supabase from "@/api/supabase";
 import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
-import { useRouter } from "next/router";
+import deleteImage from "@/assets/gifs/delete.json";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(users);
   const [verif, setVerif] = useState();
-  const router = useRouter();
 
   const fetchUsers = async () => {
     const { data: usersData, error: fetchError } = await supabase
@@ -37,21 +36,27 @@ export default function GetDataLomba() {
   };
 
   const handleVerif = async (id) => {
-    const { error } = await supabase
-      .from("users")
-      .update({ payment_verif: true })
-      .eq("id_user", id);
-    if (error) {
-      alert(error.message);
+    try {
+      const { error } = await supabase
+        .from("users")
+        .update({ payment_verif: true })
+        .eq("id_user", id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      window.location.reload();
+    } catch (error) {
+      alert("Error: " + error.message);
     }
-    router.refresh();
   };
   const handleDelete = async (id) => {
     const { error } = await supabase.from("users").delete().eq("id_user", id);
     if (error) {
       alert(error.message);
     }
-    router.refresh();
+    window.location.reload();
   };
 
   return (
@@ -124,8 +129,10 @@ export default function GetDataLomba() {
                         )}
                         <button
                           className="btn btn-outline-danger btn-sm"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#modal-delete`}
                           onClick={() => {
-                            window.location.href = `/api/hapus/${user.nama}`;
+                            setVerif({ name: user.nama, id: user.id_user });
                           }}
                         >
                           Hapus User
@@ -178,6 +185,64 @@ export default function GetDataLomba() {
                           type="button"
                           className="btn btn-success rounded-4"
                           onClick={() => handleVerif(verif.id)}
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-danger ms-3 rounded-4"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="modal fade"
+            id={`modal-delete`}
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">
+                    Delete User
+                  </h1>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  {verif && (
+                    <div className="container-fluid">
+                      <div className="d-flex justify-content-center">
+                        <Lottie
+                          animationData={deleteImage}
+                          autoPlay={true}
+                          loop={true}
+                          className="w-50"
+                        />
+                      </div>
+                      <div className="my-4 text-center">
+                        <small className="fw-bold">
+                          Delete User Atas Nama {verif.name} ?
+                        </small>
+                      </div>
+                      <div className="d-flex justify-content-center">
+                        <button
+                          type="button"
+                          className="btn btn-success rounded-4"
+                          onClick={() => handleDelete(verif.id)}
                         >
                           Confirm
                         </button>
