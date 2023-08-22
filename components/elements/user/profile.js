@@ -22,16 +22,24 @@ export default function Profile() {
 
     useEffect(() => {
         getUser();
-    }   , []);
+    }, []);
 
     return (
         <div>
             <h4>Profil Kamu</h4>
-            <p>Nama: {identitas.nama}<br/>
-            Email: {identitas.email}<br/>
-            Instansi: {identitas.instansi ? identitas.instansi : "-"}<br/>
-            Jenis: {identitas.jenis}<br/>
-            Status Pembayaran: {identitas.payment_verif ? "Sudah Bayar" : "Belum Bayar"}</p>
+            <p>Nama: {identitas.nama}<br />
+                Email: {identitas.email}<br />
+                Instansi: {identitas.instansi ? identitas.instansi : "-"}<br />
+                Jenis: {identitas.jenis}<br />
+                Status Pembayaran: {identitas.payment_verif ? "Sudah Bayar" : "Belum Bayar"}</p>
+            {!identitas.payment_verif ? (
+                <p className='fst-italic'>
+                    Silahkan menuju ke{" "}
+                    <a href="/cara-bayar">Sini</a> Untuk petunjuk pembayaran
+                </p>
+            ) : (
+                ""
+            )}
         </div>
     )
 }
