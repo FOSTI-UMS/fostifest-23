@@ -58,14 +58,14 @@ export default function Upload() {
 
     return (
         <div className="mx-auto w-75">
-            <h5>{fileUp}</h5>
+            {/* <h5>{fileUp}</h5> */}
             <form onSubmit={upload}>
                 <div className="mb-3">
                     <label className="form-label">Upload File Kamu</label>
                     <input className="form-control" type="file" accept=".zip,.7z,.rar,.tar,.gz,.tar.gz"
                         onChange={(e) => setFile(e.target.files[0])}
                     />
-                    <button type="submit" className="btn btn-primary mt-3" disabled={fileUp !== "Belum Upload File"}>Submit</button>
+                    <button type="submit" className="btn btn-primary mt-3">Submit</button>
                 </div>
             </form>
         </div>
