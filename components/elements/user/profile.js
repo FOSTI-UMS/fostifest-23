@@ -34,10 +34,8 @@ export default function Profile() {
                 <p className='fst-italic'>
                     Silahkan menuju ke{" "}
                     <a href="/cara-bayar">Sini</a> Untuk petunjuk pembayaran
-                </p>
-            ) : (
-                ""
-            )}
+                </p> ) : ("")}
+            {identitas.jenis === "LOMBA DESIGN" ? ( <a href="/profile/upload">Upload File Lomba</a> ) : ("")}
         </div>
     )
 }

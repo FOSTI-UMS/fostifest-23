@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import Logout from '@/components/elements/logout';
 import Profile from '@/components/elements/user/profile';
+
 
 export default function HomeProfile() {
 
