@@ -1,12 +1,10 @@
 import styles from "./register.module.css";
-import Link from "next/link";
-import { useState } from "react";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/router";
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function FormRegister() {
   const [page, setPage] = useState("first");
@@ -14,7 +12,7 @@ export default function FormRegister() {
   const [nama, setNama] = useState("");
   const [alamat, setAlamat] = useState("");
   const [instansi, setInstansi] = useState("");
-  const [jenis, setJenis] = useState("webinar");
+  const [jenis, setJenis] = useState("WEBINAR");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [no_telp, setTelp] = useState("");
@@ -269,8 +267,8 @@ export default function FormRegister() {
                       className={`form-select ${styles["input-custom"]}`}
                       onChange={(e) => setJenis(e.target.value)}
                     >
-                      <option value="webinar">Webinar</option>
-                      <option value="web design">Lomba Landing Page</option>
+                      <option value="WEBINAR">Webinar</option>
+                      <option value="LOMBA DESIGN">Lomba Landing Page</option>
                     </select>
                   </div>
                   <div className="d-grid">

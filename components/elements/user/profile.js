@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function Profile() {
     const [users, setUsers] = useState([]);
