@@ -150,6 +150,7 @@ export default function GetDataLomba() {
                       </div>
                       <div className="d-flex justify-content-center">
                         <button
+                          type="button"
                           className="btn btn-success rounded-4"
                           onClick={() => {
                             window.location.href = `/api/verif/${verif}`;
