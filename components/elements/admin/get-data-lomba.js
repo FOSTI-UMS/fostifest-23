@@ -13,56 +13,56 @@ export default function GetDataLomba() {
     const router = useRouter()
 
 
-  const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
-    if (fetchError) {
-      setError(fetchError);
-    } else {
-      setUsers(usersData);
-    }
-  };
+    const fetchUsers = async () => {
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
+        if (fetchError) {
+            setError(fetchError);
+        } else {
+            setUsers(usersData);
+        }
+    };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
-  const handleSearch = (event) => {
-    const sortedUser = users.filter((row) => {
-      return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-    setSearch(sortedUser);
-  };
+    const handleSearch = (event) => {
+        const sortedUser = users.filter((row) => {
+            return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
+        });
+        setSearch(sortedUser);
+    };
 
     const verif = async (id) => {
         const { error } = await supabase
             .from('users')
             .update({ payment_verif: true })
             .eq('id_user', id)
-            if(error) {
-                alert(error.message);
-            }
-            router.refresh();
+        if (error) {
+            alert(error.message);
+        }
+        router.refresh();
     }
     const hapus = async (id) => {
         const { error } = await supabase
             .from('users')
             .delete()
             .eq('id_user', id)
-            if(error) {
-                alert(error.message);
-            }
-            router.refresh();
+        if (error) {
+            alert(error.message);
+        }
+        router.refresh();
     }
 
     return (
         <div className="pt-3 mt-3 px-5 mx-auto">
             <p className='fw-bold'>Data User Lomba</p>
-//             Dari Frontend:
-//             <div className={`mb-3 ${styles["search-box"]}`}>
-//               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
-//             </div>
-//             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
-//             {search.length > 0 && (
+            {/* Dari Frontend:
+            <div className={`mb-3 ${styles["search-box"]}`}>
+              <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+            </div>
+            {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
+            {search.length > 0 && ( */}
             {users.length === 0 && <p className='text-danger'>Maaf, Tidak/Belum Ada DataPeserta Lomba</p>}
             {users.length > 0 && (
                 <table className={`table table-striped ${styles["table"]}`}>
@@ -92,15 +92,15 @@ export default function GetDataLomba() {
                                     <div className="d-flex gap-3">
                                         {
                                             user.payment_verif ?
-                                            <button className='btn bg-success btn-sm'>Terverifikasi</button> 
-                                        :
-                                        <button className='btn btn-outline-success btn-sm'
-                                            onClick={() => {
-                                                verif(user.id_user);
-                                            }}
-                                        >
-                                            Verifikasi Pembayaran
-                                        </button>
+                                                <button className='btn btn-success btn-disabled btn-sm'>Pembayaran Terverifikasi</button>
+                                                :
+                                                <button className='btn btn-outline-success btn-sm'
+                                                    onClick={() => {
+                                                        verif(user.id_user);
+                                                    }}
+                                                >
+                                                    Verifikasi Pembayaran
+                                                </button>
                                         }
                                         <button className='btn btn-outline-danger btn-sm'
                                             onClick={() => {
