@@ -14,4 +14,4 @@ Required:
 
 <li>Installed node.js in server side</li>
 <li>Supabase project for back-end</li>
-<li>SUpabase key and url to connect with supabase</li>
+<li>Supabase key and url to connect with supabase in env</li>
