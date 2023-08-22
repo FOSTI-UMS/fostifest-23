@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import styles from "./admin.module.css";
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function GetDataLomba() {
     const [users, setUsers] = useState([]);
@@ -11,9 +9,8 @@ export default function GetDataLomba() {
     const [search, setSearch] = useState(users);
     const router = useRouter()
 
-
     const fetchUsers = async () => {
-        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "web design");
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN");
         if (fetchError) {
             setError(fetchError);
         } else {
