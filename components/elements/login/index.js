@@ -25,10 +25,7 @@ export default function FormLogin() {
       if (error) {
         alert('Error signing in: '+ error.message);
       } else {
-        router.push({
-          pathname: '/profile',
-          query: { userData: JSON.stringify(data) },
-        });
+        router.push('/profile');
       }
     } catch (error) {
       console.error('Error signing in:', error.message);

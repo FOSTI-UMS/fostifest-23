@@ -19,6 +19,7 @@ export default function FormRegister() {
   const [password, setPassword] = useState("");
   const [no_telp, setTelp] = useState("");
   const [note, setNote] = useState({});
+  const defaultPayment = false;
 
   const handleRegist = async (e) => {
     e.preventDefault();
@@ -76,6 +77,7 @@ export default function FormRegister() {
               email,
               jenis,
               no_telp,
+              payment_verif: defaultPayment,
             })
             .select();
           if (errorInsertUser) {
@@ -176,6 +178,7 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setInstansi(e.target.value)}
                     />
                   </div>
                   <div className="d-grid">
