@@ -36,32 +36,39 @@ export default function Upload() {
 
 
         if (!file) {
-            alert("Please select a file to upload.");
+            alert("Pilih File terlebih dahulu");
             return;
         }
-
-        const ext = file.name.split('.').pop();
-        const allowedExt = ['zip', '7z', 'rar', 'tar', 'gz', 'tar.gz'];
-        if (!allowedExt.includes(ext)) {
-            alert('File yang diupload harus berupa file arsip');
+        else if (file.size > 10000000) {
+            alert("File terlalu besar, maksimal 10MB");
             return;
         }
         else {
-            const user = await supabase.auth.getUser();
-            const userid = user.data.user.id
-            const { data, error } = await supabase.storage.from("file_submitted").upload(`public/${userid + '.' + ext}`, file, {
-                cacheControl: '3600',
-                upsert: false
-            });
+            const ext = file.name.split('.').pop();
+            const allowedExt = ['zip', '7z', 'rar', 'tar', 'gz', 'tar.gz'];
+            if (!allowedExt.includes(ext)) {
+                alert('File yang diupload harus berupa file arsip');
+                return;
+            }
+            else {
+                const user = await supabase.auth.getUser();
+                const userid = user.data.user.id
+                const { data, error } = await supabase.storage.from("file_submitted").upload(`public/${userid + '.' + ext}`, file, {
+                    cacheControl: '3600',
+                    upsert: false
+                });
 
-            if (error) {
-                // Buat FE: Edit alert ini jadi modal popup
-                alert(error.message);
-            } else {
-                // Buat FE: tambahin modal popup, kalo klik OK, reload pagenya
-                router.push(router.asPath);
+                if (error) {
+                    // Buat FE: Edit alert ini jadi modal popup
+                    alert(error.message);
+                } else {
+                    // Buat FE: tambahin modal popup, kalo klik OK, reload pagenya
+                    router.push(router.asPath);
+                }
             }
         }
+
+
     }
 
     const deleteFile = async (e) => {
@@ -79,7 +86,7 @@ export default function Upload() {
             }
         }
 
-        if(searchError){
+        if (searchError) {
             alert(searchError.message);
         }
     }
