@@ -1,8 +1,21 @@
 import supabase from "@/api/supabase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Upload() {
     const [file, setFile] = useState(null);
+    const [fileUp, setUp] = useState("");
+
+    const cekFile = async (e) => {
+        const user = await supabase.auth.getUser();
+        const userid = user.data.user.id;
+        const data = supabase.storage.from("file_submitted").getPublicUrl(`public/${userid}.zip`);
+        if(data){
+            const filename = data.data.publicUrl.substring(data.data.publicUrl.lastIndexOf("/") + 1);
+            setUp(`Sudah Upload File -> ` + filename);
+        }else{
+            setUp("Belum Upload File");
+        }
+    }
 
     const upload = async (e) => {
         e.preventDefault();
@@ -39,15 +52,20 @@ export default function Upload() {
 
     }
 
+    useEffect(() => {
+        cekFile();
+    });
+
     return (
         <div className="mx-auto w-75">
+            <h5>{fileUp}</h5>
             <form onSubmit={upload}>
                 <div className="mb-3">
                     <label className="form-label">Upload File Kamu</label>
                     <input className="form-control" type="file" accept=".zip,.7z,.rar,.tar,.gz,.tar.gz"
                         onChange={(e) => setFile(e.target.files[0])}
                     />
-                    <button type="submit" className="btn btn-primary mt-3">Submit</button>
+                    <button type="submit" className="btn btn-primary mt-3" disabled={fileUp !== "Belum Upload File"}>Submit</button>
                 </div>
             </form>
         </div>
