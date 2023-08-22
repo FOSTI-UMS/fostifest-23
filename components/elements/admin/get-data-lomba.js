@@ -3,18 +3,20 @@ import styles from "./admin.module.css";
 import supabase from "@/api/supabase";
 import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
+import { useRouter } from "next/router";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(users);
-  const [verif, setVerif] = useState("");
+  const [verif, setVerif] = useState();
+  const router = useRouter();
 
   const fetchUsers = async () => {
     const { data: usersData, error: fetchError } = await supabase
       .from("users")
       .select()
-      .eq("jenis", "web design");
+      .eq("jenis", "LOMBA DESIGN");
     if (fetchError) {
       setError(fetchError);
     } else {
@@ -26,11 +28,30 @@ export default function GetDataLomba() {
     fetchUsers();
   }, []);
 
+  console.log(verif);
   const handleSearch = (event) => {
     const sortedUser = users.filter((row) => {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
     });
     setSearch(sortedUser);
+  };
+
+  const handleVerif = async (id) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ payment_verif: true })
+      .eq("id_user", id);
+    if (error) {
+      alert(error.message);
+    }
+    router.refresh();
+  };
+  const handleDelete = async (id) => {
+    const { error } = await supabase.from("users").delete().eq("id_user", id);
+    if (error) {
+      alert(error.message);
+    }
+    router.refresh();
   };
 
   return (
@@ -48,70 +69,74 @@ export default function GetDataLomba() {
       )}
       {search.length > 0 && (
         <div>
-          <table
-            className={`table table-responsive table-striped ${styles["table"]}`}
-            style={{ whiteSpace: "nowrap" }}
-          >
-            <thead>
-              <tr>
-                <th>NO</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Instansi</th>
-                <th>Email</th>
-                <th>Jenis</th>
-                <th>No Telp</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {search.map((user, index) => (
-                <tr
-                  key={index}
-                  style={{
-                    fontSize: "14px",
-                  }}
-                >
-                  <td data="NO">{index + 1}</td>
-                  <td data="Nama">{user.nama}</td>
-                  <td data="Alamat">{user.alamat}</td>
-                  <td data="Instansi">{user.instansi}</td>
-                  <td data="Email">{user.email}</td>
-                  <td data="Jenis">{user.jenis}</td>
-                  <td data="No Telp">{user.no_telp}</td>
-                  <td data="Status">
-                    {user.payment_verif
-                      ? "Terverifikasi"
-                      : "Belum Terverifikasi"}
-                  </td>
-                  <td data="Aksi">
-                    <div className="d-flex gap-3">
-                      {!user.payment_verif && (
-                        <button
-                          type="button"
-                          className="btn btn-outline-success btn-sm"
-                          data-bs-toggle="modal"
-                          data-bs-target={`#modal-payments`}
-                          onClick={() => setVerif(user.nama)}
-                        >
-                          Verifikasi Pembayaran
-                        </button>
-                      )}
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => {
-                          window.location.href = `/api/hapus/${user.nama}`;
-                        }}
-                      >
-                        Hapus User
-                      </button>
-                    </div>
-                  </td>
+          <div className="table-responsive">
+            <table
+              className={`table table-striped ${styles["table"]}`}
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>Nama</th>
+                  <th>Alamat</th>
+                  <th>Instansi</th>
+                  <th>Email</th>
+                  <th>Jenis</th>
+                  <th>No Telp</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {search.map((user, index) => (
+                  <tr
+                    key={index}
+                    style={{
+                      fontSize: "14px",
+                    }}
+                  >
+                    <td data="NO">{index + 1}</td>
+                    <td data="Nama">{user.nama}</td>
+                    <td data="Alamat">{user.alamat}</td>
+                    <td data="Instansi">{user.instansi}</td>
+                    <td data="Email">{user.email}</td>
+                    <td data="Jenis">{user.jenis}</td>
+                    <td data="No Telp">{user.no_telp}</td>
+                    <td data="Status">
+                      {user.payment_verif
+                        ? "Terverifikasi"
+                        : "Belum Terverifikasi"}
+                    </td>
+                    <td data="Aksi">
+                      <div className="d-flex gap-3">
+                        {!user.payment_verif && (
+                          <button
+                            type="button"
+                            className="btn btn-outline-success btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target={`#modal-payments`}
+                            onClick={() =>
+                              setVerif({ name: user.nama, id: user.id_user })
+                            }
+                          >
+                            Verifikasi Pembayaran
+                          </button>
+                        )}
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => {
+                            window.location.href = `/api/hapus/${user.nama}`;
+                          }}
+                        >
+                          Hapus User
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div
             className="modal fade"
             id={`modal-payments`}
@@ -145,16 +170,14 @@ export default function GetDataLomba() {
                       </div>
                       <div className="my-4 text-center">
                         <small className="fw-bold">
-                          Verfikasi Pembayaran Atas Nama {verif} ?
+                          Verfikasi Pembayaran Atas Nama {verif.name} ?
                         </small>
                       </div>
                       <div className="d-flex justify-content-center">
                         <button
                           type="button"
                           className="btn btn-success rounded-4"
-                          onClick={() => {
-                            window.location.href = `/api/verif/${verif}`;
-                          }}
+                          onClick={() => handleVerif(verif.id)}
                         >
                           Confirm
                         </button>
