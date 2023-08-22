@@ -1,22 +1,13 @@
 import { useRouter } from 'next/router';
 import Logout from '@/components/elements/logout';
+import Profile from '@/components/elements/user/profile';
 
-export default function Profile() {
-    const router = useRouter();
-    const { userData } = router.query;
-    const email = userData ? JSON.parse(userData).user.email : '';
-    const userid = userData ? JSON.parse(userData).user.id : '';
+export default function HomeProfile() {
 
     return (
-        
-        <div className='mt-5 pt-5 w-50'>
-            <h2>Profile Page</h2>
-            <p>Welcome, {email} <br/> Ini adalah ID User kamu: {userid}</p>
-            <br/>
+        <div className='mt-5 pt-5'>
+            <Profile />
             <Logout />
-            <br/>
-
-            <p>Cobain akses /profile setelah logout</p>
         </div>
     );
 }
