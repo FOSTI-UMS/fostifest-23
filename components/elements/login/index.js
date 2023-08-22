@@ -2,11 +2,9 @@ import styles from "./login.module.css";
 import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from "react"
 import { useRouter } from 'next/router';
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function FormLogin() {
   const router = useRouter();

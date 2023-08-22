@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import styles from "./admin.module.css";
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function GetDataWebinar() {
     const [users, setUsers] = useState([]);
@@ -12,7 +10,7 @@ export default function GetDataWebinar() {
     const router = useRouter();
 
     const fetchUsers = async () => {
-        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "webinar");
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR");
         if (fetchError) {
             setError(fetchError);
         } else {

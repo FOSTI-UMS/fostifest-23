@@ -1,7 +1,5 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/router';
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function Logout() {
     const router = useRouter();
@@ -15,6 +13,12 @@ export default function Logout() {
             if (error) {
                 console.error('Error signing out:', error.message);
             } else {
+                // hapus semua cookie, kalo ada cara yg lebih efektif, bisa diganti aja banh
+                document.cookie.split(";").forEach((c) => {
+                    document.cookie = c
+                        .replace(/^ +/, "")
+                        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                });
                 router.push({
                     pathname: '/',
                 });
