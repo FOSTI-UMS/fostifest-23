@@ -1,67 +1,100 @@
 import styles from "./register.module.css";
-import Link from "next/link";
-import { useState } from "react";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useRouter } from 'next/router';
-
-const supabase = createClientComponentClient();
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import supabase from '@/api/supabase';
 
 export default function FormRegister() {
   const [page, setPage] = useState("first");
   const router = useRouter();
-  const [nama, setNama] = useState('');
-  const [alamat, setAlamat] = useState('');
-  const [instansi, setInstansi] = useState('');
-  const [jenis, setJenis] = useState('webinar');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [no_telp, setTelp] = useState('');
+  const [nama, setNama] = useState("");
+  const [alamat, setAlamat] = useState("");
+  const [instansi, setInstansi] = useState("");
+  const [jenis, setJenis] = useState("WEBINAR");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [no_telp, setTelp] = useState("");
+  const [note, setNote] = useState({});
+  const defaultPayment = false;
 
   const handleRegist = async (e) => {
     e.preventDefault();
-    if(password.length<6){
-      alert('Password should be at least 6 characters')
+    if (password.length < 6) {
+      // alert('Password should be at least 6 characters')
+      setNote((previousState) => {
+        return {
+          ...previousState,
+          notePass: "*Password should be at least 6 characters",
+        };
+      });
+    } else {
+      setNote((previousState) => {
+        return {
+          ...previousState,
+          notePass: null,
+        };
+      });
     }
 
     try {
-      const { data } = await supabase.from("users").select('email').eq('email', email);
-      if(data.length>0){
-        alert('email telah digunakan, gunakan email lain!')
-      }
-      else{
-        
-          const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-          });
-    
-          if (error) {
-            console.error('Error signing in:', error.message);
-          } 
-          else {
-            const { data: users, error: errorInsertUser } = await supabase.from("users").insert(
-              {
-                nama,
-                alamat,
-                instansi,
-                email,
-                jenis,
-                no_telp
-              }
-            ).select();
-            if(errorInsertUser){console.log('ERROR while inserting user :', errorInsertUser.message);}
-            console.log(users);
-            // router.push({
-            //   pathname: '/profile',
-            //   query: { userData: JSON.stringify(data) },
-            // });
-          }
+      const { data } = await supabase
+        .from("users")
+        .select("email")
+        .eq("email", email);
+      if (data.length > 0) {
+        // alert("Email telah digunakan, gunakan email lain!");
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteEmail: "*Email telah digunakan, gunakan email lain!",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteEmail: null,
+          };
+        });
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+        });
 
+        if (error) {
+          console.error("Error signing in:", error.message);
+        } else {
+          const { data: users, error: errorInsertUser } = await supabase
+            .from("users")
+            .insert({
+              nama,
+              alamat,
+              instansi,
+              email,
+              jenis,
+              no_telp,
+              payment_verif: defaultPayment,
+            })
+            .select();
+          if (errorInsertUser) {
+            console.log(
+              "ERROR while inserting user :",
+              errorInsertUser.message
+            );
+          }
+          // console.log(users);
+          document.cookie = "success=true; path=/";
+          router.replace("/login");
+          // router.push({
+          //   pathname: '/profile',
+          //   query: { userData: JSON.stringify(data) },
+          // });
+        }
       }
     } catch (error) {
-      console.error('Error signing in:', error.message);
+      console.error("Error signing in:", error.message);
     }
   };
 
@@ -143,6 +176,7 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setInstansi(e.target.value)}
                     />
                   </div>
                   <div className="d-grid">
@@ -182,6 +216,16 @@ export default function FormRegister() {
                       aria-describedby="emailHelpBlock"
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteEmail}
+                    </p>
                   </div>
                   <div className="mb-2">
                     <label
@@ -198,6 +242,16 @@ export default function FormRegister() {
                       aria-describedby="passwordHelpBlock"
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.notePass}
+                    </p>
                   </div>
                   <div className="mb-4">
                     <label
@@ -213,8 +267,8 @@ export default function FormRegister() {
                       className={`form-select ${styles["input-custom"]}`}
                       onChange={(e) => setJenis(e.target.value)}
                     >
-                      <option value="webinar">Webinar</option>
-                      <option value="web design">Lomba Landing Page</option>
+                      <option value="WEBINAR">Webinar</option>
+                      <option value="LOMBA DESIGN">Lomba Landing Page</option>
                     </select>
                   </div>
                   <div className="d-grid">

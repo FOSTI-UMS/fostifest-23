@@ -2,11 +2,9 @@ import styles from "./login.module.css";
 import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
 import Lottie from "lottie-react";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from "react"
 import { useRouter } from 'next/router';
-
-const supabase = createClientComponentClient();
+import supabase from '@/api/supabase';
 
 export default function FormLogin() {
   const router = useRouter();
@@ -23,12 +21,9 @@ export default function FormLogin() {
       });
 
       if (error) {
-        console.error('Error signing in:', error.message);
+        alert('Error signing in: '+ error.message);
       } else {
-        router.push({
-          pathname: '/profile',
-          query: { userData: JSON.stringify(data) },
-        });
+        router.push('/profile');
       }
     } catch (error) {
       console.error('Error signing in:', error.message);
