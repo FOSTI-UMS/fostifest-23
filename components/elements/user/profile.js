@@ -8,6 +8,7 @@ import Link from "next/link";
 export default function Profile() {
   const [users, setUsers] = useState([]);
   const [identitas, setIds] = useState({});
+  const [admon, setAdmon] = useState();
 
   const getUser = async () => {
     const {
@@ -23,6 +24,7 @@ export default function Profile() {
       setUsers(user);
       if (usersData.length > 0) {
         setIds(usersData[0]);
+        setAdmon(usersData[0].is_admin);
       }
     }
   };
@@ -30,6 +32,8 @@ export default function Profile() {
   useEffect(() => {
     getUser();
   }, []);
+
+  console.log(identitas);
 
   return (
     <div className="container">
@@ -47,40 +51,59 @@ export default function Profile() {
         </div>
         <div className="col" data-aos="fade-up">
           <h4 className="fw-bold">Hallo {identitas.nama}</h4>
-          <p>
-            Email: {identitas.email}
-            <br />
-            Instansi: {identitas.instansi ? identitas.instansi : "-"}
-            <br />
-            Jenis: {identitas.jenis}
-            <br />
-            Status Pembayaran:{" "}
-            {identitas.payment_verif ? "Sudah Bayar" : "Belum Bayar"}
-          </p>
-          <div className="d-flex">
-            <Logout />
-            {!identitas.payment_verif ? (
-              <Link
-                href="/payments"
-                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
-              >
-                Cara Pembayaran
-              </Link>
+            {admon ? (
+              <div>
+                Email: {identitas.email}
+                <br />
+                Instansi: {identitas.instansi ? identitas.instansi : "-"}
+                <br />
+                Kontak Superadmin: //no.wa CO Sie Karya//
+              </div>
             ) : (
-              identitas.jenis === "LOMBA DESIGN" ? (
+              <div>
+                Email: {identitas.email}
+                <br />
+                Instansi: {identitas.instansi ? identitas.instansi : "-"}
+                <br />
+                Jenis: {identitas.jenis}
+                <br />
+                Status Pembayaran: {identitas.payment_verif ? "Sudah Bayar" : "Belum Bayar"}
+              </div>
+            )}
+          <div className="d-flex mt-3">
+            <Logout />
+            {admon ? (
+
+              <Link
+                href="/admin"
+                className="mb-3 ms-3 btn btn-outline-warning d-flex align-items-center justify-content-center"
+              >
+                Halaman Admin
+              </Link>
+
+            ) : (
+              !identitas.payment_verif ? (
                 <Link
-                  href="/file-collection"
+                  href="/payments"
                   className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
                 >
-                  Pengumpulan File
+                  Cara Pembayaran
                 </Link>
               ) : (
-                <Link
-                  href="/webinar"
-                  className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
-                >
-                  Halaman Webinar
-                </Link>
+                identitas.jenis === "LOMBA DESIGN" ? (
+                  <Link
+                    href="/file-collection"
+                    className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+                  >
+                    Pengumpulan File
+                  </Link>
+                ) : (
+                  <Link
+                    href="/webinar"
+                    className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
+                  >
+                    Halaman Webinar
+                  </Link>)
               )
             )}
           </div>
