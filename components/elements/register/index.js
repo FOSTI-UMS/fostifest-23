@@ -85,7 +85,7 @@ export default function FormRegister() {
             );
           }
           // console.log(users);
-          document.cookie = "success=true; path=/";
+          document.cookie = "success=true; path=/login";
           router.replace("/login");
           // router.push({
           //   pathname: '/profile',

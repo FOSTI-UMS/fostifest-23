@@ -67,15 +67,23 @@ export default function Profile() {
                 Cara Pembayaran
               </Link>
             ) : (
-              <Link
-                href="/file-collection"
-                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
-              >
-                Cara Pengumpulan
-              </Link>
+              identitas.jenis === "LOMBA DESIGN" ? (
+                <Link
+                  href="/file-collection"
+                  className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+                >
+                  Pengumpulan File
+                </Link>
+              ) : (
+                <Link
+                  href="/webinar"
+                  className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
+                >
+                  Halaman Webinar
+                </Link>
+              )
             )}
           </div>
-          {identitas.jenis === "LOMBA DESIGN" ? ( <a href="/profile/upload">Upload File Lomba</a> ) : ("")}
         </div>
       </div>
     </div>
