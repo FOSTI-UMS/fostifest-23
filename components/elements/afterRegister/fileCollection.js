@@ -7,23 +7,44 @@ import { useRouter } from 'next/router';
 export default function FileCollection() {
   const router = useRouter();
   const [file, setFile] = useState(null);
-  const [fileUp, setUp] = useState("");
+  const [message, setUp] = useState("");
   const [isItDisabled, setBtn] = useState(false);
+  const formatDate = (date) => {
+    const options = {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+    return date.toLocaleDateString('id-ID', options);
+  };
+
+  const formatTime = (date) => {
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    return date.toLocaleTimeString('id-ID', options);
+  };
 
   const cekFile = async (e) => {
     const user = await supabase.auth.getUser();
     const usermail = user.data.user.email;
     const { data, error } = await supabase.from("submit_status").select("*").eq("email", usermail);
+
     if (data.length > 0) {
-      setUp("Sudah Upload Data: " + data[0].nama_peserta + "_" + data[0].judul_karya);
+      const formattedDate = formatDate(new Date(data[0].created_at));
+      const formattedTime = formatTime(new Date(data[0].created_at));
+      const message = `Sudah Upload Data: <strong>${data[0].nama_peserta}_${data[0].judul_karya}</strong><br> Pada Hari ${formattedDate} - ${formattedTime}`
+      setUp(message);
     }
     else {
-      setUp("Belum Upload");
+      setUp("Belum Upload File");
     }
   }
 
   const cekUploadFile = async () => {
-    if (fileUp === "Belum Upload") {
+    if (message === "Belum Upload File") {
       setBtn(false);
     } else {
       setBtn(true);
@@ -133,7 +154,7 @@ export default function FileCollection() {
           </div>
           <button type="submit" className="btn btn-sm btn-primary mt-3" disabled={isItDisabled}>Upload</button>
         </form>
-        <p className="fw-bold">{fileUp}</p>
+        <p dangerouslySetInnerHTML={{ __html: message }}/>
         <div className={`${styles["description"]}`}>
           <div>
             Note : <br />
