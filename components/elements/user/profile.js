@@ -75,6 +75,7 @@ export default function Profile() {
               </Link>
             )}
           </div>
+          {identitas.jenis === "LOMBA DESIGN" ? ( <a href="/profile/upload">Upload File Lomba</a> ) : ("")}
         </div>
       </div>
     </div>

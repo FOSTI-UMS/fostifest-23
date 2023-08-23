@@ -26,6 +26,10 @@ export default function GetDataLomba() {
   useEffect(() => {
     fetchUsers();
   }, []);
+  
+  useEffect(() => {
+    fetchUseridLomba();
+  }, []);
 
   console.log(verif);
   const handleSearch = (event) => {
@@ -33,6 +37,10 @@ export default function GetDataLomba() {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
     });
     setSearch(sortedUser);
+  };
+  
+  const fetchUseridLomba = async () => {
+        // soon, buat checker user udh upload file/blm
   };
 
   const handleVerif = async (id) => {
@@ -51,6 +59,7 @@ export default function GetDataLomba() {
       alert("Error: " + error.message);
     }
   };
+  
   const handleDelete = async (id) => {
     const { error } = await supabase.from("users").delete().eq("id_user", id);
     if (error) {
@@ -58,7 +67,7 @@ export default function GetDataLomba() {
     }
     window.location.reload();
   };
-
+  
   return (
     <div className="container pb-3">
       <p className="fw-bold">Data User Lomba</p>
