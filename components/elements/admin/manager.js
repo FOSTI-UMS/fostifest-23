@@ -92,7 +92,7 @@ export default function Manager() {
                                     >
                                         <td data="NO">{index + 1}</td>
                                         <td data="Nama">{user.nama}</td>
-                                        <td data="Instansi">{user.instansi}</td>
+                                        <td data="Instansi" className="text-uppercase">{user.instansi}</td>
                                         <td data="Email">{user.email}</td>
                                         <td data="No Telp">{user.no_telp}</td>
                                         <td data="Status">{user.is_admin ? (

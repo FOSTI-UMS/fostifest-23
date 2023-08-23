@@ -176,7 +176,7 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setInstansi(e.target.value)}
+                      onChange={(e) => setInstansi(e.target.value.toLowerCase())}
                     />
                   </div>
                   <div className="d-grid">
