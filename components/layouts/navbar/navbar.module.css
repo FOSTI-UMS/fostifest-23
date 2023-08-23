@@ -9,7 +9,7 @@
 
   .burger-menu {
     height: 2em;
-    width: 3em;
+    width: 2.78em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,14 +17,14 @@
   }
 
   .burger-bar {
-    width: 1.8em;
-    height: 0.25em;
+    width: 1.3em;
+    height: 0.2em;
     background: linear-gradient(to right, #04ae6c, #04697c);
     border-radius: 0.3em;
   }
 
   .burger-bar.clicked:nth-child(1) {
-    transform: rotate(45deg) translate(0.35em, 0.3em);
+    transform: rotate(45deg) translate(0.34em, 0.3em);
     transition: ease-out 0.5s;
   }
   .burger-bar.clicked:nth-child(2) {
