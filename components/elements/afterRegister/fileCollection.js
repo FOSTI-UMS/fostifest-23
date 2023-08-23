@@ -2,7 +2,9 @@ import styles from "./style.module.css";
 import Link from "next/link";
 import supabase from "@/api/supabase";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import SuccesImage from "@/assets/gifs/succesfully.json";
+import Lottie from "lottie-react";
 
 export default function FileCollection() {
   const router = useRouter();
@@ -11,37 +13,39 @@ export default function FileCollection() {
   const [isItDisabled, setBtn] = useState(false);
   const formatDate = (date) => {
     const options = {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     };
-    return date.toLocaleDateString('id-ID', options);
+    return date.toLocaleDateString("id-ID", options);
   };
 
   const formatTime = (date) => {
     const options = {
-      hour: 'numeric',
-      minute: 'numeric',
+      hour: "numeric",
+      minute: "numeric",
     };
-    return date.toLocaleTimeString('id-ID', options);
+    return date.toLocaleTimeString("id-ID", options);
   };
 
   const cekFile = async (e) => {
     const user = await supabase.auth.getUser();
     const usermail = user.data.user.email;
-    const { data, error } = await supabase.from("submit_status").select("*").eq("email", usermail);
+    const { data, error } = await supabase
+      .from("submit_status")
+      .select("*")
+      .eq("email", usermail);
 
     if (data.length > 0) {
       const formattedDate = formatDate(new Date(data[0].created_at));
       const formattedTime = formatTime(new Date(data[0].created_at));
-      const message = `Sudah Upload Data: <strong>${data[0].nama_peserta}_${data[0].judul_karya}</strong><br> Pada Hari ${formattedDate} - ${formattedTime}`
+      const message = `Sudah Upload Data: <strong>${data[0].nama_peserta}_${data[0].judul_karya}</strong><br> Pada Hari ${formattedDate} - ${formattedTime}`;
       setUp(message);
-    }
-    else {
+    } else {
       setUp("Belum Upload File");
     }
-  }
+  };
 
   const cekUploadFile = async () => {
     if (message === "Belum Upload File") {
@@ -49,58 +53,60 @@ export default function FileCollection() {
     } else {
       setBtn(true);
     }
-  }
+  };
 
   const upload = async (e) => {
     e.preventDefault();
     if (!file) {
       alert("Pilih File terlebih dahulu");
       return;
-    }
-    else if (file.name.split('_').length !== 2) {
+    } else if (file.name.split("_").length !== 2) {
       alert("Nama file tidak sesuai format");
       return;
-    }
-    else if (file.size > 10000000) {
+    } else if (file.size > 10000000) {
       alert("File terlalu besar, maksimal 10MB");
       return;
-    }
-
-    else {
-      const parts = file.name.split('_');
+    } else {
+      const parts = file.name.split("_");
       const namaPeserta = parts[0];
       const judulKarya = parts[1];
-      const ext = judulKarya.split('.').pop();
-      const allowedExt = ['zip', '7z', 'rar', 'tar'];
+      const ext = judulKarya.split(".").pop();
+      const allowedExt = ["zip", "7z", "rar", "tar"];
       if (!allowedExt.includes(ext)) {
-        alert('File yang diupload harus berupa file arsip');
+        alert("File yang diupload harus berupa file arsip");
         return;
-      }
-      else {
+      } else {
         const user = await supabase.auth.getUser();
         const usermail = user.data.user.email;
 
-        const { data, error } = await supabase.storage.from("file_submitted").upload(`public/${file.name}`, file, {
-          cacheControl: '3600',
-          upsert: false
-        });
+        const { data, error } = await supabase.storage
+          .from("file_submitted")
+          .upload(`public/${file.name}`, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
-        const { data: insertStat, error: insertErr } = await supabase.from("submit_status").insert([
-          { email: usermail, nama_peserta: namaPeserta, judul_karya: judulKarya.split('.')[0] }
-        ]);
+        const { data: insertStat, error: insertErr } = await supabase
+          .from("submit_status")
+          .insert([
+            {
+              email: usermail,
+              nama_peserta: namaPeserta,
+              judul_karya: judulKarya.split(".")[0],
+            },
+          ]);
 
         if (insertErr) {
           alert("insert err: " + insertErr.message);
-        }
-        else if (error) {
+        } else if (error) {
           // Buat FE: Edit alert ini jadi modal popup
           alert("upld err: " + error.message);
         }
         document.cookie = `file=${file.name}; path=/file-collection; max-age=60`;
-        router.push('/file-collection')
+        router.push("/file-collection");
       }
     }
-  }
+  };
 
   // const deleteFile = async (e) => {
   //   e.preventDefault();
@@ -143,7 +149,7 @@ export default function FileCollection() {
           Pengumpulan Hasil Desain Landing Page
         </div>
         <form onSubmit={upload}>
-          <div className={`input-group ${styles["input-box"]}`}>
+          <div className={`input-group mb-3 ${styles["input-box"]}`}>
             <input
               type="file"
               className={`form-control ${styles["input"]}`}
@@ -152,9 +158,17 @@ export default function FileCollection() {
               onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
-          <button type="submit" className="btn btn-sm btn-primary mt-3" disabled={isItDisabled}>Upload</button>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-success rounded-4"
+              disabled={isItDisabled}
+            >
+              Kirim
+            </button>
+          </div>
         </form>
-        <p dangerouslySetInnerHTML={{ __html: message }}/>
+        <p dangerouslySetInnerHTML={{ __html: message }} />
         <div className={`${styles["description"]}`}>
           <div>
             Note : <br />
@@ -174,6 +188,46 @@ export default function FileCollection() {
           >
             Kembali Ke Beranda
           </Link>
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Launch demo modal
+          </button>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">
+              <div className="container-fluid">
+                <div className="d-flex justify-content-center">
+                  <Lottie
+                    animationData={SuccesImage}
+                    autoPlay={true}
+                    loop={true}
+                    className="w-75"
+                  />
+                </div>
+                <div className="mb-4 text-center">
+                  <h3 className="fw-bold mb-3">Berhasil Mengumpulkan!</h3>
+                  <small className="text-secondary">
+                    Yeay Anda Telah Berhasil Mengumpulkan File Lomba. Pengumuman
+                    Juara Akan Diumumkan Saat Webinar, Jadi Jangan Lupa Join
+                    Yaa. Good Luck !
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
