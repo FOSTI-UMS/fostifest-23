@@ -1,15 +1,16 @@
 import styles from "./login.module.css";
 import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
+import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
-import { useState } from "react"
-import { useRouter } from 'next/router';
-import supabase from '@/api/supabase';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import supabase from "@/api/supabase";
 
 export default function FormLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,12 +22,12 @@ export default function FormLogin() {
       });
 
       if (error) {
-        alert('Error signing in: '+ error.message);
+        alert("Error signing in: " + error.message);
       } else {
-        router.push('/profile');
+        router.push("/profile");
       }
     } catch (error) {
-      console.error('Error signing in:', error.message);
+      console.error("Error signing in:", error.message);
     }
   };
 
@@ -96,6 +97,44 @@ export default function FormLogin() {
                   Belum punya akun?
                 </div>
               </Link>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Launch demo modal
+        </button>
+      </div>
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">
+              <div className="container-fluid">
+                <div className="d-flex justify-content-center">
+                  <Lottie
+                    animationData={SuccesImage}
+                    autoPlay={true}
+                    loop={true}
+                    className="w-75"
+                  />
+                </div>
+                <div className="mb-4 text-center">
+                  <h3 className="fw-bold mb-3">Yeayy Selamat !</h3>
+                  <small className="text-secondary">
+                    Anda Telah Berhasil Mendaftar Silahkan Login
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
