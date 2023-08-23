@@ -1,8 +1,9 @@
-
 export default function Home() {
   return (
-    <div className="pt-5 mt-5">
-      <h3 className="ms-4 mt-4">Selamat Datang, Admin!</h3>
+    <div className="container">
+      <div className="row align-items-center" style={{ height: "100vh" }}>
+        <h3 className="fw-bold text-center">Selamat Datang Admin</h3>
+      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function Payments() {
         <div className="row">
           <div className="col">
             <Link
-              href="/"
+              href="/profile"
               className="btn btn-primary rounded-4"
               style={{ fontSize: "12px" }}
             >
