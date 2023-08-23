@@ -12,7 +12,7 @@ export default function Manager() {
     const [verif, setVerif] = useState();
 
     const fetchUsers = async () => {
-        const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("instansi", "PANITIA");
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().ilike("instansi", "panitia");
         if (fetchError) {
             setError(fetchError);
         } else {

@@ -12,7 +12,7 @@ export default function GetDataLomba() {
   const [verif, setVerif] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN").neq("instansi", "PANITIA");
     if (fetchError) {
       setError(fetchError);
     } else {

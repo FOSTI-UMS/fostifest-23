@@ -12,7 +12,7 @@ export default function GetDataWebinar() {
   const [verif, setVerif] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR").neq("instansi", "PANITIA");
     if (fetchError) {
       setError(fetchError);
     } else {
