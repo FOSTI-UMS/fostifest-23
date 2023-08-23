@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import styles from "./admin.module.css";
 import supabase from "@/api/supabase";
 import Lottie from "lottie-react";
@@ -9,19 +8,16 @@ import deleteImage from "@/assets/gifs/delete.json";
 export default function GetDataWebinar() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState(users);
+  const [search, setSearch] = useState([]);
   const [verif, setVerif] = useState();
-  const router = useRouter();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase
-      .from("users")
-      .select()
-      .eq("jenis", "WEBINAR");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR");
     if (fetchError) {
       setError(fetchError);
     } else {
       setUsers(usersData);
+      setSearch(usersData);
     }
   };
 
@@ -29,6 +25,11 @@ export default function GetDataWebinar() {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    fetchUseridLomba();
+  }, []);
+
+  console.log(verif);
   const handleSearch = (event) => {
     const sortedUser = users.filter((row) => {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
@@ -36,43 +37,43 @@ export default function GetDataWebinar() {
     setSearch(sortedUser);
   };
 
-  const handleVerif = async (id) => {
-    const { error } = await supabase
-      .from("users")
-      .update({ payment_verif: true })
-      .eq("id_user", id);
-    if (error) {
-      alert(error.message);
-    }
-    router.refresh();
+  const fetchUseridLomba = async () => {
+    // soon, buat checker user udh upload file/blm
   };
+
+  const handleVerif = async (id) => {
+    try {
+      const { error } = await supabase.from("users").update({ payment_verif: true }).eq("id_user", id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      window.location.reload();
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+
   const handleDelete = async (id) => {
     const { error } = await supabase.from("users").delete().eq("id_user", id);
     if (error) {
       alert(error.message);
     }
-    router.refresh();
+    window.location.reload();
   };
 
   return (
-    <div className="pt-3 mt-3 px-5 mx-auto">
+    <div className="container pb-3">
       <p className="fw-bold">Data User Webinar</p>
-      {/* DARI FRONTEND:
-             <div className={`mb-3 ${styles["search-box"]}`}>
-               <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
-             </div>
-             {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Webinar</p>}
-             {search.length > 0 && ( */}
-      {users.length === 0 && (
-        <p className="text-danger">Maaf, Tidak/Belum Ada DataPeserta Webinar</p>
-      )}
-      {users.length > 0 && (
+      <div className={`mb-3 ${styles["search-box"]}`}>
+        <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+      </div>
+      {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Webinar</p>}
+      {search.length > 0 && (
         <div>
           <div className="table-responsive">
-            <table
-              className={`table table-striped ${styles["table"]}`}
-              style={{ whiteSpace: "nowrap" }}
-            >
+            <table className={`table table-striped ${styles["table"]}`} style={{ whiteSpace: "nowrap" }}>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -87,7 +88,7 @@ export default function GetDataWebinar() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {search.map((user) => (
                   <tr key={user.id_user}>
                     <td>{user.id_user}</td>
                     <td>{user.nama}</td>
@@ -96,12 +97,8 @@ export default function GetDataWebinar() {
                     <td>{user.email}</td>
                     <td>{user.jenis}</td>
                     <td>{user.no_telp}</td>
-                    <td data="Status">
-                      {user.payment_verif
-                        ? "Terverifikasi"
-                        : "Belum Terverifikasi"}
-                    </td>
-                    <td>
+                    <td data="Status">{user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</td>
+                    <td data="Aksi">
                       <div className="d-flex gap-3">
                         {!user.payment_verif && (
                           <button
@@ -109,9 +106,7 @@ export default function GetDataWebinar() {
                             className="btn btn-outline-success btn-sm"
                             data-bs-toggle="modal"
                             data-bs-target={`#modal-payments`}
-                            onClick={() =>
-                              setVerif({ name: user.nama, id: user.id_user })
-                            }
+                            onClick={() => setVerif({ name: user.nama, id: user.id_user })}
                           >
                             Verifikasi Pembayaran
                           </button>
@@ -120,9 +115,7 @@ export default function GetDataWebinar() {
                           className="btn btn-outline-danger btn-sm"
                           data-bs-toggle="modal"
                           data-bs-target={`#modal-delete`}
-                          onClick={() => {
-                            setVerif({ name: user.nama, id: user.id_user });
-                          }}
+                          onClick={() => setVerif({ name: user.nama, id: user.id_user })}
                         >
                           Hapus User
                         </button>
@@ -133,55 +126,29 @@ export default function GetDataWebinar() {
               </tbody>
             </table>
           </div>
-          <div
-            className="modal fade"
-            id={`modal-payments`}
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
+          <div className="modal fade" id={`modal-payments`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Verifikasi Pembayaran
                   </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
                   {verif && (
                     <div className="container-fluid">
                       <div className="d-flex justify-content-center">
-                        <Lottie
-                          animationData={paymentsImage}
-                          autoPlay={true}
-                          loop={true}
-                          className="w-50"
-                        />
+                        <Lottie animationData={paymentsImage} autoPlay={true} loop={true} className="w-50" />
                       </div>
                       <div className="my-4 text-center">
-                        <small className="fw-bold">
-                          Verfikasi Pembayaran Atas Nama {verif.name} ?
-                        </small>
+                        <small className="fw-bold">Verfikasi Pembayaran Atas Nama {verif.name} ?</small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          className="btn btn-success rounded-4"
-                          onClick={() => handleVerif(verif.id)}
-                        >
+                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleVerif(verif.id)}>
                           Confirm
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger ms-3 rounded-4"
-                          data-bs-dismiss="modal"
-                        >
+                        <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">
                           Cancel
                         </button>
                       </div>
@@ -191,55 +158,29 @@ export default function GetDataWebinar() {
               </div>
             </div>
           </div>
-          <div
-            className="modal fade"
-            id={`modal-delete`}
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
+          <div className="modal fade" id={`modal-delete`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Delete User
                   </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
                   {verif && (
                     <div className="container-fluid">
                       <div className="d-flex justify-content-center">
-                        <Lottie
-                          animationData={deleteImage}
-                          autoPlay={true}
-                          loop={true}
-                          className="w-50"
-                        />
+                        <Lottie animationData={deleteImage} autoPlay={true} loop={true} className="w-50" />
                       </div>
                       <div className="my-4 text-center">
-                        <small className="fw-bold">
-                          Delete User Atas Nama {verif.name} ?
-                        </small>
+                        <small className="fw-bold">Delete User Atas Nama {verif.name} ?</small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          className="btn btn-success rounded-4"
-                          onClick={() => handleDelete(verif.id)}
-                        >
+                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.id)}>
                           Confirm
                         </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger ms-3 rounded-4"
-                          data-bs-dismiss="modal"
-                        >
+                        <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">
                           Cancel
                         </button>
                       </div>

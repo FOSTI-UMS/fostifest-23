@@ -23,7 +23,7 @@ export default function Navbar() {
           <div className={`${styles["burger-bar"]} ${isMenuClicked ? styles.clicked : styles.unclicked}`}></div>
         </button>
         <div className="collapse navbar-collapse mt-2 mb-2" id="navbarNav">
-          <ul className="navbar-nav ms-auto fs-5 fw-bold d-flex align-items-start justify-content-start ">
+          <ul className="navbar-nav ms-auto fs-5 fw-bold d-flex align-items-start justify-content-start">
             <li className="nav-item me-5">
               <Link className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} href="https://fostiums.org/">
                 <Image src={TentangFosti} alt="TentangFosti" height={25} width={25} className="me-2 " />
