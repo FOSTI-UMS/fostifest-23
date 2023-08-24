@@ -11,6 +11,7 @@ export default function FileCollection() {
   const [file, setFile] = useState(null);
   const [message, setUp] = useState("");
   const [isItDisabled, setBtn] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -108,6 +109,14 @@ export default function FileCollection() {
     }
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   // const deleteFile = async (e) => {
   //   e.preventDefault();
   //   const user = await supabase.auth.getUser();
@@ -188,48 +197,45 @@ export default function FileCollection() {
           >
             Kembali Ke Beranda
           </Link>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Launch demo modal
-          </button>
         </div>
       </div>
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-body">
-              <div className="container-fluid">
-                <div className="d-flex justify-content-center">
-                  <Lottie
-                    animationData={SuccesImage}
-                    autoPlay={true}
-                    loop={true}
-                    className="w-75"
-                  />
-                </div>
-                <div className="mb-4 text-center">
-                  <h3 className="fw-bold mb-3">Berhasil Mengumpulkan!</h3>
-                  <small className="text-secondary">
-                    Yeay Anda Telah Berhasil Mengumpulkan File Lomba. Pengumuman
-                    Juara Akan Diumumkan Saat Webinar, Jadi Jangan Lupa Join
-                    Yaa. Good Luck !
-                  </small>
+      {showModal && (
+        <div>
+          <div
+            className="modal fade show d-block"
+            tabIndex="-1"
+            role="dialog"
+            aria-hidden="true"
+            onClick={closeModal}
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="d-flex justify-content-center">
+                      <Lottie
+                        animationData={SuccesImage}
+                        autoPlay={true}
+                        loop={true}
+                        className="w-75"
+                      />
+                    </div>
+                    <div className="mb-4 text-center">
+                      <h3 className="fw-bold mb-3">Berhasil Mengumpulkan!</h3>
+                      <small className="text-secondary">
+                        Yeay Anda Telah Berhasil Mengumpulkan File Lomba.
+                        Pengumuman Juara Akan Diumumkan Saat Webinar, Jadi
+                        Jangan Lupa Join Yaa. Good Luck !
+                      </small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="modal-backdrop fade show"></div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
