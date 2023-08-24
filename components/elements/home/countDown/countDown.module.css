@@ -1,83 +1,139 @@
-/* styling nya belum dibuat, ini dummy */
-.countdown {
-  width: 80vw;
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+.container {
+  margin-bottom: 100px;
 }
-.box {
-  width: 28vmin;
-  height: 28vmin;
+
+.days-hours {
+  display: flex;
+}
+.minutes-seconds {
+  display: flex;
+}
+
+.flip-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.1em;
+}
+
+.top,
+.bottom,
+.flip-card .top-flip,
+.flip-card .bottom-flip {
+  height: 0.75em;
+  line-height: 1;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  padding: 0.25em;
+  overflow: hidden;
+}
+
+.top,
+.flip-card .top-flip {
+  font-size: 50px;
+  height: 40px;
+  width: 80px;
+  background-color: #f7f7f7;
+  border-top-right-radius: 0.1em;
+  border-top-left-radius: 0.1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bottom,
+.flip-card .bottom-flip {
+  font-size: 50px;
+  width: 80px;
+  height: 34px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom-right-radius: 0.1em;
+  border-bottom-left-radius: 0.1em;
+}
+
+.flip-card .top-flip {
+  position: absolute;
+  width: 100%;
+  animation: flip-top 250ms ease-in;
+  transform-origin: bottom;
+}
+
+@keyframes flip-top {
+  100% {
+    transform: rotateX(90deg);
+  }
+}
+
+.flip-card .bottom-flip {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  animation: flip-bottom 250ms ease-out 250ms;
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+
+@keyframes flip-bottom {
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.container {
+  display: flex;
+  gap: 3em;
+  justify-content: center;
+}
+
+.container-segment {
   display: flex;
   flex-direction: column;
+  gap: 0.1em;
   align-items: center;
-  justify-content: space-evenly;
-  position: relative;
-  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.5);
-  font-size: 16px;
 }
-.box:after {
-  content: "";
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.12);
-  height: 100%;
-  width: 50%;
-  left: 0;
+
+.segment {
+  display: flex;
+  gap: 0.1em;
+  color: rgb(254, 108, 108);
 }
-span.num {
-  background-color: #202020;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  font-weight: 600;
-  font-size: 5em;
+
+.segment-title {
+  font-size: 1rem;
 }
-span.text {
-  font-size: 1.2em;
-  background-color: #2887e3;
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 0.5em 0;
-  font-weight: 400;
+
+.start{
+  margin-right:50px ;
 }
-@media screen and (max-width: 1024px) {
-  .countdown {
-    width: 85vw;
+
+@media (max-width: 800px) {
+  .countdown-box{
+    margin-top: 10px;
   }
-  .box {
-    height: 26vmin;
-    width: 26vmin;
-    font-size: 12px;
+
+  .days-hours {
+    flex-direction: column;
   }
-}
-@media screen and (max-width: 768px) {
-  .countdown {
-    width: 90vw;
-    flex-wrap: wrap;
-    gap: 30px;
+  .minutes-seconds {
+    flex-direction: column;
   }
-  .box {
-    width: calc(50% - 40px);
-    height: 30vmin;
-    font-size: 14px;
+
+  .start{
+    margin: auto;
+    margin-bottom: 20px;
   }
-}
-@media screen and (max-width: 480px) {
-  .countdown {
-    gap: 15px;
+
+  .top,
+  .flip-card .top-flip {
+    font-size: 30px;
+    height: 24px;
+    width: 50px;
   }
-  .box {
-    width: 100%;
-    height: 25vmin;
-    font-size: 8px;
-  }
-  .span.text {
-    font-size: 1.5em;
+  .bottom,
+  .flip-card .bottom-flip {
+    font-size: 30px;
+    height: 21px;
+    width: 50px;
   }
 }

@@ -3,7 +3,7 @@ import CountDown from "@/components/elements/home/countDown";
 
 export default function HomeProfile() {
   return (
-    <div className="mt-5 pt-5">
+    <div className="mt-5 pt-4">
       <Profile />
       <CountDown />
     </div>
