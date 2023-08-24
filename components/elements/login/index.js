@@ -3,9 +3,10 @@ import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import supabase from "@/api/supabase";
+import Cookies from "js-cookie";
 
 export default function FormLogin() {
   const router = useRouter();
@@ -33,12 +34,20 @@ export default function FormLogin() {
   };
 
   const openModal = () => {
-    setShowModal(true);
+    const checkCookies = Cookies.get("successRegister");
+    if (checkCookies) {
+      setShowModal(true);
+      Cookies.remove("successRegister");
+    }
   };
 
   const closeModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    openModal();
+  }, []);
 
   return (
     <div className="container">
