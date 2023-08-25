@@ -130,3 +130,18 @@
     width: 50px;
   }
 }
+
+@media (max-width: 320px) {
+  .top,
+  .flip-card .top-flip {
+    font-size: 30px;
+    height: 24px;
+    width: 35px;
+  }
+  .bottom,
+  .flip-card .bottom-flip {
+    font-size: 30px;
+    height: 20px;
+    width: 35px;
+  }
+}
