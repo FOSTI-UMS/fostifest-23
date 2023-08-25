@@ -39,7 +39,7 @@ export default function Profile() {
     <div className="container">
       <div
         className="row row-cols-1 row-cols-md-2 g-4 align-items-center"
-        style={{ minHeight: "80vh" }}
+        style={{ minHeight: "70vh" }}
       >
         <div className="col d-flex justify-content-center" data-aos="fade-up">
           <Lottie
