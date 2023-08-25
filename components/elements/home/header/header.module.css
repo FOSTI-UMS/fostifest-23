@@ -1,30 +1,44 @@
 .header {
-  height: 100vh;
+  height: 110vh;
   display: flex;
   align-items: center;
 }
 
 .fostifest-title-font {
-  font-size: 26px;
+  font-size: 40px;
+  font-weight: bolder;
   width: 70%;
 }
 
 .fostifest-description-font {
-  font-size: 18px;
-  width: 63%;
+  font-size: 14px;
+}
+
+.btn-custom {
+  width: 200px;
+  height: 40px;
+  background-color: #5a96e3;
+  color: #fff;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
 }
 
 @media (max-width: 768px) {
+  .btn-custom {
+    font-size: 16px;
+  }
   .header {
-    height: 70vh;
+    height: 85vh;
     align-items: end;
   }
   .fostifest-title-font {
-    font-size: 18px;
+    font-size: 28px;
     width: 100%;
   }
   .fostifest-description-font {
     font-size: 12px;
-    width: 90%;
   }
 }

@@ -25,7 +25,9 @@ export default function CountDown() {
 
         // Time calculations for days, hours, minutes and seconds
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -75,22 +77,12 @@ export default function CountDown() {
     flipCardRef.current.append(topFlip, bottomFlip);
   };
   return (
-    // kurang styling, monggo front-end :D
-    <div className={`container text-center d-flex flex-column justify-content-center align-items-center ${styles["countdown-box"]}`}>
-      <h2 className="mb-4">
-        Countdown to the{" "}
-        <span
-          style={{
-            color: "rgb(254, 108, 108)",
-          }}
-        >
-          30 August 2023
-        </span>
-      </h2>
+    <div
+      className={`text-center mb-4 d-flex justify-content-center align-items-center ${styles["countdown-box"]}`}
+    >
       <div className={`${styles["container"]}`}>
         <div className={`${styles["days-hours"]}`}>
-          <div className={`${styles["container-segment"]} ${styles["start"]}`}>
-            <div className={`${styles["segment-title"]}`}>Days</div>
+          <div className={`${styles["container-segment"]}`}>
             <div className={`${styles["segment"]}`}>
               <div className={`${styles["flip-card"]}`} ref={daysTensRef}>
                 <div className={`${styles["top"]}`}>0</div>
@@ -101,9 +93,11 @@ export default function CountDown() {
                 <div className={`${styles["bottom"]}`}>0</div>
               </div>
             </div>
+            <div className={`${styles["segment-title"]} fw-bold mt-2`}>
+              Hari
+            </div>
           </div>
           <div className={`${styles["container-segment"]}`}>
-            <div className={`${styles["segment-title"]}`}>Hours</div>
             <div className={`${styles["segment"]}`}>
               <div className={`${styles["flip-card"]}`} ref={hoursTensRef}>
                 <div className={`${styles["top"]}`}>0</div>
@@ -114,11 +108,11 @@ export default function CountDown() {
                 <div className={`${styles["bottom"]}`}>0</div>
               </div>
             </div>
+            <div className={`${styles["segment-title"]} fw-bold mt-2 `}>
+              Jam
+            </div>
           </div>
-        </div>
-        <div className={`${styles["minutes-seconds"]} `}>
-          <div className={`${styles["container-segment"]} ${styles["start"]}`}>
-            <div className={`${styles["segment-title"]}`}>Minutes</div>
+          <div className={`${styles["container-segment"]}`}>
             <div className={`${styles["segment"]}`}>
               <div className={`${styles["flip-card"]}`} ref={minutesTensRef}>
                 <div className={`${styles["top"]}`}>0</div>
@@ -129,18 +123,8 @@ export default function CountDown() {
                 <div className={`${styles["bottom"]}`}>0</div>
               </div>
             </div>
-          </div>
-          <div className={`${styles["container-segment"]}`}>
-            <div className={`${styles["segment-title"]}`}>Seconds</div>
-            <div className={`${styles["segment"]}`}>
-              <div className={`${styles["flip-card"]}`} ref={secondsTensRef}>
-                <div className={`${styles["top"]}`}>0</div>
-                <div className={`${styles["bottom"]}`}>0</div>
-              </div>
-              <div className={`${styles["flip-card"]}`} ref={secondsOnesRef}>
-                <div className={`${styles["top"]}`}>0</div>
-                <div className={`${styles["bottom"]}`}>0</div>
-              </div>
+            <div className={`${styles["segment-title"]} fw-bold mt-2`}>
+              Menit
             </div>
           </div>
         </div>
