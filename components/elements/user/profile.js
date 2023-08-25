@@ -93,38 +93,33 @@ export default function Profile() {
           <div className="d-flex mt-3">
             <Logout />
             {admon ? (
-
               <Link
                 href="/admin"
                 className="mb-3 ms-3 btn btn-outline-warning d-flex align-items-center justify-content-center"
               >
                 Halaman Admin
               </Link>
-
+            ) : !identitas.payment_verif ? (
+              <Link
+                href="/payments"
+                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+              >
+                Cara Pembayaran
+              </Link>
+            ) : identitas.jenis === "LOMBA DESIGN" ? (
+              <Link
+                href="/file-collection"
+                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+              >
+                Pengumpulan File
+              </Link>
             ) : (
-              !identitas.payment_verif ? (
-                <Link
-                  href="/payments"
-                  className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
-                >
-                  Cara Pembayaran
-                </Link>
-              ) : (
-                identitas.jenis === "LOMBA DESIGN" ? (
-                  <Link
-                    href="/file-collection"
-                    className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
-                  >
-                    Pengumpulan File
-                  </Link>
-                ) : (
-                  <Link
-                    href="/webinar"
-                    className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
-                  >
-                    Halaman Webinar
-                  </Link>)
-              )
+              <Link
+                href="/webinar"
+                className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
+              >
+                Halaman Webinar
+              </Link>
             )}
           </div>
         </div>
