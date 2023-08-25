@@ -9,6 +9,7 @@ export default function Profile() {
   const [users, setUsers] = useState([]);
   const [identitas, setIds] = useState({});
   const [admon, setAdmon] = useState();
+  const [greetz, setGreeting] = useState();
 
   const getUser = async () => {
     const {
@@ -29,8 +30,26 @@ export default function Profile() {
     }
   };
 
+  const greet = () => {
+    const date = new Date();
+    const hour = date.getHours();
+    if (hour < 12 && hour >= 5) {
+      setGreeting("Selamat Pagi 🌞");
+    } else if (hour < 15 && hour >= 12) {
+      setGreeting("Selamat Siang 🌤️");
+    } else if (hour >= 15 && hour < 19){
+      setGreeting("Selamat Sore 🌇");
+    } else {
+      setGreeting("Selamat Malam 🌕");
+    }
+  }
+
   useEffect(() => {
     getUser();
+  }, []);
+
+  useEffect(() => {
+    greet();
   }, []);
 
   console.log(identitas);
@@ -50,27 +69,27 @@ export default function Profile() {
           />
         </div>
         <div className="col" data-aos="fade-up">
-          <h4 className="fw-bold">Hallo {identitas.nama}</h4>
-          {admon ? (
-            <div>
-              Email: {identitas.email}
-              <br />
-              Instansi: {identitas.instansi ? identitas.instansi : "-"}
-              <br />
-              Kontak Superadmin: //no.wa CO Sie Karya//
-            </div>
-          ) : (
-            <div>
-              Email: {identitas.email}
-              <br />
-              Instansi: {identitas.instansi ? identitas.instansi : "-"}
-              <br />
-              Jenis: {identitas.jenis}
-              <br />
-              Status Pembayaran:{" "}
-              {identitas.payment_verif ? "Sudah Bayar" : "Belum Bayar"}
-            </div>
-          )}
+          <h4 className="fw-bold">Hallo, {identitas.nama}.</h4>
+          <h4 className="fw-bold">{greetz}</h4>
+            {admon ? (
+              <div>
+                Email: {identitas.email}
+                <br />
+                Instansi: {identitas.instansi ? (identitas.instansi).toUpperCase() : "-"}
+                <br />
+                Kontak Superadmin: //no.wa CO Sie Karya//
+              </div>
+            ) : (
+              <div>
+                Email: {identitas.email}
+                <br />
+                Instansi: {identitas.instansi ? (identitas.instansi).toUpperCase() : "-"}
+                <br />
+                Jenis: {identitas.jenis === "WEBINAR" ? (<span class="badge text-bg-primary">Webinar</span>) : (<span><span class="badge text-bg-primary me-1">Webinar</span><span class="badge text-bg-info">Lomba Design</span></span>)}
+                <br />
+                Status Pembayaran: {!identitas.payment_verif ? (<span class="badge rounded-pill text-bg-danger">Belum Bayar</span>) : (<span class="badge rounded-pill text-bg-success">Sudah Bayar</span>)}
+              </div>
+            )}
           <div className="d-flex mt-3">
             <Logout />
             {admon ? (
