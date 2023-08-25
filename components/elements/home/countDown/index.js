@@ -43,6 +43,9 @@ export default function CountDown() {
   Timer();
 
   const flip = (flipCardRef, newNumber) => {
+    if (!flipCardRef || !flipCardRef.current) {
+      return;
+    }
     const topHalf = flipCardRef.current.querySelector(`.${styles.top}`);
     const startNumber = parseInt(topHalf.textContent);
 
