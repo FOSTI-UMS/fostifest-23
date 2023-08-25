@@ -2,10 +2,30 @@ import LogoFostiFest from "@/assets/images/logo_fostifest.png";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../navbar/navbar.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import supabase from "@/api/supabase";
 
 const NavbarAdmin = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const [isSuper, setSuper] = useState(false);
+
+  const setSuperAdmin = async () => {
+    const user = await supabase.auth.getUser();
+    const useremail = user.data.user.email;
+    const { data, error } = await supabase
+      .from("users")
+      .select("super_admin")
+      .eq("email", useremail);
+    if (data[0].super_admin) {
+      setSuper(true);
+    }else{
+      setSuper(false);
+    }
+  }
+
+  useEffect(() => {
+    setSuperAdmin();
+  }, []);
 
   const updateMenu = () => {
     setIsMenuClicked(!isMenuClicked);
@@ -37,6 +57,13 @@ const NavbarAdmin = () => {
                 Peserta Webinar
               </Link>
             </li>
+            {isSuper === true ? (
+            <li className="nav-item ">
+              <Link className=" nav-link " href="/admin/manager">
+                Manage Admin
+              </Link>
+            </li>
+            ) : ("")}
             <li className="nav-item ">
               <Link className=" nav-link " href="/profile">
                 Profile Admin

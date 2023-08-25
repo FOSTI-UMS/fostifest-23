@@ -98,6 +98,12 @@ export default function FormRegister() {
     }
   };
 
+  function capitalizeNames(fullName) {
+    const nameArray = fullName.split(' ');
+    const capitalizedNames = nameArray.map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase());
+    return capitalizedNames.join(' ');
+  }
+
   return (
     <div className="container">
       <div className="row align-items-center" style={{ minHeight: "100vh" }}>
@@ -130,7 +136,7 @@ export default function FormRegister() {
                       id="namaLengkap"
                       name="namaLengkap"
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setNama(e.target.value)}
+                      onChange={(e) => setNama(capitalizeNames(e.target.value))}
                     />
                   </div>
                   <div className="mb-2">
@@ -176,7 +182,7 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setInstansi(e.target.value)}
+                      onChange={(e) => setInstansi(e.target.value.toLowerCase())}
                     />
                   </div>
                   <div className="d-grid">

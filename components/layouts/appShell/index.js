@@ -14,12 +14,14 @@ const disableNavbar = [
   "/payments",
   "/file-collection",
   "/admin",
+  "/admin/manager",
   "/admin/competition/users",
   "/admin/webinar/users",
 ];
 
 const adminNavbar = [
   "/admin",
+  "/admin/manager",
   "/admin/competition/users",
   "/admin/webinar/users",
 ];
