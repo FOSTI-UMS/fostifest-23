@@ -10,9 +10,10 @@ export default function GetDataLomba() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState([]);
   const [verif, setVerif] = useState();
+  const [detailUser, setDetailUser] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN").neq("instansi", "panitia").order("nama");
     if (fetchError) {
       setError(fetchError);
     } else {
@@ -40,6 +41,15 @@ export default function GetDataLomba() {
   const fetchUseridLomba = async () => {
     // soon, buat checker user udh upload file/blm
   };
+
+  const detail = async (id) => {
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("id_user", id.id);
+    if (fetchError) {
+      setError(fetchError);
+    } else {
+      setDetailUser(usersData);
+    }
+  }
 
   const handleVerif = async (id) => {
     try {
@@ -76,14 +86,12 @@ export default function GetDataLomba() {
             <table className={`table table-striped ${styles["table"]}`} style={{ whiteSpace: "nowrap" }}>
               <thead>
                 <tr>
-                  <th>NO</th>
+                  <th>No</th>
                   <th>Nama</th>
-                  <th>Alamat</th>
                   <th>Instansi</th>
                   <th>Email</th>
-                  <th>Jenis</th>
                   <th>No Telp</th>
-                  <th>Status</th>
+                  <th>Status Pembayaran</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -97,21 +105,22 @@ export default function GetDataLomba() {
                   >
                     <td data="NO">{index + 1}</td>
                     <td data="Nama">{user.nama}</td>
-                    <td data="Alamat">{user.alamat}</td>
-                    <td data="Instansi">{user.instansi}</td>
+                    <td data="Instansi" className="text-uppercase">{user.instansi}</td>
                     <td data="Email">{user.email}</td>
-                    <td data="Jenis">{user.jenis}</td>
                     <td data="No Telp">{user.no_telp}</td>
                     <td data="Status">{user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</td>
                     <td data="Aksi">
                       <div className="d-flex gap-3">
                         {!user.payment_verif && (
                           <button type="button" className="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-payments`} onClick={() => setVerif({ name: user.nama, id: user.id_user })}>
-                            Verifikasi Pembayaran
+                            Verifikasi
                           </button>
                         )}
+                        <button className="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-detail`} onClick={() => detail({ id: user.id_user })}>
+                          Detail
+                        </button>
                         <button className="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-delete`} onClick={() => setVerif({ name: user.nama, id: user.id_user })}>
-                          Hapus User
+                          Hapus
                         </button>
                       </div>
                     </td>
@@ -152,6 +161,37 @@ export default function GetDataLomba() {
               </div>
             </div>
           </div>
+
+          <div className="modal fade" id={`modal-detail`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">
+                    Detail User
+                  </h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="text-center">
+                      <small className="fw-bold">Detail {detailUser && detailUser[0].nama}</small>
+                      {detailUser &&
+                        detailUser.map((user, index) => (
+                          <div>
+                            <p>{user.nama}<br />
+                              {user.instansi ? (user.instansi) : "-"}<br />
+                              {user.email}<br />
+                              {user.no_telp}<br />
+                              {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div className="modal fade" id={`modal-delete`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
