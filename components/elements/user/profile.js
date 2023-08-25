@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "@/api/supabase";
 import Lottie from "lottie-react";
-import profileImage from "@/assets/gifs/profile.json";
+import profileImage from "@/assets/gifs/profile_2.json";
 import Logout from "@/components/elements/logout";
 import Link from "next/link";
 import styles from "./profile.module.css";
@@ -60,7 +60,7 @@ export default function Profile() {
   console.log(identitas);
 
   return (
-    <div className={`${styles["profile-box"]}`} data-aos="fade-up">
+    <div className={`${styles["profile-box"]}`}>
       <div className={`row row-cols-1 row-cols-lg-2 align-items-center ${styles["profile-in-box"]}`}>
         <div
           className={`col d-flex justify-content-center align-items-center ${styles["lottie"]}`}
@@ -71,9 +71,9 @@ export default function Profile() {
           <Lottie
             animationData={profileImage}
             autoPlay={true}
-            loop={true}
+            loop={false}
             style={{
-              height: "65%",
+              height: "100%",
             }}
           />
         </div>
@@ -110,7 +110,7 @@ export default function Profile() {
                 <Image src={InstansiImg} height={20} width={20} alt="instansi" />
                 Instansi: {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
               </div>
-              
+
               {/* Kontak Superadmin: //no.wa CO Sie Karya// */}
             </div>
           ) : (

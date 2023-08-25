@@ -1,24 +1,17 @@
 .profile-box {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   margin-top: 130px;
+  margin-bottom: 50px;
   padding-left: 12px;
   padding-right: 12px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
-.profile-in-box {
-  min-height: 70vh;
-}
-
 .lottie {
   background-size: cover;
   background-position: center;
-  height: 500px;
-}
-
-.profile {
-  height: 500px;
+  height: 510px;
 }
 
 .profile-title {
@@ -27,11 +20,17 @@
 
 .profile-data {
   font-size: 20px;
+  margin-left: 5px;
 }
 
 @media (max-width: 992px) {
   .profile-in-box {
     height: 950px;
+  }
+
+  .lottie {
+    justify-content: start;
+    height: 555px;
   }
 
   .profile-title {
@@ -46,15 +45,16 @@
 
 @media (max-width: 768px) {
   .profile-box {
-    position: relative;
     margin-left: 20px;
     margin-right: 20px;
+    padding-bottom: 20px;
   }
+
   .lottie {
-    height: 300px;
+    height: 350px;
   }
   .profile-in-box {
-    height: 680px;
+    height: 700px;
   }
 
   .profile-title {
