@@ -11,6 +11,8 @@ export default function FileCollection() {
   const [file, setFile] = useState(null);
   const [message, setUp] = useState("");
   const [isItDisabled, setBtn] = useState(false);
+  const [statusUpload, setStatus] = useState();
+
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -29,7 +31,7 @@ export default function FileCollection() {
     return date.toLocaleTimeString("id-ID", options);
   };
 
-  const cekFile = async (e) => {
+  const cekFile = async () => {
     const user = await supabase.auth.getUser();
     const usermail = user.data.user.email;
     const { data, error } = await supabase
@@ -40,15 +42,18 @@ export default function FileCollection() {
     if (data.length > 0) {
       const formattedDate = formatDate(new Date(data[0].created_at));
       const formattedTime = formatTime(new Date(data[0].created_at));
-      const message = `Sudah Upload Data: <strong>${data[0].nama_peserta}_${data[0].judul_karya}</strong><br> Pada Hari ${formattedDate} - ${formattedTime}`;
+      const message = `File: <strong>${data[0].nama_file}</strong><br> Pada Hari ${formattedDate}<br/>Jam ${formattedTime}`;
+      const stat = `<span class="badge text-bg-success">Sudah Upload</span> 🎉`;
       setUp(message);
+      setStatus(stat);
     } else {
-      setUp("Belum Upload File");
+      setStatus(`<span class="badge text-bg-danger">Belum Upload</span> 🥺`)
+      setUp("");
     }
   };
 
   const cekUploadFile = async () => {
-    if (message === "Belum Upload File") {
+    if (message === "") {
       setBtn(false);
     } else {
       setBtn(true);
@@ -91,6 +96,7 @@ export default function FileCollection() {
           .insert([
             {
               email: usermail,
+              nama_file: file.name,
               nama_peserta: namaPeserta,
               judul_karya: judulKarya.split(".")[0],
             },
@@ -168,6 +174,9 @@ export default function FileCollection() {
             </button>
           </div>
         </form>
+        <div>
+          <p>Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} /></p>
+        </div>
         <p dangerouslySetInnerHTML={{ __html: message }} />
         <div className={`${styles["description"]}`}>
           <div>
