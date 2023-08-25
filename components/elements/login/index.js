@@ -3,14 +3,16 @@ import Link from "next/link";
 import LoginGif from "/assets/gifs/login.json";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import supabase from "@/api/supabase";
+import Cookies from "js-cookie";
 
 export default function FormLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,6 +32,22 @@ export default function FormLogin() {
       console.error("Error signing in:", error.message);
     }
   };
+
+  const openModal = () => {
+    const checkCookies = Cookies.get("successRegister");
+    if (checkCookies) {
+      setShowModal(true);
+      Cookies.remove("successRegister");
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    openModal();
+  }, []);
 
   return (
     <div className="container">
@@ -100,45 +118,42 @@ export default function FormLogin() {
             </div>
           </div>
         </div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Launch demo modal
-        </button>
       </div>
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-body">
-              <div className="container-fluid">
-                <div className="d-flex justify-content-center">
-                  <Lottie
-                    animationData={SuccesImage}
-                    autoPlay={true}
-                    loop={true}
-                    className="w-75"
-                  />
-                </div>
-                <div className="mb-4 text-center">
-                  <h3 className="fw-bold mb-3">Yeayy Selamat !</h3>
-                  <small className="text-secondary">
-                    Anda Telah Berhasil Mendaftar Silahkan Login
-                  </small>
+      {showModal && (
+        <div>
+          <div
+            className="modal fade show d-block"
+            tabIndex="-1"
+            role="dialog"
+            aria-hidden="true"
+            onClick={closeModal}
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="d-flex justify-content-center">
+                      <Lottie
+                        animationData={SuccesImage}
+                        autoPlay={true}
+                        loop={true}
+                        className="w-75"
+                      />
+                    </div>
+                    <div className="mb-4 text-center">
+                      <h3 className="fw-bold mb-3">Yeayy Selamat !</h3>
+                      <small className="text-secondary">
+                        Anda Telah Berhasil Mendaftar Silahkan Login
+                      </small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="modal-backdrop fade show"></div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

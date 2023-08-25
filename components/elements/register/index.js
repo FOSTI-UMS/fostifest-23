@@ -4,7 +4,8 @@ import Lottie from "lottie-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import supabase from '@/api/supabase';
+import Cookies from "js-cookie";
+import supabase from "@/api/supabase";
 
 export default function FormRegister() {
   const [page, setPage] = useState("first");
@@ -85,7 +86,7 @@ export default function FormRegister() {
             );
           }
           // console.log(users);
-          document.cookie = "success=true; path=/login";
+          Cookies.set("successRegister", "true");
           router.replace("/login");
           // router.push({
           //   pathname: '/profile',
