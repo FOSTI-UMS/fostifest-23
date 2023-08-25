@@ -34,9 +34,11 @@ export default function Profile() {
     const date = new Date();
     const hour = date.getHours();
     if (hour < 12 && hour >= 5) {
-      setGreeting("Selamat Pagi 🌅");
-    } else if (hour < 16 && hour >= 12) {
-      setGreeting("Selamat Siang 🌞");
+      setGreeting("Selamat Pagi 🌞");
+    } else if (hour < 15 && hour >= 12) {
+      setGreeting("Selamat Siang 🌤️");
+    } else if (hour >= 15 && hour < 19){
+      setGreeting("Selamat Sore 🌇");
     } else {
       setGreeting("Selamat Malam 🌕");
     }

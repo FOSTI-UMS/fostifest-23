@@ -26,20 +26,12 @@ export default function GetDataLomba() {
     fetchUsers();
   }, []);
 
-  useEffect(() => {
-    fetchUseridLomba();
-  }, []);
-
   console.log(verif);
   const handleSearch = (event) => {
     const sortedUser = users.filter((row) => {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
     });
     setSearch(sortedUser);
-  };
-
-  const fetchUseridLomba = async () => {
-    // soon, buat checker user udh upload file/blm
   };
 
   const detail = async (id) => {
