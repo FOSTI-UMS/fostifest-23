@@ -83,9 +83,9 @@ export default function Profile() {
                 <br />
                 Instansi: {identitas.instansi ? (identitas.instansi).toUpperCase() : "-"}
                 <br />
-                Jenis: {identitas.jenis}
+                Jenis: {identitas.jenis === "WEBINAR" ? (<span class="badge text-bg-primary">Webinar</span>) : (<span><span class="badge text-bg-primary me-1">Webinar</span><span class="badge text-bg-info">Lomba Design</span></span>)}
                 <br />
-                Status Pembayaran: {identitas.payment_verif ? (<span class="badge text-bg-success">Sudah Bayar</span>) : (<span class="badge text-bg-danger">Belum Bayar</span>)}
+                Status Pembayaran: {!identitas.payment_verif ? (<span class="badge rounded-pill text-bg-danger">Belum Bayar</span>) : (<span class="badge rounded-pill text-bg-success">Sudah Bayar</span>)}
               </div>
             )}
           <div className="d-flex mt-3">
