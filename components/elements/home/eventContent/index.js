@@ -27,11 +27,13 @@ export default function EventContent() {
               <span className="title-span"> Digital </span> Generation
             </div>
             <div className={`${styles["description-font"]}`}>
-              Webinar nasional dan perlombaan membuat Landing Page, bertujuan
-              untuk mengusung semangat eksplorasi kreatif dalam pengembangan
-              frontend dengan fokus pada membangun desain web menggunakan
-              kerangka kerja Bootstrap yang sesuai dengan generasi digital saat
-              ini.
+              Seminar nasional merupakan Salah satu kegiatan dalam FOSTIFEST
+              2023 dengan mengusung tema "Creative Exploration in Frontend:
+              Building web design with Bootstrap for the Digital Generation".
+              Menghadirkan pembicara yang ahli dan professional untuk
+              meningkatkan kemampuan di bidang IT untuk masyarakat umum. Seminar
+              ini diselenggarakan secara hybrid dengan kouta peserta offline
+              diestimasi sebanyak 100 peserta.
             </div>
             <Link href={"/login"} className="text-decoration-none">
               <div className={`${styles["btn-custom-2"]} mt-3`}>Daftar</div>

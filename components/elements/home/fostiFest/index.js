@@ -19,11 +19,17 @@ const FostiFest = () => {
         </div>
         <div className="row">
           <div className="col">
-            <p className="fw-bold text-center">
-              Memahami seni dan menguasai aspek frontend dalam pengembangan web,
-              sambil mempelajari cara menghadirkan pesona yang kuat melalui
-              halaman landing untuk mencapai hasil yang lebih efektif dan
-              memuaskan.
+            <p
+              className={`${Style["description-font"]}  text-center w-75 mx-auto`}
+              data-aos="fade-up"
+            >
+              FOSTIFEST (FOSTI Festival) merupakan kegiatan tahunan yang
+              diselenggarakan oleh Forum Open Source Teknik Informatika (FOSTI)
+              UMS. FOSTIFEST 2023 merupakan ajang yang keempat dengan mengusung
+              tema "The Art of Proficiency and Landing Page Allure". Acara
+              FOSTIFEST tahun ini memiliki serangkaian kegiatan berupa roadshow
+              ke SMK yang berada di Solo Raya, lomba landing page, dan seminar
+              nasional yang dikemas secara menarik.
             </p>
           </div>
         </div>
