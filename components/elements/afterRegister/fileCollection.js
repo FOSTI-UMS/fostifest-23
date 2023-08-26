@@ -7,8 +7,8 @@ import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 
 export default function FileCollection() {
-  const dibuka = new Date("2023-08-26T00:00:00+07:00");
-  const ditutup = new Date("2023-09-25T00:00:00+07:00");
+  const dibuka = new Date("2023-08-30T00:00:00+07:00");
+  const ditutup = new Date("2023-09-05T00:00:00+07:00");
   const sekarang = new Date();
 
   if (sekarang < dibuka) {

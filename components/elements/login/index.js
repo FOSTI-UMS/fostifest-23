@@ -9,7 +9,7 @@ import supabase from "@/api/supabase";
 import Cookies from "js-cookie";
 
 export default function FormLogin() {
-  const dibuka = new Date("2023-08-29T00:00:00+07:00");
+  const dibuka = new Date("2023-08-25T00:00:00+07:00");
   const sekarang = new Date();
 
   if (sekarang < dibuka) {
