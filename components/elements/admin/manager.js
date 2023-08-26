@@ -109,8 +109,8 @@ export default function Manager() {
                                 <td data="Token">{token[1]}</td>
                                 <td data="Status">{token[2] ? ('Expired') : ('Active')}</td>
                                 <td data="Link Register" className="w-25">
-                                    <Link href={`/admin/register/${token[1]}`} className="btn btn-sm btn-outline-primary px-4">
-                                        Link
+                                    <Link href={`/admin/register/${token[1]}`} className="btn btn-sm btn-outline-primary">
+                                        Link Daftar
                                     </Link>
                                     <div className="d-flex gap-3 mt-2">
                                         <button className="btn btn-outline-danger btn-sm" onClick={() => generateToken(token[0])}>
@@ -138,7 +138,6 @@ export default function Manager() {
                                     <tr>
                                         <th>NO</th>
                                         <th>Nama</th>
-                                        <th>Instansi</th>
                                         <th>Email</th>
                                         <th>No Telp</th>
                                         <th>Status</th>
@@ -155,7 +154,6 @@ export default function Manager() {
                                         >
                                             <td data="NO">{index + 1}</td>
                                             <td data="Nama">{user.nama}</td>
-                                            <td data="Instansi" className="text-uppercase">{user.instansi}</td>
                                             <td data="Email">{user.email}</td>
                                             <td data="No Telp">{user.no_telp}</td>
                                             <td data="Status">{user.is_admin ? (
