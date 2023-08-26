@@ -9,6 +9,25 @@ import supabase from "@/api/supabase";
 import Cookies from "js-cookie";
 
 export default function FormLogin() {
+  const dibuka = new Date("2023-08-29T00:00:00+07:00");
+  const sekarang = new Date();
+
+  if (sekarang < dibuka) {
+    return (
+      <div className="d-flex align-items-center justify-content-center vh-100">
+        <div className="text-center">
+          <p className="lead">
+            Halaman ini akan dibuka pada tanggal 30 Agustus 2021.
+          </p>
+          <Link href="/" className="btn btn-sm btn-primary">
+            Go Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
