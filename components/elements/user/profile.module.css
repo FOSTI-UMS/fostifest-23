@@ -15,7 +15,7 @@
 }
 
 .profile-title {
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .profile-data {
@@ -23,18 +23,18 @@
   margin-left: 5px;
 }
 
+@media (max-width: 1040px) {
+  .lottie {
+    height: 530px;
+  }
+}
+
 @media (max-width: 992px) {
   .profile-in-box {
-    height: 950px;
-  }
-
-  .lottie {
-    justify-content: start;
-    height: 555px;
+    height: 1000px;
   }
 
   .profile-title {
-    margin-top: 10px;
     font-size: 35px;
   }
 
@@ -43,18 +43,17 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .profile-box {
     margin-left: 20px;
     margin-right: 20px;
-    padding-bottom: 20px;
   }
 
   .lottie {
-    height: 350px;
+    height: 300px;
   }
   .profile-in-box {
-    height: 700px;
+    height: 750px;
   }
 
   .profile-title {
@@ -64,5 +63,11 @@
 
   .profile-data {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .profile-box {
+    height: 820px;
   }
 }

@@ -61,7 +61,7 @@ export default function Profile() {
 
   return (
     <div className={`${styles["profile-box"]}`}>
-      <div className={`row row-cols-1 row-cols-lg-2 align-items-center ${styles["profile-in-box"]}`}>
+      <div className={`row row-cols-1 row-cols-lg-2 align-items-start ${styles["profile-in-box"]}`}>
         <div
           className={`col d-flex justify-content-center align-items-center ${styles["lottie"]}`}
           style={{
@@ -78,19 +78,16 @@ export default function Profile() {
           />
         </div>
         <div className={`col ${styles.profile}`}>
-          <div className={`${styles["profile-title"]} d-flex flex-column justify-content-center align-items-center mb-3`}>
-            <div className="fw-bold my-1 d-flex gap-2 align-items-center">
-              Hallo{" "}
-              <span
-                style={{
-                  color: "#04697c",
-                }}
-              >
-                {identitas.nama}
-              </span>{" "}
-              <Image src={HalloImg} height={40} width={40} alt="hallo" />
-            </div>
-            <div className="fw-bold">{greetz}</div>
+          <div className={`${styles["profile-title"]} fw-bold d-flex flex-column justify-content-center align-items-center text-center`}>
+            <span className="fs-1">Hallo</span>
+            <span
+              style={{
+                color: "#04697c",
+              }}
+            >
+              {identitas.nama} <Image src={HalloImg} height={35} width={35} alt="hallo" />
+            </span>
+            <div>{greetz}</div>
           </div>
           <hr className="mb-4" />
           {admon ? (
