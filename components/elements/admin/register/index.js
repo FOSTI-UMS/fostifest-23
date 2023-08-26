@@ -7,54 +7,19 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import supabase from "@/api/supabase";
 
-export default function FormRegister() {
-  const dibuka = new Date("2023-08-20T00:00:00+07:00");
-  const ditutup = new Date("2023-08-25T00:00:00+07:00");
-  const sekarang = new Date();
-
-  if (sekarang < dibuka) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pendaftaran akan dibuka pada tanggal 30 Agustus 2021.
-          </p>
-          <Link href="/" className="btn btn-sm btn-primary">
-            Go Home
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (sekarang > dibuka && sekarang >= ditutup) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pendaftaran Sudah Ditutup.
-          </p>
-          <Link href="/login" className="btn btn-sm btn-primary">
-            Login
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-
-
+export default function AdminRegister() {
   const [page, setPage] = useState("first");
   const router = useRouter();
   const [nama, setNama] = useState("");
-  const [alamat, setAlamat] = useState("");
-  const [instansi, setInstansi] = useState("");
-  const [jenis, setJenis] = useState("WEBINAR");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [no_telp, setTelp] = useState("");
+  const alamat = "";
+  const instansi = "PANITIA";
+  const jenis = "";
   const [note, setNote] = useState({});
-  const defaultPayment = false;
+  const defaultPayment = true;
+  const admin = true
 
   const handleRegist = async (e) => {
     e.preventDefault();
@@ -113,6 +78,7 @@ export default function FormRegister() {
               jenis,
               no_telp,
               payment_verif: defaultPayment,
+              is_admin: admin,
             })
             .select();
           if (errorInsertUser) {
@@ -121,13 +87,8 @@ export default function FormRegister() {
               errorInsertUser.message
             );
           }
-          // console.log(users);
           Cookies.set("successRegister", "true");
-          router.replace("/login");
-          // router.push({
-          //   pathname: '/profile',
-          //   query: { userData: JSON.stringify(data) },
-          // });
+          router.replace("/admin/login");
         }
       }
     } catch (error) {
@@ -178,21 +139,6 @@ export default function FormRegister() {
                   </div>
                   <div className="mb-2">
                     <label
-                      htmlFor="alamat"
-                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
-                    >
-                      Alamat
-                    </label>
-                    <input
-                      type="text"
-                      id="alamat"
-                      name="alamat"
-                      className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setAlamat(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-2">
-                    <label
                       htmlFor="noTelp"
                       className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
                     >
@@ -206,44 +152,7 @@ export default function FormRegister() {
                       onChange={(e) => setTelp(e.target.value)}
                     />
                   </div>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="instansi"
-                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
-                    >
-                      Asal Instansi{" "}
-                      <span className="text-danger">*opsional</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="instansi"
-                      name="instansi"
-                      className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setInstansi(e.target.value.toLowerCase())}
-                    />
-                  </div>
-                  <div className="d-grid">
-                    <button
-                      type="button"
-                      onClick={() => setPage("second")}
-                      className={`btn ${styles["btn-login"]} rounded-4`}
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-                <div className={page === "second" ? "d-block" : "d-none"}>
-                  <div className="mb-2 d-flex align-items-center">
-                    <a
-                      onClick={() => setPage("first")}
-                      className={`${styles["btn-back"]} text-decoration-none ms-2`}
-                    >
-                      Kembali
-                    </a>
-                    <small className="fw-bold ms-auto text-primary">
-                      Step 2
-                    </small>
-                  </div>
+
                   <div className="mb-2">
                     <label
                       htmlFor="inputEmail5"
@@ -296,24 +205,6 @@ export default function FormRegister() {
                       {note.notePass}
                     </p>
                   </div>
-                  <div className="mb-4">
-                    <label
-                      htmlFor="inputChoose"
-                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
-                    >
-                      Pilih Event
-                    </label>
-                    <select
-                      id="inputChoose"
-                      name="event"
-                      value={jenis}
-                      className={`form-select ${styles["input-custom"]}`}
-                      onChange={(e) => setJenis(e.target.value)}
-                    >
-                      <option value="WEBINAR">Webinar</option>
-                      <option value="LOMBA DESIGN">Lomba Landing Page</option>
-                    </select>
-                  </div>
                   <div className="d-grid">
                     <button
                       type="submit"
@@ -326,7 +217,7 @@ export default function FormRegister() {
               </form>
 
               <Link
-                href="/login"
+                href="/admin/login"
                 className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center mt-3"
               >
                 <div className={`${styles["change-page"]}`}>

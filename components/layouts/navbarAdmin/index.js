@@ -60,13 +60,13 @@ const NavbarAdmin = () => {
             {isSuper === true ? (
             <li className="nav-item ">
               <Link className=" nav-link " href="/admin/manager">
-                Manage Admin
+                Settings
               </Link>
             </li>
             ) : ("")}
             <li className="nav-item ">
               <Link className=" nav-link " href="/profile">
-                Profile Admin
+                Profile
               </Link>
             </li>
           </ul>

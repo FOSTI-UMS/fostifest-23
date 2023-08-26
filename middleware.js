@@ -9,6 +9,25 @@ export async function middleware(req) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // PESERTA LOMBA CHECKER
+  if (user) {
+    const { data: userdata, error: usererror } = await supabase
+      .from('users')
+      .select('jenis')
+      .eq('email', user.email)
+      .single();
+
+    if (req.nextUrl.pathname.startsWith('/file-collection')) {
+      if (userdata && userdata.jenis == 'LOMBA DESIGN') {
+        return res;
+      }
+      else {
+        return NextResponse.redirect(new URL('/profile', req.url));
+      }
+    }
+  }
+
+  // ADMIN CHECKER
   if (user) {
     const { data: userdata, error: usererror } = await supabase
       .from('users')
@@ -16,7 +35,7 @@ export async function middleware(req) {
       .eq('email', user.email)
       .single();
 
-    if (req.nextUrl.pathname === '/admin') {
+    if (req.nextUrl.pathname.startsWith('/admin')) {
       if (userdata && userdata.is_admin) {
         return res;
       }
@@ -24,13 +43,17 @@ export async function middleware(req) {
         return NextResponse.redirect(new URL('/profile', req.url));
       }
     }
-  }else{
-    if (!user && req.nextUrl.pathname !== '/') {
+  }
+  else {
+    if (!user && req.nextUrl.pathname == '/admin/login' || req.nextUrl.pathname.startsWith('/admin/register')) {
+      return res;
+    }
+    else if (!user && req.nextUrl.pathname !== '/') {
       return NextResponse.redirect(new URL('/login', req.url));
     }
   }
 }
 
 export const config = {
-  matcher: ['/', '/profile', '/admin'],
+  matcher: ['/', '/profile', '/file-collection', '/admin/:path*'],
 };

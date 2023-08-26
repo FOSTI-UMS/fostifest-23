@@ -9,25 +9,6 @@ import supabase from "@/api/supabase";
 import Cookies from "js-cookie";
 
 export default function FormLogin() {
-  const dibuka = new Date("2023-08-25T00:00:00+07:00");
-  const sekarang = new Date();
-
-  if (sekarang < dibuka) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Halaman ini akan dibuka pada tanggal 30 Agustus 2021.
-          </p>
-          <Link href="/" className="btn btn-sm btn-primary">
-            Go Home
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -125,15 +106,9 @@ export default function FormLogin() {
                   </button>
                 </div>
               </form>
-
-              <Link
-                href="/register"
-                className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center"
-              >
-                <div className={`${styles["change-page"]}`}>
-                  Belum punya akun?
-                </div>
-              </Link>
+              <div className={`${styles["change-page"]}`}>
+                Hubungi SIE Karya untuk<br/>mendaftar sebagai Admin
+              </div>
             </div>
           </div>
         </div>

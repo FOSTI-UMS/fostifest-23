@@ -7,6 +7,42 @@ import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 
 export default function FileCollection() {
+  const dibuka = new Date("2023-08-30T00:00:00+07:00");
+  const ditutup = new Date("2023-09-05T00:00:00+07:00");
+  const sekarang = new Date();
+
+  if (sekarang < dibuka) {
+    return (
+      <div className="d-flex align-items-center justify-content-center vh-100">
+        <div className="text-center">
+          <p className="lead">
+            Halaman ini akan dibuka pada tanggal 30 Agustus 2021.
+          </p>
+          <Link href="/profile" className="btn btn-sm btn-primary">
+            Go Back
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (sekarang > dibuka && sekarang >= ditutup) {
+    return (
+      <div className="d-flex align-items-center justify-content-center vh-100">
+        <div className="text-center">
+          <p className="lead">
+            Pengumpulan File Sudah Ditutup. Terimakasih atas Partisipasi Anda.
+          </p>
+          <Link href="/profile" className="btn btn-sm btn-primary">
+            Go Back
+          </Link>
+        </div>
+      </div>
+    );
+  }
+            
+
+
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [message, setUp] = useState("");
@@ -122,30 +158,6 @@ export default function FileCollection() {
     setShowModal(false);
   };
 
-  // const deleteFile = async (e) => {
-  //   e.preventDefault();
-  //   const user = await supabase.auth.getUser();
-  //   const userid = user.data.user.id;
-  //   const { data: filename, error: searchError } = await supabase.storage.from("file_submitted").list("public", { search: `${userid}` });
-  //   if (filename) {
-  //     const hapus = `public/${filename[0].name}`;
-  //     const { data, error } = await supabase.storage.from("file_submitted").remove([hapus]);
-  //     if (error) {
-  //       alert(error.message);
-  //     } else {
-  //       router.push(router.asPath);
-  //     }
-  //   }
-
-  //   if (searchError) {
-  //     alert(searchError.message);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   cekFile();
-  // });
-
   useEffect(() => {
     cekUploadFile();
   });
@@ -160,7 +172,7 @@ export default function FileCollection() {
         <div
           className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}
         >
-          Pengumpulan Hasil Desain Landing Page
+          //Kasih Countdown ke tgl ditutupp dong,. <br/> Pengumpulan Hasil Desain Landing Page
         </div>
         <form onSubmit={upload}>
           <div className={`input-group mb-3 ${styles["input-box"]}`}>

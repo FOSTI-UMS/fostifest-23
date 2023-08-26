@@ -182,8 +182,10 @@ export default function GetDataWebinar() {
                         detailUser.map((user, index) => (
                           <div>
                             <p>{user.nama}<br />
-                              {user.instansi ? (user.instansi) : "-"}<br />
                               {user.email}<br />
+                              {user.alamat}<br/>
+                              {user.instansi ? (user.instansi).toUpperCase() : "-"}<br />
+                              {user.jenis}<br />
                               {user.no_telp}<br />
                               {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
                           </div>
