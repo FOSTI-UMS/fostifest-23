@@ -31,7 +31,7 @@
 
 @media (max-width: 992px) {
   .profile-in-box {
-    height: 1000px;
+    height: 1030px;
   }
 
   .profile-title {
@@ -68,6 +68,10 @@
 
 @media (max-width: 320px) {
   .profile-box {
-    height: 820px;
+    height: 770px;
+  }
+
+  .profile-title{
+    font-size: 20px;
   }
 }
