@@ -85,7 +85,7 @@ export default function Profile() {
                 color: "#04697c",
               }}
             >
-              {identitas.nama} <Image src={HalloImg} height={35} width={35} alt="hallo" />
+              {identitas.nama} <Image src={HalloImg} className={styles["image-hallo"]} alt="hallo" />
             </span>
             <div>{greetz}</div>
           </div>

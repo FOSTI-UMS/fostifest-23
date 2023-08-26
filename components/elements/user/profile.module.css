@@ -18,6 +18,11 @@
   font-size: 35px;
 }
 
+.image-hallo {
+  height: 30px;
+  width: 30px;
+}
+
 .profile-data {
   font-size: 20px;
   margin-left: 5px;
@@ -52,6 +57,12 @@
   .lottie {
     height: 300px;
   }
+
+  .image-hallo {
+    height: 25px;
+    width: 25px;
+  }
+
   .profile-in-box {
     height: 750px;
   }
@@ -71,7 +82,12 @@
     height: 770px;
   }
 
-  .profile-title{
+  .profile-title {
     font-size: 20px;
+  }
+
+  .image-hallo {
+    height: 20px;
+    width: 20px;
   }
 }
