@@ -1,0 +1,93 @@
+.profile-box {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  margin-top: 130px;
+  margin-bottom: 50px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.lottie {
+  background-size: cover;
+  background-position: center;
+  height: 510px;
+}
+
+.profile-title {
+  font-size: 35px;
+}
+
+.image-hallo {
+  height: 30px;
+  width: 30px;
+}
+
+.profile-data {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+@media (max-width: 1040px) {
+  .lottie {
+    height: 530px;
+  }
+}
+
+@media (max-width: 992px) {
+  .profile-in-box {
+    height: 1030px;
+  }
+
+  .profile-title {
+    font-size: 35px;
+  }
+
+  .profile-data {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-box {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .lottie {
+    height: 300px;
+  }
+
+  .image-hallo {
+    height: 25px;
+    width: 25px;
+  }
+
+  .profile-in-box {
+    height: 750px;
+  }
+
+  .profile-title {
+    margin-top: 10px;
+    font-size: 25px;
+  }
+
+  .profile-data {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .profile-box {
+    height: 770px;
+  }
+
+  .profile-title {
+    font-size: 20px;
+  }
+
+  .image-hallo {
+    height: 20px;
+    width: 20px;
+  }
+}

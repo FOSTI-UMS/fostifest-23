@@ -1,5 +1,4 @@
 import styles from "./header.module.css";
-
 import CountDown from "../countDown";
 import Link from "next/link";
 
@@ -11,7 +10,7 @@ export default function Header() {
           className="mb-5 flex-column d-flex align-items-center justify-content-center"
           data-aos="fade-up"
         >
-          <div className="col text-center d-flex justify-content-center">
+          <div className=" col text-center d-flex justify-content-center">
             <div
               className={`${styles["fostifest-title-font"]} text-center text-center mb-4`}
             >

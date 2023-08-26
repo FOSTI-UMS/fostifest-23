@@ -1,19 +1,7 @@
 .btn-custom {
-  width: 100px;
+  width: 150px;
   height: 40px;
   background-color: #5a96e3;
-  color: #fff;
-  border-radius: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bolder;
-}
-
-.btn-custom-2 {
-  width: 100px;
-  height: 40px;
-  background-color: #4682a9;
   color: #fff;
   border-radius: 24px;
   display: flex;
@@ -32,8 +20,7 @@
 }
 
 @media (max-width: 768px) {
-  .btn-custom,
-  .btn-custom-2 {
+  .btn-custom {
     font-size: 16px;
   }
   .title-font {
