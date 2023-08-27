@@ -8,42 +8,6 @@ import Cookies from "js-cookie";
 import supabase from "@/api/supabase";
 
 export default function FormRegister() {
-  const dibuka = new Date("2023-08-20T00:00:00+07:00");
-  const ditutup = new Date("2023-08-25T00:00:00+07:00");
-  const sekarang = new Date();
-
-  if (sekarang < dibuka) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pendaftaran akan dibuka pada tanggal 30 Agustus 2021.
-          </p>
-          <Link href="/" className="btn btn-sm btn-primary">
-            Go Home
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (sekarang > dibuka && sekarang >= ditutup) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pendaftaran Sudah Ditutup.
-          </p>
-          <Link href="/login" className="btn btn-sm btn-primary">
-            Login
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-
-
   const [page, setPage] = useState("first");
   const router = useRouter();
   const [nama, setNama] = useState("");

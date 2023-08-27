@@ -7,42 +7,6 @@ import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 
 export default function FileCollection() {
-  const dibuka = new Date("2023-08-30T00:00:00+07:00");
-  const ditutup = new Date("2023-09-05T00:00:00+07:00");
-  const sekarang = new Date();
-
-  if (sekarang < dibuka) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Halaman ini akan dibuka pada tanggal 30 Agustus 2021.
-          </p>
-          <Link href="/profile" className="btn btn-sm btn-primary">
-            Go Back
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (sekarang > dibuka && sekarang >= ditutup) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pengumpulan File Sudah Ditutup. Terimakasih atas Partisipasi Anda.
-          </p>
-          <Link href="/profile" className="btn btn-sm btn-primary">
-            Go Back
-          </Link>
-        </div>
-      </div>
-    );
-  }
-            
-
-
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [message, setUp] = useState("");
