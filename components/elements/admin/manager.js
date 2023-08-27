@@ -22,7 +22,7 @@ export default function Manager() {
     });
 
     const fetchUsers = async () => {
-        const { data: usersData, error: fetchError } = await supabase.from("users").select().ilike("instansi", "panitia");
+        const { data: usersData, error: fetchError } = await supabase.from("users").select().ilike("jenis", "panitia");
         if (fetchError) {
             setError(fetchError);
         } else {

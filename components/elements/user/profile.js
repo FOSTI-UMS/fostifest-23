@@ -108,6 +108,8 @@ export default function Profile() {
               <div className="accordion-body">
                 {identitas.jenis === "WEBINAR" ? (
                   <span className="badge text-bg-primary">Webinar</span>
+                ) : identitas.jenis === "PANITIA" ? (
+                  <span className="badge text-bg-warning">Panitia</span>
                 ) : (
                   <span>
                     <span className="badge text-bg-primary me-1">Webinar</span>
