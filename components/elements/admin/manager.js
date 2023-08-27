@@ -12,6 +12,14 @@ export default function Manager() {
     const [search, setSearch] = useState([]);
     const [verif, setVerif] = useState();
     const [token, setToken] = useState([]);
+    const [pendaftaran, setPendaftaran] = useState({
+        startDate: "",
+        endDate: ""
+    });
+    const [pengumpulan, setPengumpulan] = useState({
+        startDate: "",
+        endDate: ""
+    });
 
     const fetchUsers = async () => {
         const { data: usersData, error: fetchError } = await supabase.from("users").select().ilike("instansi", "panitia");
@@ -42,6 +50,70 @@ export default function Manager() {
         }
     }
 
+    const getTimeDaftar = async () => {
+        const { data: waktuPendaftaran, error: fetchError } = await supabase.from("timer").select("time_start, time_end").eq("codename", 'pendaftaran');
+        if (fetchError) {
+            alert(fetchError);
+        } else {
+            setPendaftaran({
+                startDate: waktuPendaftaran[0].time_start,
+                endDate: waktuPendaftaran[0].time_end
+            });
+        }
+    }
+
+    const getTimeUpload = async () => {
+        const { data: waktuPengumpulan, error: fetchError } = await supabase.from("timer").select("time_start, time_end").eq("codename", 'pengumpulan');
+        if (fetchError) {
+            alert(fetchError);
+        } else {
+            setPengumpulan({
+                startDate: waktuPengumpulan[0].time_start,
+                endDate: waktuPengumpulan[0].time_end
+            });
+        }
+    }
+
+    const handleWaktuDaftar = (e) => {
+        const { id, value } = e.target;
+        setPendaftaran((prevState) => ({
+            ...prevState,
+            [id]: value
+        }));
+    };
+
+    const handleWaktuUpload = (e) => {
+        const { id, value } = e.target;
+        setPengumpulan((prevState) => ({
+            ...prevState,
+            [id]: value
+        }));
+    };
+
+    const syncDaftar = async (e) => {
+        e.preventDefault();
+        const {data, error} = await supabase.from("timer").update({
+            time_start: pendaftaran.startDate,
+            time_end: pendaftaran.endDate
+        }).eq("codename", 'pendaftaran');
+        if (error) {
+            alert(error);
+        }
+        window.location.reload();
+    };
+
+    const syncUpload = async (e) => {
+        e.preventDefault();
+        const {data, error} = await supabase.from("timer").update({
+            time_start: pengumpulan.startDate,
+            time_end: pengumpulan.endDate
+        }).eq("codename", 'pengumpulan');
+        if (error) {
+            alert(error);
+        }
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         fetchUsers();
@@ -49,6 +121,14 @@ export default function Manager() {
 
     useEffect(() => {
         fetchToken();
+    }, []);
+
+    useEffect(() => {
+        getTimeDaftar();
+    }, []);
+
+    useEffect(() => {
+        getTimeUpload();
     }, []);
 
     const handleSearch = (event) => {
@@ -71,6 +151,7 @@ export default function Manager() {
             alert("Error: " + error.message);
         }
     };
+    
 
     const handleDemote = async (id) => {
         try {
@@ -89,6 +170,74 @@ export default function Manager() {
     return (
         <div className="container pb-3">
             <div className="mt-2">
+                <p className="fw-bold">Setting Waktu</p>
+                <hr />
+                <form onSubmit={syncDaftar}>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <label htmlFor="startDate" className="form-label">
+                                Pendaftaran Dibuka
+                            </label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                id="startDate"
+                                value={pendaftaran.startDate}
+                                onChange={handleWaktuDaftar} />
+                        </div>
+                        <div className="col-md-3">
+                            <label htmlFor="endDate" className="form-label">
+                                Pendaftaran Ditutup
+                            </label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                id="endDate"
+                                value={pendaftaran.endDate}
+                                onChange={handleWaktuDaftar} />
+                        </div>
+                        <div className="col-md-3 d-flex align-items-center">
+                            <button type="submit" className="btn btn-outline-primary btn-sm">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <hr />
+                <form onSubmit={syncUpload}>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <label htmlFor="startDate" className="form-label">
+                                Pengumpulan File Dibuka
+                            </label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                id="startDate"
+                                value={pengumpulan.startDate}
+                                onChange={handleWaktuUpload} />
+                        </div>
+                        <div className="col-md-3">
+                            <label htmlFor="endDate" className="form-label">
+                                Pengumpulan File Ditutup
+                            </label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                id="endDate"
+                                value={pengumpulan.endDate}
+                                onChange={handleWaktuUpload} />
+                        </div>
+                        <div className="col-md-3 d-flex align-items-center">
+                            <button type="submit" className="btn btn-outline-primary btn-sm">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr />
+            <div className="mt-5">
                 <p className="fw-bold">Register Token</p>
                 <div className="table-responsive">
                     <table className={`table table-striped ${styles["table"]}`} style={{ whiteSpace: "nowrap" }}>
@@ -123,7 +272,7 @@ export default function Manager() {
                     </table>
                 </div>
             </div>
-            <hr/>
+            <hr />
             <div className="mt-5">
                 <p className="fw-bold">Data Administrator</p>
                 <div className={`mb-3 ${styles["search-box"]}`}>
