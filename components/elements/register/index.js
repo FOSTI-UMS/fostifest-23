@@ -6,8 +6,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import supabase from "@/api/supabase";
+import PendaftaranTutup from "../afterRegister/tutup";
 
-export default function FormRegister() {
+export default function FormRegister(){ 
   const [page, setPage] = useState("first");
   const router = useRouter();
   const [nama, setNama] = useState("");
@@ -100,9 +101,11 @@ export default function FormRegister() {
   };
 
   function capitalizeNames(fullName) {
-    const nameArray = fullName.split(' ');
-    const capitalizedNames = nameArray.map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase());
-    return capitalizedNames.join(' ');
+    const nameArray = fullName.split(" ");
+    const capitalizedNames = nameArray.map(
+      (name) => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+    );
+    return capitalizedNames.join(" ");
   }
 
   return (
@@ -183,7 +186,9 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setInstansi(e.target.value.toLowerCase())}
+                      onChange={(e) =>
+                        setInstansi(e.target.value.toLowerCase())
+                      }
                     />
                   </div>
                   <div className="d-grid">

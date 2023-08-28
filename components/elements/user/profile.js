@@ -16,13 +16,15 @@ export default function Profile() {
   const [users, setUsers] = useState([]);
   const [identitas, setIds] = useState({});
   const [admon, setAdmon] = useState();
-  const [greetz, setGreeting] = useState();
 
   const getUser = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("email", user.email);
+    const { data: usersData, error: fetchError } = await supabase
+      .from("users")
+      .select()
+      .eq("email", user.email);
     if (fetchError) {
       alert(fetchError.message);
     } else {
@@ -34,29 +36,9 @@ export default function Profile() {
     }
   };
 
-  const greet = () => {
-    const date = new Date();
-    const hour = date.getHours();
-    if (hour < 12 && hour >= 5) {
-      setGreeting("Selamat Pagi 🌞");
-    } else if (hour < 15 && hour >= 12) {
-      setGreeting("Selamat Siang 🌤️");
-    } else if (hour >= 15 && hour < 19) {
-      setGreeting("Selamat Sore 🌇");
-    } else {
-      setGreeting("Selamat Malam 🌕");
-    }
-  };
-
   useEffect(() => {
     getUser();
   }, []);
-
-  useEffect(() => {
-    greet();
-  }, []);
-
-  console.log(identitas);
 
   return (
     <div className="container-sm">
@@ -67,7 +49,12 @@ export default function Profile() {
         }}
       >
         <div className="card-body text-center d-flex flex-column justify-content-center align-items-center">
-          <Lottie className={`position-absolute ${styles.lottie}`} animationData={profileImage} autoPlay={true} loop={true} />
+          <Lottie
+            className={`position-absolute ${styles.lottie}`}
+            animationData={profileImage}
+            autoPlay={true}
+            loop={true}
+          />
           <div
             className="card-title fs-2 fw-bold"
             style={{
@@ -84,27 +71,54 @@ export default function Profile() {
         <div className="accordion" id="accordionPanelsStayOpenExample">
           <div className="accordion-item">
             <h2 className="accordion-header">
-              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseTwo"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo"
+              >
                 <div className="d-flex align-items-center gap-2">
-                  <Image src={InstansiImg} height={25} width={25} alt="instansi" />
+                  <Image
+                    src={InstansiImg}
+                    height={25}
+                    width={25}
+                    alt="instansi"
+                  />
                   Instansi
                 </div>
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-              <div className="accordion-body">{identitas.instansi ? identitas.instansi.toUpperCase() : "-"}</div>
+            <div
+              id="panelsStayOpen-collapseTwo"
+              className="accordion-collapse collapse"
+            >
+              <div className="accordion-body">
+                {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
+              </div>
             </div>
           </div>
           <div className="accordion-item">
             <h2 className="accordion-header">
-              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
                 <div className="d-flex align-items-center gap-2">
                   <Image src={JenisImg} height={25} width={25} alt="jenis" />
                   Jenis
                 </div>
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
+            <div
+              id="panelsStayOpen-collapseOne"
+              className="accordion-collapse collapse show"
+            >
               <div className="accordion-body">
                 {identitas.jenis === "WEBINAR" ? (
                   <span className="badge text-bg-primary">Webinar</span>
@@ -112,8 +126,7 @@ export default function Profile() {
                   <span className="badge text-bg-warning">Panitia</span>
                 ) : (
                   <span>
-                    <span className="badge text-bg-primary me-1">Webinar</span>
-                    <h3 className="badge text-bg-info">Lomba Design</h3>
+                    <h3 className="badge text-bg-primary">Lomba Design</h3>
                   </span>
                 )}
               </div>
@@ -121,17 +134,64 @@ export default function Profile() {
           </div>
           <div className="accordion-item">
             <h2 className="accordion-header">
-              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseThree"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseThree"
+              >
                 <div className="d-flex align-items-center gap-2">
                   <Image src={StatusImg} height={20} width={20} alt="status" />
                   Status Pembayaran
                 </div>
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
-              <div className="accordion-body">{!identitas.payment_verif ? <span className="badge rounded-pill text-bg-danger">Belum Bayar</span> : <span className="badge rounded-pill text-bg-success">Sudah Bayar</span>}</div>
+            <div
+              id="panelsStayOpen-collapseThree"
+              className="accordion-collapse collapse"
+            >
+              <div className="accordion-body">
+                {!identitas.payment_verif ? (
+                  <span className="badge rounded-pill text-bg-danger">
+                    Belum Bayar
+                  </span>
+                ) : (
+                  <span className="badge rounded-pill text-bg-success">
+                    Sudah Bayar
+                  </span>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+        <div className="d-flex mt-3 mb-3">
+          <Logout />
+          {admon ? (
+            <Link
+              href="/admin"
+              className="mb-3 ms-3 btn btn-outline-warning d-flex align-items-center justify-content-center"
+            >
+              Halaman Admin
+            </Link>
+          ) : !identitas.payment_verif ? (
+            <Link
+              href="/payments"
+              className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+            >
+              Cara Pembayaran
+            </Link>
+          ) : (
+            identitas.jenis === "LOMBA DESIGN" && (
+              <Link
+                href="/file-collection"
+                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+              >
+                Pengumpulan File
+              </Link>
+            )
+          )}
         </div>
         <div className="d-flex mt-3 mb-3">
           <Logout />
@@ -160,7 +220,9 @@ export default function Profile() {
           backgroundImage: `url(${BackgroundSide.src})`,
         }}
       ></div>
-      <div className={`bg-white shadow-lg fixed-bottom position-fixed z-1 ${styles["bottom-container"]}`}></div>
+      <div
+        className={`bg-white shadow-lg fixed-bottom position-fixed z-1 ${styles["bottom-container"]}`}
+      ></div>
     </div>
   );
 }
