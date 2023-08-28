@@ -5,7 +5,6 @@ import RuleBook from "/assets/images/book.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-// import RulebookPdf from "@/assets/pdf/Rulebook.pdf";
 
 export default function Navbar() {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
