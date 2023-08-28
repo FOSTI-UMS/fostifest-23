@@ -1,14 +1,18 @@
 import EventContent from "@/components/elements/home/eventContent";
 import CompetitionEvent from "@/components/elements/home/competitionEvent";
-import Fostifest from "@/components/elements/home/header";
+import Header from "@/components/elements/home/header";
 import SupportedBy from "@/components/elements/home/supportedBy";
 import MediaPartner from "@/components/elements/home/mediaPartner";
 import SocialMedia from "@/components/elements/home/socialMedia";
+import FostiFest from "@/components/elements/home/fostiFest";
+import RoadShow from "@/components/elements/home/roadShow";
 
 export default function Index() {
   return (
     <div className="pb-5">
-      <Fostifest />
+      <Header />
+      <FostiFest />
+      <RoadShow />
       <EventContent />
       <CompetitionEvent />
       <SupportedBy />

@@ -1,9 +1,6 @@
-.container {
-  margin-bottom: 100px;
-}
-
 .days-hours {
   display: flex;
+  gap: 1em;
 }
 .minutes-seconds {
   display: flex;
@@ -82,7 +79,6 @@
 
 .container {
   display: flex;
-  gap: 3em;
   justify-content: center;
 }
 
@@ -96,30 +92,27 @@
 .segment {
   display: flex;
   gap: 0.1em;
-  color: rgb(254, 108, 108);
+  color: #4682a9;
 }
 
 .segment-title {
   font-size: 1rem;
 }
 
-.start{
-  margin-right:50px ;
+.start {
+  margin-right: 50px;
 }
 
 @media (max-width: 800px) {
-  .countdown-box{
+  .countdown-box {
     margin-top: 10px;
   }
 
-  .days-hours {
-    flex-direction: column;
-  }
   .minutes-seconds {
     flex-direction: column;
   }
 
-  .start{
+  .start {
     margin: auto;
     margin-bottom: 20px;
   }
@@ -135,5 +128,20 @@
     font-size: 30px;
     height: 21px;
     width: 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .top,
+  .flip-card .top-flip {
+    font-size: 30px;
+    height: 24px;
+    width: 35px;
+  }
+  .bottom,
+  .flip-card .bottom-flip {
+    font-size: 30px;
+    height: 20px;
+    width: 35px;
   }
 }

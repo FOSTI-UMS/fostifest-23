@@ -27,13 +27,13 @@ export default function Navbar() {
             <li className="nav-item me-5">
               <Link className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} href="https://fostiums.org/">
                 <Image src={TentangFosti} alt="TentangFosti" height={25} width={25} className="me-2 " />
-                <h7 className={`text-dark ${styles["li-navbar-font"]}`}>Tentang FOSTI</h7>
+                <div className={`text-dark fs-5 ${styles["li-navbar-font"]}`}>Tentang FOSTI</div>
               </Link>
             </li>
             <li className="nav-item">
               <Link className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} href="#">
                 <Image src={RuleBook} alt="TentangFosti" height={25} width={25} className="me-2 " />
-                <h7 className={`text-dark ${styles["li-navbar-font"]}`}>Rule Book</h7>
+                <div className={`text-dark fs-5 ${styles["li-navbar-font"]}`}>Rule Book</div>
               </Link>
             </li>
           </ul>

@@ -1,0 +1,14 @@
+.fosti-fest {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .description-font {
+    font-size: 12px;
+    width: 100% !important;
+    text-align: justify !important;
+  }
+}

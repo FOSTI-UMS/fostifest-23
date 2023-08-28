@@ -1,0 +1,44 @@
+.label-custom {
+  font-size: 11px;
+}
+
+.input-custom {
+  height: 40px;
+  background-color: rgb(239, 238, 238);
+  border-radius: 20px;
+  border: none;
+  font-size: 12px;
+}
+
+.btn-login {
+  color: white;
+  background-color: #4682a9;
+}
+
+.btn-login:hover {
+  background-color: white;
+  color: #4682a9;
+}
+
+.change-page {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.btn-back {
+  font-size: 12px;
+}
+
+.btn-back:hover {
+  cursor: pointer;
+}
+
+.card-width {
+  width: 75%;
+}
+
+@media screen and (max-width: 768px) {
+  .card-width {
+    width: 100%;
+  }
+}

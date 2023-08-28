@@ -13,7 +13,7 @@ export default function GetDataLomba() {
   const [detailUser, setDetailUser] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN").neq("instansi", "panitia").order("nama");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN").order("nama");
     if (fetchError) {
       setError(fetchError);
     } else {
@@ -26,20 +26,12 @@ export default function GetDataLomba() {
     fetchUsers();
   }, []);
 
-  useEffect(() => {
-    fetchUseridLomba();
-  }, []);
-
   console.log(verif);
   const handleSearch = (event) => {
     const sortedUser = users.filter((row) => {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
     });
     setSearch(sortedUser);
-  };
-
-  const fetchUseridLomba = async () => {
-    // soon, buat checker user udh upload file/blm
   };
 
   const detail = async (id) => {
@@ -88,7 +80,6 @@ export default function GetDataLomba() {
                 <tr>
                   <th>No</th>
                   <th>Nama</th>
-                  <th>Instansi</th>
                   <th>Email</th>
                   <th>No Telp</th>
                   <th>Status Pembayaran</th>
@@ -105,7 +96,6 @@ export default function GetDataLomba() {
                   >
                     <td data="NO">{index + 1}</td>
                     <td data="Nama">{user.nama}</td>
-                    <td data="Instansi" className="text-uppercase">{user.instansi}</td>
                     <td data="Email">{user.email}</td>
                     <td data="No Telp">{user.no_telp}</td>
                     <td data="Status">{user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</td>
@@ -178,11 +168,13 @@ export default function GetDataLomba() {
                       {detailUser &&
                         detailUser.map((user, index) => (
                           <div>
-                            <p>{user.nama}<br />
-                              {user.instansi ? (user.instansi) : "-"}<br />
-                              {user.email}<br />
-                              {user.no_telp}<br />
-                              {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
+                            <p>Nama: {user.nama}<br />
+                              Email: {user.email}<br />
+                              Alamat: {user.alamat}<br/>
+                              Instansi: {user.instansi ? (user.instansi).toUpperCase() : "-"}<br />
+                              Jenis: {user.jenis}<br />
+                              No Telp: {user.no_telp}<br />
+                              Status: {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
                           </div>
                         ))}
                     </div>

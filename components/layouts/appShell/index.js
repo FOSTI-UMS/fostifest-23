@@ -15,6 +15,8 @@ const disableNavbar = [
   "/file-collection",
   "/admin",
   "/admin/manager",
+  "/admin/login",
+  "/admin/register/[token]",
   "/admin/competition/users",
   "/admin/webinar/users",
 ];
