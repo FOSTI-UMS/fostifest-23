@@ -23,7 +23,10 @@ export default function Profile() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("email", user.email);
+    const { data: usersData, error: fetchError } = await supabase
+      .from("users")
+      .select()
+      .eq("email", user.email);
     if (fetchError) {
       alert(fetchError.message);
     } else {
@@ -61,7 +64,9 @@ export default function Profile() {
 
   return (
     <div className={`${styles["profile-box"]}`}>
-      <div className={`row row-cols-1 row-cols-lg-2 align-items-start ${styles["profile-in-box"]}`}>
+      <div
+        className={`row row-cols-1 row-cols-lg-2 align-items-start ${styles["profile-in-box"]}`}
+      >
         <div
           className={`col d-flex justify-content-center align-items-center ${styles["lottie"]}`}
           style={{
@@ -78,14 +83,21 @@ export default function Profile() {
           />
         </div>
         <div className={`col ${styles.profile}`}>
-          <div className={`${styles["profile-title"]} fw-bold d-flex flex-column justify-content-center align-items-center text-center`}>
+          <div
+            className={`${styles["profile-title"]} fw-bold d-flex flex-column justify-content-center align-items-center text-center`}
+          >
             <span className="fs-1">Hallo</span>
             <span
               style={{
                 color: "#04697c",
               }}
             >
-              {identitas.nama} <Image src={HalloImg} className={styles["image-hallo"]} alt="hallo" />
+              {identitas.nama}{" "}
+              <Image
+                src={HalloImg}
+                className={styles["image-hallo"]}
+                alt="hallo"
+              />
             </span>
             <div>{greetz}</div>
           </div>
@@ -104,8 +116,14 @@ export default function Profile() {
                 <span> Email : {identitas.email}</span>
               </div>
               <div className="d-flex align-items-center gap-2 mb-3">
-                <Image src={InstansiImg} height={20} width={20} alt="instansi" />
-                Instansi: {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
+                <Image
+                  src={InstansiImg}
+                  height={20}
+                  width={20}
+                  alt="instansi"
+                />
+                Instansi:{" "}
+                {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
               </div>
 
               {/* Kontak Superadmin: //no.wa CO Sie Karya// */}
@@ -117,8 +135,14 @@ export default function Profile() {
                 <span> Email : {identitas.email}</span>
               </div>
               <div className="d-flex align-items-center gap-2 mb-3">
-                <Image src={InstansiImg} height={20} width={20} alt="instansi" />
-                Instansi: {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
+                <Image
+                  src={InstansiImg}
+                  height={20}
+                  width={20}
+                  alt="instansi"
+                />
+                Instansi:{" "}
+                {identitas.instansi ? identitas.instansi.toUpperCase() : "-"}
               </div>
               <div className="d-flex align-items-center gap-2 mb-3">
                 <Image src={JenisImg} height={20} width={20} alt="jenis" />
@@ -134,26 +158,47 @@ export default function Profile() {
               </div>
               <div className="d-flex align-items-center gap-2 mb-4">
                 <Image src={StatusImg} height={20} width={20} alt="status" />
-                Status Pembayaran: {!identitas.payment_verif ? <span className="badge rounded-pill text-bg-danger">Belum Bayar</span> : <span className="badge rounded-pill text-bg-success">Sudah Bayar</span>}
+                Status Pembayaran:{" "}
+                {!identitas.payment_verif ? (
+                  <span className="badge rounded-pill text-bg-danger">
+                    Belum Bayar
+                  </span>
+                ) : (
+                  <span className="badge rounded-pill text-bg-success">
+                    Sudah Bayar
+                  </span>
+                )}
               </div>
             </div>
           )}
           <div className="d-flex mt-3">
             <Logout className={styles.logout} />
             {admon ? (
-              <Link href="/admin" className="mb-3 ms-3 btn btn-outline-warning d-flex align-items-center justify-content-center">
+              <Link
+                href="/admin"
+                className="mb-3 ms-3 btn btn-outline-warning d-flex align-items-center justify-content-center"
+              >
                 Halaman Admin
               </Link>
             ) : !identitas.payment_verif ? (
-              <Link href="/payments" className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center">
+              <Link
+                href="/payments"
+                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+              >
                 Cara Pembayaran
               </Link>
             ) : identitas.jenis === "LOMBA DESIGN" ? (
-              <Link href="/file-collection" className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center">
+              <Link
+                href="/file-collection"
+                className="mb-3 ms-3 btn btn-outline-primary d-flex align-items-center justify-content-center"
+              >
                 Pengumpulan File
               </Link>
             ) : (
-              <Link href="/webinar" className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center">
+              <Link
+                href="/webinar"
+                className="mb-3 ms-3 btn btn-outline-primary disabled d-flex align-items-center justify-content-center"
+              >
                 Halaman Webinar
               </Link>
             )}
