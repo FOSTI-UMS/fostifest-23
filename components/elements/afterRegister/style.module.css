@@ -20,10 +20,6 @@
   padding-right: 115px;
   padding-left: 100px;
 }
-.content-tutup {
-  padding-right: 125px;
-  padding-left: 100px;
-}
 
 .description {
   font-size: 14px;
@@ -45,6 +41,12 @@
 .input::-webkit-file-upload-button {
   background-color: rgb(198, 198, 198);
   border-radius: 20px;
+}
+
+.close-register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -96,10 +98,5 @@
     width: 100px;
     height: 30px;
     font-size: 9px;
-  }
-
-  .content-tutup {
-    padding-right: 20px;
-    padding-left: 20px;
   }
 }
