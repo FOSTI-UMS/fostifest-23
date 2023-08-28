@@ -15,8 +15,8 @@ export default function AdminRegister() {
   const [password, setPassword] = useState("");
   const [no_telp, setTelp] = useState("");
   const alamat = "";
-  const instansi = "PANITIA";
-  const jenis = "";
+  const instansi = "FOSTI";
+  const jenis = "PANITIA";
   const [note, setNote] = useState({});
   const defaultPayment = true;
   const admin = true

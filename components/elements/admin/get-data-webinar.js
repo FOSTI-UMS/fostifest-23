@@ -13,7 +13,7 @@ export default function GetDataWebinar() {
   const [detailUser, setDetailUser] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR").neq("instansi", "panitia").order("nama");
+    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "WEBINAR").order("nama");
     if (fetchError) {
       setError(fetchError);
     } else {
@@ -80,7 +80,6 @@ export default function GetDataWebinar() {
                 <tr>
                   <th>No</th>
                   <th>Nama</th>
-                  <th>Instansi</th>
                   <th>Email</th>
                   <th>No Telp</th>
                   <th>Status Pembayaran</th>
@@ -97,7 +96,6 @@ export default function GetDataWebinar() {
                   >
                     <td data="NO">{index + 1}</td>
                     <td>{user.nama}</td>
-                    <td className="text-uppercase">{user.instansi}</td>
                     <td>{user.email}</td>
                     <td>{user.no_telp}</td>
                     <td data="Status">{user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</td>
@@ -181,13 +179,13 @@ export default function GetDataWebinar() {
                       {detailUser &&
                         detailUser.map((user, index) => (
                           <div>
-                            <p>{user.nama}<br />
-                              {user.email}<br />
-                              {user.alamat}<br/>
-                              {user.instansi ? (user.instansi).toUpperCase() : "-"}<br />
-                              {user.jenis}<br />
-                              {user.no_telp}<br />
-                              {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
+                            <p>Nama: {user.nama}<br />
+                              Email: {user.email}<br />
+                              Alamat: {user.alamat}<br/>
+                              Instansi: {user.instansi ? (user.instansi).toUpperCase() : "-"}<br />
+                              Jenis: {user.jenis}<br />
+                              No Telp: {user.no_telp}<br />
+                              Status: {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
                           </div>
                         ))}
                     </div>
