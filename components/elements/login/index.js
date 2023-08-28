@@ -27,11 +27,11 @@ export default function FormLogin() {
     );
   }
 
-
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -120,8 +120,17 @@ export default function FormLogin() {
                   <button
                     type="submit"
                     className={`mb-3 text-white fw-bold d-flex align-items-center justify-content-center ${styles["btn-login"]}`}
+                    onClick={() => setLoading(true)}
                   >
-                    Login
+                    {loading ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    ) : (
+                      "Login"
+                    )}
                   </button>
                 </div>
               </form>
@@ -162,7 +171,7 @@ export default function FormLogin() {
                     <div className="mb-4 text-center">
                       <h3 className="fw-bold mb-3">Yeayy Selamat !</h3>
                       <small className="text-secondary">
-                        Anda Telah Berhasil Mendaftar Silahkan Login
+                        Anda Telah Berhasil Mendaftar Silahkan Check Email Anda
                       </small>
                     </div>
                   </div>
