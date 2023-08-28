@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import supabase from "@/api/supabase";
+import PendaftaranTutup from "../afterRegister/tutup";
 
 export default function FormRegister() {
   const dibuka = new Date("2023-08-20T00:00:00+07:00");
@@ -28,21 +29,8 @@ export default function FormRegister() {
   }
 
   if (sekarang > dibuka && sekarang >= ditutup) {
-    return (
-      <div className="d-flex align-items-center justify-content-center vh-100">
-        <div className="text-center">
-          <p className="lead">
-            Pendaftaran Sudah Ditutup.
-          </p>
-          <Link href="/login" className="btn btn-sm btn-primary">
-            Login
-          </Link>
-        </div>
-      </div>
-    );
+    return <PendaftaranTutup />;
   }
-
-
 
   const [page, setPage] = useState("first");
   const router = useRouter();
@@ -136,9 +124,11 @@ export default function FormRegister() {
   };
 
   function capitalizeNames(fullName) {
-    const nameArray = fullName.split(' ');
-    const capitalizedNames = nameArray.map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase());
-    return capitalizedNames.join(' ');
+    const nameArray = fullName.split(" ");
+    const capitalizedNames = nameArray.map(
+      (name) => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+    );
+    return capitalizedNames.join(" ");
   }
 
   return (
@@ -219,7 +209,9 @@ export default function FormRegister() {
                       id="instansi"
                       name="instansi"
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setInstansi(e.target.value.toLowerCase())}
+                      onChange={(e) =>
+                        setInstansi(e.target.value.toLowerCase())
+                      }
                     />
                   </div>
                   <div className="d-grid">
