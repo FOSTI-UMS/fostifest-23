@@ -5,6 +5,11 @@
   letter-spacing: 1px;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 .title-span {
   color: #4682a9;
 }
