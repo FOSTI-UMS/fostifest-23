@@ -123,8 +123,7 @@ export default function FormRegister(){
         }}
       >
         <div
-          className="d-flex justify-content-center"
-         
+          className="d-flex justify-content-center" 
         >
           <Lottie animationData={LoginGif} style={{ width: "75%", minHeight: "85vh" }} />
         </div>
