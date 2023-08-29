@@ -110,7 +110,9 @@ export default function FormRegister(){
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center p-0" style={{ minHeight: "100vh" }}>
+    <div className="container d-flex justify-content-center align-items-center p-0" style={{ minHeight: "100vh" }} 
+    data-aos="fade"
+    >
     <div className="row card container mx-3 d-flex flex-row shadow border border-none p-0" style={{ minHeight: "80vh" }}>
       <div
         className="col-md-6 d-none d-lg-block border-end rounded-start-2"
@@ -122,7 +124,7 @@ export default function FormRegister(){
       >
         <div
           className="d-flex justify-content-center"
-           data-aos="fade"
+         
         >
           <Lottie animationData={LoginGif} style={{ width: "75%", minHeight: "85vh" }} />
         </div>
@@ -130,7 +132,6 @@ export default function FormRegister(){
         <div className="col-lg-6">
           <div
             className={`${styles["card-width"]}`}
-            data-aos="fade"
           >
             <div className="card-body">
               <div className="fs-2 my-2 text-center">Register</div>
