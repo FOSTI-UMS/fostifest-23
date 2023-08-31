@@ -12,7 +12,7 @@ export async function middleware(req) {
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
-  
+
   if (req.nextUrl.pathname == '/register') {
     if (sekarang < daftar.time_start) {
       return NextResponse.redirect(new URL('/soon', req.url));
@@ -34,19 +34,11 @@ export async function middleware(req) {
       .single();
 
     if (req.nextUrl.pathname.startsWith('/file-collection')) {
-      if (sekarang < upload.time_start) {
-        return NextResponse.redirect(new URL('/upload/soon', req.url));
-      }
-      else if (sekarang > upload.time_end) {
-        return NextResponse.redirect(new URL('/upload/end', req.url));
+      if (userdata && userdata.jenis == 'LOMBA DESIGN') {
+        return res;
       }
       else {
-        if (userdata && userdata.jenis == 'LOMBA DESIGN') {
-          return res;
-        }
-        else {
-          return NextResponse.redirect(new URL('/profile', req.url));
-        }
+        return NextResponse.redirect(new URL('/profile', req.url));
       }
     }
   }
