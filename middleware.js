@@ -1,27 +1,13 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
-import supabase from '@/api/supabase';
-
-async function getTime(codename) {
-  const timer = {
-    time_start: "",
-    time_end: ""
-  };
-  const getTimer = await supabase.from("timer").select("time_start, time_end").eq('codename', codename);
-  if (getTimer.data.length > 0) {
-    timer.time_start = getTimer.data[0].time_start;
-    timer.time_end = getTimer.data[0].time_end;
-  }
-
-  return timer;
-}
+import timer from '@/api/timer';
 
 export async function middleware(req) {
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const sekarang = new Date().toISOString().split('.')[0].slice(0, -3);
-  const daftar = await getTime('pendaftaran');
-  const upload = await getTime('pengumpulan');
+  const daftar = await timer('pendaftaran');
+  const upload = await timer('pengumpulan');
 
   const {
     data: { user },

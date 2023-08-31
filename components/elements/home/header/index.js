@@ -1,8 +1,24 @@
 import styles from "./header.module.css";
 import CountDown from "../countDown";
 import Link from "next/link";
+import timer from "@/api/timer";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [timerData, setTimerData] = useState({});
+  const time_strt = new Date(timerData.time_start).getTime();
+  const time_ends = new Date(timerData.time_end).getTime();
+  const sekarang = new Date().getTime();
+
+  useEffect(() => {
+    async function fetchTimerData() {
+      const data = await timer("pendaftaran");
+      setTimerData(data);
+    }
+
+    fetchTimerData();
+  }, []);
+
   return (
     <div className={styles["header"]}>
       <div className="container">
@@ -23,7 +39,17 @@ export default function Header() {
             <small
               className={`${styles["fostifest-description-font"]} fw-bold text-secondary`}
             >
-              Waktu Pendaftaran Akan Dimulai
+              {
+                time_strt > sekarang ? (
+                  "Waktu Pendaftaran Akan Dimulai"
+                ) : (
+                  time_ends > sekarang ? (
+                    "Waktu Pendaftaran Akan Berakhir"
+                  ) : (
+                    "Waktu Pendaftaran Telah Berakhir"
+                  )
+                )
+              }
             </small>
           </div>
           <CountDown />
@@ -31,7 +57,29 @@ export default function Header() {
             <small
               className={`${styles["fostifest-description-font"]} fw-bold text-secondary`}
             >
-              18 September 2023,00:01 WIB
+              {
+                time_strt > sekarang ? (
+                  timerData.time_start &&
+                  new Date(timerData.time_start).toLocaleString('id-ID', {
+                    timeZone: 'Asia/Jakarta',
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })
+                ) : (
+                  timerData.time_end &&
+                  new Date(timerData.time_end).toLocaleString('id-ID', {
+                    timeZone: 'Asia/Jakarta',
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })
+                )
+              }
             </small>
           </div>
           <div className="col">
