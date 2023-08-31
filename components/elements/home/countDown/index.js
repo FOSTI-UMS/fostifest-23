@@ -15,7 +15,7 @@ export default function CountDown() {
     useEffect(() => {
       setInterval(function () {
         // Set the date we're counting down to
-        var countDownDate = new Date("Aug 30, 2023 23:59:59").getTime();
+        var countDownDate = new Date("Sep 18, 2023 23:59:59").getTime();
 
         // Get today's date and time
         var now = new Date().getTime();
@@ -31,14 +31,27 @@ export default function CountDown() {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        flip(daysTensRef, Math.floor(days / 10));
-        flip(daysOnesRef, days % 10);
-        flip(hoursTensRef, Math.floor(hours / 10));
-        flip(hoursOnesRef, hours % 10);
-        flip(minutesTensRef, Math.floor(minutes / 10));
-        flip(minutesOnesRef, minutes % 10);
-        flip(secondsTensRef, Math.floor(seconds / 10));
-        flip(secondsOnesRef, seconds % 10);
+        if(distance < 0){
+          flip(daysTensRef, 0);
+          flip(daysOnesRef, 0);
+          flip(hoursTensRef,0);
+          flip(hoursOnesRef,0);
+          flip(minutesTensRef,0);
+          flip(minutesOnesRef,0);
+          flip(secondsTensRef, 0);
+          flip(secondsOnesRef,0);
+        }else{
+          flip(daysTensRef, Math.floor(days / 10));
+          flip(daysOnesRef, days % 10);
+          flip(hoursTensRef, Math.floor(hours / 10));
+          flip(hoursOnesRef, hours % 10);
+          flip(minutesTensRef, Math.floor(minutes / 10));
+          flip(minutesOnesRef, minutes % 10);
+          flip(secondsTensRef, Math.floor(seconds / 10));
+          flip(secondsOnesRef, seconds % 10);
+        }
+
+        
       }, 1000);
     });
   }
