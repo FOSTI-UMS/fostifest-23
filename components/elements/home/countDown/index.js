@@ -11,38 +11,36 @@ export default function CountDown() {
   const secondsTensRef = useRef(null);
   const secondsOnesRef = useRef(null);
 
-  function Timer() {
-    useEffect(() => {
-      setInterval(function () {
-        // Set the date we're counting down to
-        var countDownDate = new Date("Aug 30, 2023 23:59:59").getTime();
+  // Set the date we're counting down to
+  const countDownDate = new Date("Sept 1, 2023 23:59:59").getTime();
+  useEffect(() => {
+    const interval = setInterval( ()=> {
 
-        // Get today's date and time
-        var now = new Date().getTime();
+      // Find the distance between now and the count down date
+      const distance = countDownDate - Date.now();
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      console.log('detik ke : '+seconds);
 
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        flip(daysTensRef, Math.floor(days / 10));
-        flip(daysOnesRef, days % 10);
-        flip(hoursTensRef, Math.floor(hours / 10));
-        flip(hoursOnesRef, hours % 10);
-        flip(minutesTensRef, Math.floor(minutes / 10));
-        flip(minutesOnesRef, minutes % 10);
-        flip(secondsTensRef, Math.floor(seconds / 10));
-        flip(secondsOnesRef, seconds % 10);
-      }, 1000);
-    });
-  }
-  Timer();
+      flip(daysTensRef, Math.floor(days / 10));
+      flip(daysOnesRef, days % 10);
+      flip(hoursTensRef, Math.floor(hours / 10));
+      flip(hoursOnesRef, hours % 10);
+      flip(minutesTensRef, Math.floor(minutes / 10));
+      flip(minutesOnesRef, minutes % 10);
+      flip(secondsTensRef, Math.floor(seconds / 10));
+      flip(secondsOnesRef, seconds % 10);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const flip = (flipCardRef, newNumber) => {
     if (!flipCardRef || !flipCardRef.current) {
