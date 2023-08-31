@@ -104,9 +104,7 @@ export default function FileCollection() {
           .insert([
             {
               email: usermail,
-              nama_file: file.name,
-              nama_peserta: namaPeserta,
-              judul_karya: judulKarya.split(".")[0],
+              nama_file: file.name
             },
           ]);
 
