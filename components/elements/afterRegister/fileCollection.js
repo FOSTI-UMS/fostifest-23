@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
+import Cookies from "js-cookie";
 
 export default function FileCollection() {
   const router = useRouter();
@@ -13,6 +14,8 @@ export default function FileCollection() {
   const [isItDisabled, setBtn] = useState(false);
   const [statusUpload, setStatus] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -47,7 +50,7 @@ export default function FileCollection() {
       setUp(message);
       setStatus(stat);
     } else {
-      setStatus(`<span class="badge text-bg-danger">Belum Upload</span> 🥺`)
+      setStatus(`<span class="badge text-bg-danger">Belum Upload</span> 🥺`);
       setUp("");
     }
   };
@@ -108,14 +111,18 @@ export default function FileCollection() {
           // Buat FE: Edit alert ini jadi modal popup
           alert("upld err: " + error.message);
         }
-        document.cookie = `file=${file.name}; path=/file-collection; max-age=60`;
+        Cookies.set("successUploaded", "true");
         router.push("/file-collection");
       }
     }
   };
 
   const openModal = () => {
-    setShowModal(true);
+    const checkCookies = Cookies.get("successUploaded");
+    if (checkCookies) {
+      setShowModal(true);
+      Cookies.remove("successUploaded");
+    }
   };
 
   const closeModal = () => {
@@ -124,10 +131,9 @@ export default function FileCollection() {
 
   useEffect(() => {
     cekUploadFile();
-  });
-
-  useEffect(() => {
     cekFile();
+    openModal();
+    setLoading(false);
   });
 
   return (
@@ -136,7 +142,7 @@ export default function FileCollection() {
         <div
           className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}
         >
-          //Kasih Countdown ke tgl ditutupp dong,. <br/> Pengumpulan Hasil Desain Landing Page
+          Pengumpulan Hasil Desain Landing Page
         </div>
         <form onSubmit={upload}>
           <div className={`input-group mb-3 ${styles["input-box"]}`}>
@@ -153,13 +159,24 @@ export default function FileCollection() {
               type="submit"
               className="btn btn-success rounded-4"
               disabled={isItDisabled}
+              onClick={() => setLoading(true)}
             >
-              Kirim
+              {loading ? (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              ) : (
+                "Kirim"
+              )}
             </button>
           </div>
         </form>
         <div>
-          <p>Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} /></p>
+          <p>
+            Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} />
+          </p>
         </div>
         <p dangerouslySetInnerHTML={{ __html: message }} />
         <div className={`${styles["description"]}`}>

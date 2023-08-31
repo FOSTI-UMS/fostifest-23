@@ -31,7 +31,7 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} href="#">
+              <Link href="/Rulebook.pdf" className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} target="_blank">
                 <Image src={RuleBook} alt="TentangFosti" height={25} width={25} className="me-2 " />
                 <div className={`text-dark fs-5 ${styles["li-navbar-font"]}`}>Rule Book</div>
               </Link>
