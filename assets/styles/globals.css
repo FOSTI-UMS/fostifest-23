@@ -5,6 +5,11 @@
   letter-spacing: 1px;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 .title-span {
   color: #4682a9;
 }
@@ -23,6 +28,11 @@
   cursor: pointer;
   height: 55px;
   width: 55px;
+}
+
+.timeline-img {
+  height: 600px;
+  width: 450px;
 }
 
 @media (max-width: 768px) {
@@ -54,5 +64,10 @@
   .lottie-login {
     height: 70%;
     width: 70%;
+  }
+
+  .timeline-img {
+    height: 450px;
+    width: 350px;
   }
 }

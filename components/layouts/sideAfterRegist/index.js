@@ -43,9 +43,7 @@ export default function SideContentAfterRegist(props) {
             height: "100vh",
           }}
         >
-          <div
-            className={`d-flex flex-row ${styles["context-box"]} align-items-center justify-content-start`}
-          >
+          <div className={`d-flex flex-row ${styles["context-box"]} align-items-center justify-content-start`}>
             <div
               className={`d-flex bg-primary flex-row align-items-center justify-content-center `}
               data-aos="fade-right"
@@ -59,58 +57,29 @@ export default function SideContentAfterRegist(props) {
                 marginRight: "50px",
               }}
             >
-              <div
-                className={`d-flex flex-column align-items-center justify-content-center ${styles["logo-fostifest"]}`}
-              >
-                <Image
-                  src={LogoFostiFest}
-                  height={200}
-                  width={200}
-                  alt="fostifest_logo"
-                />
-                <div
-                  className={`d-flex justify-content-center align-items-center fw-bold text-light mb-4 ${styles["find-us-on"]}`}
-                >
-                  Find Us On
-                </div>
-                <div
-                  className={`d-flex justify-content-center align-items-center fw-bold text-light ${styles["social-media"]}`}
-                >
+              <div className={`d-flex flex-column align-items-center justify-content-center ${styles["logo-fostifest"]}`}>
+                <Image src={LogoFostiFest} height={200} width={200} alt="fostifest_logo" />
+                <div className={`d-flex justify-content-center align-items-center fw-bold text-light mb-4 ${styles["find-us-on"]}`}>Find Us On</div>
+                <div className={`d-flex justify-content-center align-items-center fw-bold text-light ${styles["social-media"]}`}>
                   <div className="d-flex flex-row">
-                    <Link href="#" className="me-3">
-                      <Image
-                        src={InstagramLogo}
-                        width={40}
-                        height={40}
-                        alt="ig"
-                      />
+                    <Link href="https://www.instagram.com/fosti_ums" className="me-3">
+                      <Image src={InstagramLogo} width={40} height={40} alt="ig" />
                     </Link>
-                    <Link href="#" className="me-3">
-                      <Image
-                        src={GithubLogo}
-                        width={40}
-                        height={40}
-                        alt="github"
-                      />
+                    <Link href="https://github.com/FOSTI-UMS" className="me-3">
+                      <Image src={GithubLogo} width={40} height={40} alt="github" />
                     </Link>
-                    <Link href="#">
+                    <Link href="/whatsapp">
                       <Image src={WaLogo} width={40} height={40} alt="wa" />
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="d-flex flex-column align-items-center justify-content-center">
-              {children}
-            </div>
+            <div className="d-flex flex-column align-items-center justify-content-center">{children}</div>
           </div>
         </div>
       )}
-      {!isSideVisible && (
-        <div className="m-4 d-flex flex-column align-items-center justify-content-center ">
-          {children}
-        </div>
-      )}
+      {!isSideVisible && <div className="m-4 d-flex flex-column align-items-center justify-content-center ">{children}</div>}
     </main>
   );
 }

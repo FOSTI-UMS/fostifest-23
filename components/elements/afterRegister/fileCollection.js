@@ -1,10 +1,12 @@
 import styles from "./style.module.css";
 import Link from "next/link";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
+import Cookies from "js-cookie";
+import timer from "@/pages/api/[timerName]";
 
 export default function FileCollection() {
   const router = useRouter();
@@ -13,6 +15,12 @@ export default function FileCollection() {
   const [isItDisabled, setBtn] = useState(false);
   const [statusUpload, setStatus] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [dataTime, setDataTime] = useState({});
+  const todai = new Date().getTime();
+
+
+
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -47,7 +55,7 @@ export default function FileCollection() {
       setUp(message);
       setStatus(stat);
     } else {
-      setStatus(`<span class="badge text-bg-danger">Belum Upload</span> 🥺`)
+      setStatus(`<span class="badge text-bg-danger">Belum Upload</span> 🥺`);
       setUp("");
     }
   };
@@ -96,9 +104,7 @@ export default function FileCollection() {
           .insert([
             {
               email: usermail,
-              nama_file: file.name,
-              nama_peserta: namaPeserta,
-              judul_karya: judulKarya.split(".")[0],
+              nama_file: file.name
             },
           ]);
 
@@ -108,14 +114,18 @@ export default function FileCollection() {
           // Buat FE: Edit alert ini jadi modal popup
           alert("upld err: " + error.message);
         }
-        document.cookie = `file=${file.name}; path=/file-collection; max-age=60`;
+        Cookies.set("successUploaded", "true");
         router.push("/file-collection");
       }
     }
   };
 
   const openModal = () => {
-    setShowModal(true);
+    const checkCookies = Cookies.get("successUploaded");
+    if (checkCookies) {
+      setShowModal(true);
+      Cookies.remove("successUploaded");
+    }
   };
 
   const closeModal = () => {
@@ -123,11 +133,19 @@ export default function FileCollection() {
   };
 
   useEffect(() => {
-    cekUploadFile();
-  });
+    async function fetchTimerData() {
+      const data = await timer("pengumpulan");
+      setDataTime(data);
+    }
+
+    fetchTimerData();
+  }, []);
 
   useEffect(() => {
+    cekUploadFile();
     cekFile();
+    openModal();
+    setLoading(false);
   });
 
   return (
@@ -136,39 +154,74 @@ export default function FileCollection() {
         <div
           className={`fw-bold text-center mb-5 d-flex justify-content-center align-items-center  ${styles["title"]}`}
         >
-          //Kasih Countdown ke tgl ditutupp dong,. <br/> Pengumpulan Hasil Desain Landing Page
+          Pengumpulan Hasil Desain Landing Page
         </div>
-        <form onSubmit={upload}>
-          <div className={`input-group mb-3 ${styles["input-box"]}`}>
-            <input
-              type="file"
-              className={`form-control ${styles["input"]}`}
-              id="inputGroupFile02"
-              accept=".zip, .rar, .7z, .tar"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </div>
-          <div className="d-flex justify-content-center">
-            <button
-              type="submit"
-              className="btn btn-success rounded-4"
-              disabled={isItDisabled}
-            >
-              Kirim
-            </button>
-          </div>
-        </form>
+        {
+          todai < new Date(dataTime.time_start).getTime() ? (
+            <div className="text-center mb-5">
+              <p className="fw-bold mb-3">
+                Waktu Pengumpulan Akan Dimulai Pada
+              </p>
+              <p className="fw-bold mb-3">
+                {formatDate(new Date(dataTime.time_start))} Jam{" "}
+                {formatTime(new Date(dataTime.time_start))}
+              </p>
+            </div>
+          ) : (
+            todai > new Date(dataTime.time_end).getTime() ? (
+              <div className="text-center mb-5">
+                <p className="fw-bold mb-3">
+                  Waktu Pengumpulan Telah Berakhir
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={upload} className="mb-5">
+                <div className={`input-group mb-3 ${styles["input-box"]}`}>
+                  <input
+                    type="file"
+                    className={`form-control ${styles["input"]}`}
+                    id="inputGroupFile02"
+                    accept=".zip, .rar, .7z, .tar"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    className="btn btn-success rounded-4"
+                    disabled={isItDisabled}
+                    onClick={() => setLoading(true)}
+                  >
+                    {loading ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    ) : (
+                      "Kirim"
+                    )}
+                  </button>
+                </div>
+              </form>
+            )
+          )
+
+        }
         <div>
-          <p>Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} /></p>
+          <p>
+            Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} />
+          </p>
         </div>
         <p dangerouslySetInnerHTML={{ __html: message }} />
         <div className={`${styles["description"]}`}>
           <div>
             Note : <br />
             1. Format File Zip, Rar, 7z, Tar <br />
-            2. Nama File ( contoh : Nama Kalian_Judul Karya.zip) <br />
+            2. Nama File ( contoh : LPFOSTIFEST_NamaLengkap.zip) <br />
             3. Ukuran File Maksimal 10 MB <br />
-            4. Hanya dapat mengumpulkan 1 kali, pastikan file sudah benar
+            4. Hanya dapat mengumpulkan 1 kali, pastikan file dan format nama sudah benar <br />
+            5. Batas waktu Submit pada hari {formatDate(new Date(dataTime.time_end))} Jam {formatTime(new Date(dataTime.time_end))} WIB
           </div>
         </div>
       </div>

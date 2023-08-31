@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import styles from "./countDown.module.css"; // kurang styling
+import styles from "./countDown.module.css";
 
 export default function CountDown() {
   const daysTensRef = useRef(null);
@@ -10,10 +10,22 @@ export default function CountDown() {
   const minutesOnesRef = useRef(null);
   const secondsTensRef = useRef(null);
   const secondsOnesRef = useRef(null);
+  const [timerData, setTimerData] = useState({});
+
+  useEffect(() => {
+    async function fetchTimerData() {
+      const res = await fetch("/api/pendaftaran");
+      const d= await res.json()
+      setTimerData(d.timer);
+    }
+
+    fetchTimerData();
+  }, []);
 
   // Set the date we're counting down to
-  const countDownDate = new Date("Sept 1, 2023 23:59:59").getTime();
+  // const countDownDate = new Date("Sept 1, 2023 23:59:59").getTime();
   useEffect(() => {
+    const countDownDate = new Date(timerData.time_end)
     const interval = setInterval( ()=> {
 
       // Find the distance between now and the count down date
@@ -26,7 +38,6 @@ export default function CountDown() {
       );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      console.log('detik ke : '+seconds);
 
       flip(daysTensRef, Math.floor(days / 10));
       flip(daysOnesRef, days % 10);
@@ -40,7 +51,8 @@ export default function CountDown() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [timerData]);
+
 
   const flip = (flipCardRef, newNumber) => {
     if (!flipCardRef || !flipCardRef.current) {
@@ -74,6 +86,8 @@ export default function CountDown() {
     });
     flipCardRef.current.append(topFlip, bottomFlip);
   };
+
+
   return (
     <div
       className={`text-center mb-4 d-flex justify-content-center align-items-center ${styles["countdown-box"]}`}

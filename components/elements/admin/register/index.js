@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 
 export default function AdminRegister() {
   const [page, setPage] = useState("first");

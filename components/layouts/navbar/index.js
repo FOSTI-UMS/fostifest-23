@@ -14,72 +14,26 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-white shadow fixed-top "
-      data-aos="fade-down"
-    >
+    <nav className="navbar navbar-expand-lg bg-white shadow fixed-top " data-aos="fade-down">
       <div className="container">
         <Image src={LogoFostiFest} alt="logonavbar" height={50} priority />
-        <button
-          className={`navbar-toggler ${styles["burger-menu"]}`}
-          onClick={updateMenu}
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <div
-            className={`${styles["burger-bar"]} ${
-              isMenuClicked ? styles.clicked : styles.unclicked
-            }`}
-          ></div>
-          <div
-            className={`${styles["burger-bar"]} ${
-              isMenuClicked ? styles.clicked : styles.unclicked
-            }`}
-          ></div>
-          <div
-            className={`${styles["burger-bar"]} ${
-              isMenuClicked ? styles.clicked : styles.unclicked
-            }`}
-          ></div>
+        <button className={`navbar-toggler ${styles["burger-menu"]}`} onClick={updateMenu} type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <div className={`${styles["burger-bar"]} ${isMenuClicked ? styles.clicked : styles.unclicked}`}></div>
+          <div className={`${styles["burger-bar"]} ${isMenuClicked ? styles.clicked : styles.unclicked}`}></div>
+          <div className={`${styles["burger-bar"]} ${isMenuClicked ? styles.clicked : styles.unclicked}`}></div>
         </button>
         <div className="collapse navbar-collapse mt-2 mb-2" id="navbarNav">
           <ul className="navbar-nav ms-auto fs-5 fw-bold d-flex align-items-start justify-content-start">
             <li className="nav-item me-5">
-              <Link
-                className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`}
-                href="https://fostiums.org/"
-              >
-                <Image
-                  src={TentangFosti}
-                  alt="TentangFosti"
-                  height={25}
-                  width={25}
-                  className="me-2 "
-                />
-                <h7 className={`text-dark ${styles["li-navbar-font"]}`}>
-                  Tentang FOSTI
-                </h7>
+              <Link className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} href="https://fostiums.org/">
+                <Image src={TentangFosti} alt="TentangFosti" height={25} width={25} className="me-2 " />
+                <div className={`text-dark fs-5 ${styles["li-navbar-font"]}`}>Tentang FOSTI</div>
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`}
-                href="#"
-              >
-                <Image
-                  src={RuleBook}
-                  alt="TentangFosti"
-                  height={25}
-                  width={25}
-                  className="me-2 "
-                />
-                <h7 className={`text-dark ${styles["li-navbar-font"]}`}>
-                  Rule Book
-                </h7>
+              <Link href="/Rulebook.pdf" className={`${styles["li-navbar"]} nav-link d-flex align-items-center justify-content-center`} target="_blank">
+                <Image src={RuleBook} alt="TentangFosti" height={25} width={25} className="me-2 " />
+                <div className={`text-dark fs-5 ${styles["li-navbar-font"]}`}>Rule Book</div>
               </Link>
             </li>
           </ul>
