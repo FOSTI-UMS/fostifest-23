@@ -5,22 +5,21 @@ export async function middleware(req) {
   const base_url = process.env.base_url;
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
-  const sekarang = new Date().toISOString().split('.')[0].slice(0, -3);
-  const d= await fetch(base_url + 'api/pendaftaran');
-  const daftar= await d.json();
-  const p= await fetch(base_url + 'api/pengumpulan');
-  const upload= await p.json();
-  
+  const sekarang = new Date().getTime();
+  const d = await fetch(base_url + 'api/pendaftaran');
+  const daftar = await d.json();
+  const p = await fetch(base_url + 'api/pengumpulan');
+  const upload = await p.json();
+
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
-  
+
   if (req.nextUrl.pathname == '/register') {
-    console.log(new Date(sekarang) < new Date(daftar.timer.time_start));
-    if (new Date(sekarang) < new Date(daftar.timer.time_start)) {
+    if (sekarang < new Date(daftar.timer.time_start).getTime()) {
       return NextResponse.redirect(new URL('/soon', req.url));
     }
-    else if (new Date(sekarang) > new Date(upload.timer.time_start)) {
+    else if (sekarang > new Date(upload.timer.time_end).getTime()) {
       return NextResponse.redirect(new URL('/end', req.url));
     }
     else {
@@ -30,7 +29,7 @@ export async function middleware(req) {
 
   // PESERTA LOMBA CHECKER
   if (user) {
-    const { data: userdata, error: usererror } = await supabaseMiddleware
+    const { data: userdata } = await supabaseMiddleware
       .from('users')
       .select('jenis')
       .eq('email', user.email)
@@ -48,14 +47,14 @@ export async function middleware(req) {
 
   // ADMIN CHECKER
   if (user) {
-    const { data: userdata, error: usererror } = await supabaseMiddleware
+    const { data: userdata } = await supabaseMiddleware
       .from('users')
       .select('is_admin')
       .eq('email', user.email)
       .single();
 
     if (req.nextUrl.pathname.startsWith('/admin')) {
-      if (userdata && userdata.is_admin) {
+      if (userdata?.is_admin) {
         return res;
       }
       else {
@@ -63,11 +62,11 @@ export async function middleware(req) {
       }
     }
   }
-  else {
-    if (!user && req.nextUrl.pathname == '/admin/login' || req.nextUrl.pathname.startsWith('/admin/register')) {
+  else if (!user) {
+    if (req.nextUrl.pathname == '/admin/login' || req.nextUrl.pathname.startsWith('/admin/register')) {
       return res;
     }
-    else if (!user && req.nextUrl.pathname !== '/') {
+    else if (req.nextUrl.pathname !== '/') {
       return NextResponse.redirect(new URL('/login', req.url));
     }
   }
