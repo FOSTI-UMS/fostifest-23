@@ -1,0 +1,10 @@
+.lottie{
+    height: 50vh;
+}
+
+@media (max-width: 768px){
+    .lottie{
+        margin-top: 50px;
+        height: 30vh;
+    }
+}
