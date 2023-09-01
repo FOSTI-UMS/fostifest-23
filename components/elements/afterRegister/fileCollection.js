@@ -19,8 +19,6 @@ export default function FileCollection() {
   const [dataTime, setDataTime] = useState({});
   const todai = new Date().getTime();
 
-
-
   const formatDate = (date) => {
     const options = {
       weekday: "long",
