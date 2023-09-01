@@ -42,7 +42,7 @@ export default function FileCollection() {
   const cekFile = async () => {
     const user = await supabase.auth.getUser();
     const usermail = user.data.user.email;
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("submit_status")
       .select("*")
       .eq("email", usermail);
@@ -80,10 +80,7 @@ export default function FileCollection() {
       alert("File terlalu besar, maksimal 10MB");
       return;
     } else {
-      const parts = file.name.split("_");
-      const namaPeserta = parts[0];
-      const judulKarya = parts[1];
-      const ext = judulKarya.split(".").pop();
+      const ext = file.name.split(".").pop();
       const allowedExt = ["zip", "7z", "rar", "tar"];
       if (!allowedExt.includes(ext)) {
         alert("File yang diupload harus berupa file arsip");
@@ -92,7 +89,7 @@ export default function FileCollection() {
         const user = await supabase.auth.getUser();
         const usermail = user.data.user.email;
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from("file_submitted")
           .upload(`public/${file.name}`, file, {
             cacheControl: "3600",
@@ -111,7 +108,6 @@ export default function FileCollection() {
         if (insertErr) {
           alert("insert err: " + insertErr.message);
         } else if (error) {
-          // Buat FE: Edit alert ini jadi modal popup
           alert("upld err: " + error.message);
         }
         Cookies.set("successUploaded", "true");

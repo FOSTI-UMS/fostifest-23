@@ -5,21 +5,20 @@ export async function middleware(req) {
   const base_url = process.env.base_url;
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
-  const sekarang = new Date().getTime();
+  const sekarang = new Date();
   const d = await fetch(base_url + 'api/pendaftaran');
   const daftar = await d.json();
-  const p = await fetch(base_url + 'api/pengumpulan');
-  const upload = await p.json();
 
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
 
   if (req.nextUrl.pathname == '/register') {
-    if (sekarang < new Date(daftar.timer.time_start).getTime()) {
+
+    if (sekarang < new Date(daftar.timer.time_start)) {
       return NextResponse.redirect(new URL('/soon', req.url));
     }
-    else if (sekarang > new Date(upload.timer.time_end).getTime()) {
+    else if (sekarang > new Date(daftar.timer.time_end)) {
       return NextResponse.redirect(new URL('/end', req.url));
     }
     else {
