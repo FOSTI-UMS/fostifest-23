@@ -2,12 +2,13 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 
 export async function middleware(req) {
+  const base_url = process.env.base_url;
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const sekarang = new Date().toISOString().split('.')[0].slice(0, -3);
-  const d= await fetch('http://localhost:3000/api/pendaftaran');
+  const d= await fetch(base_url + 'api/pendaftaran');
   const daftar= await d.json();
-  const p= await fetch('http://localhost:3000/api/pengumpulan');
+  const p= await fetch(base_url + 'api/pengumpulan');
   const upload= await p.json();
   
   const {
