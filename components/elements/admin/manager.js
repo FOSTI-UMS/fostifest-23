@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./admin.module.css";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import Lottie from "lottie-react";
 import deleteImage from "@/assets/gifs/delete.json";
 import { uuid } from 'uuidv4';

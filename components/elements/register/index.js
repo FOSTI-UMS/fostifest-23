@@ -1,11 +1,12 @@
 import styles from "./register.module.css";
-import LoginGif from "/assets/gifs/login.json";
+import LoginGif from "/assets/gifs/login_2.json";
 import Lottie from "lottie-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
+import BackgroundSide from "@/assets/images/bg_login.png";
 import PendaftaranTutup from "../afterRegister/tutup";
 
 export default function FormRegister(){ 
@@ -109,20 +110,30 @@ export default function FormRegister(){
   }
 
   return (
-    <div className="container">
-      <div className="row align-items-center" style={{ minHeight: "100vh" }}>
-        <div className="col-md-6 d-none d-md-block">
-          <div className="d-flex justify-content-center" data-aos="fade">
-            <Lottie animationData={LoginGif} style={{ width: "60%" }} />
-          </div>
+    <div className="container d-flex justify-content-center align-items-center p-0" style={{ minHeight: "100vh" }} 
+    data-aos="fade"
+    >
+    <div className="row card container mx-3 d-flex flex-row shadow border border-none p-0" style={{ minHeight: "80vh" }}>
+      <div
+        className="col-md-6 d-none d-lg-block border-end rounded-start-2"
+        style={{ 
+          backgroundImage: `url(${BackgroundSide.src})`,
+          backgroundSize: "cover",
+          height: "100%",
+        }}
+      >
+        <div
+          className="d-flex justify-content-center" 
+        >
+          <Lottie animationData={LoginGif} style={{ width: "75%", minHeight: "85vh" }} />
         </div>
-        <div className="col-md-6">
+      </div>
+        <div className="col-lg-6">
           <div
-            className={`card rounded-4 shadow ${styles["card-width"]}`}
-            data-aos="fade"
+            className={`${styles["card-width"]}`}
           >
             <div className="card-body">
-              <div className="fw-bold my-2 text-center">Register</div>
+              <div className="fs-2 my-2 text-center">Register</div>
               <form onSubmit={handleRegist}>
                 <div className={page === "first" ? "d-block" : "d-none"}>
                   <div className="mb-2 d-flex justify-content-end">
@@ -169,6 +180,7 @@ export default function FormRegister(){
                       type="number"
                       id="noTelp"
                       name="noTelp"
+                      inputMode="none"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setTelp(e.target.value)}
                     />

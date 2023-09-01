@@ -11,7 +11,7 @@
 }
 
 .btn-custom-2 {
-  width: 100px;
+  width: 160px;
   height: 40px;
   background-color: #4682a9;
   color: #fff;
@@ -20,6 +20,10 @@
   justify-content: center;
   align-items: center;
   font-weight: bolder;
+}
+
+.btn-custom-2:hover {
+  background-color: #2a78ac;
 }
 
 .title-font {

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 
 export default function Logout() {
   const router = useRouter();

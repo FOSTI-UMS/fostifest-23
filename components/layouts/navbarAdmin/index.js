@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../navbar/navbar.module.css";
 import { useEffect, useState } from "react";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 
 const NavbarAdmin = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);

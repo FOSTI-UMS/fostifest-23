@@ -1,37 +1,25 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
-import supabase from '@/api/supabase';
-
-async function getTime(codename) {
-  const timer = {
-    time_start: "",
-    time_end: ""
-  };
-  const getTimer = await supabase.from("timer").select("time_start, time_end").eq('codename', codename);
-  if (getTimer.data.length > 0) {
-    timer.time_start = getTimer.data[0].time_start;
-    timer.time_end = getTimer.data[0].time_end;
-  }
-
-  return timer;
-}
 
 export async function middleware(req) {
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const sekarang = new Date().toISOString().split('.')[0].slice(0, -3);
-  const daftar = await getTime('pendaftaran');
-  const upload = await getTime('pengumpulan');
-
+  const d= await fetch('http://localhost:3000/api/pendaftaran');
+  const daftar= await d.json();
+  const p= await fetch('http://localhost:3000/api/pengumpulan');
+  const upload= await p.json();
+  
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
   
   if (req.nextUrl.pathname == '/register') {
-    if (sekarang < daftar.time_start) {
+    console.log(new Date(sekarang) < new Date(daftar.timer.time_start));
+    if (new Date(sekarang) < new Date(daftar.timer.time_start)) {
       return NextResponse.redirect(new URL('/soon', req.url));
     }
-    else if (sekarang > daftar.time_end) {
+    else if (new Date(sekarang) > new Date(upload.timer.time_start)) {
       return NextResponse.redirect(new URL('/end', req.url));
     }
     else {
@@ -48,19 +36,11 @@ export async function middleware(req) {
       .single();
 
     if (req.nextUrl.pathname.startsWith('/file-collection')) {
-      if (sekarang < upload.time_start) {
-        return NextResponse.redirect(new URL('/upload/soon', req.url));
-      }
-      else if (sekarang > upload.time_end) {
-        return NextResponse.redirect(new URL('/upload/end', req.url));
+      if (userdata && userdata.jenis == 'LOMBA DESIGN') {
+        return res;
       }
       else {
-        if (userdata && userdata.jenis == 'LOMBA DESIGN') {
-          return res;
-        }
-        else {
-          return NextResponse.redirect(new URL('/profile', req.url));
-        }
+        return NextResponse.redirect(new URL('/profile', req.url));
       }
     }
   }

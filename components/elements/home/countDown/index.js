@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import styles from "./countDown.module.css"; // kurang styling
+import styles from "./countDown.module.css";
 
 export default function CountDown() {
   const daysTensRef = useRef(null);
@@ -10,39 +10,49 @@ export default function CountDown() {
   const minutesOnesRef = useRef(null);
   const secondsTensRef = useRef(null);
   const secondsOnesRef = useRef(null);
+  const [timerData, setTimerData] = useState({});
 
-  function Timer() {
-    useEffect(() => {
-      setInterval(function () {
-        // Set the date we're counting down to
-        var countDownDate = new Date("Aug 30, 2023 23:59:59").getTime();
+  useEffect(() => {
+    async function fetchTimerData() {
+      const res = await fetch("/api/pendaftaran");
+      const d= await res.json()
+      setTimerData(d.timer);
+    }
 
-        // Get today's date and time
-        var now = new Date().getTime();
+    fetchTimerData();
+  }, []);
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+  // Set the date we're counting down to
+  // const countDownDate = new Date("Sept 1, 2023 23:59:59").getTime();
+  useEffect(() => {
+    const countDownDate = new Date(timerData.time_end)
+    const interval = setInterval( ()=> {
 
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // Find the distance between now and the count down date
+      const distance = countDownDate - Date.now();
 
-        flip(daysTensRef, Math.floor(days / 10));
-        flip(daysOnesRef, days % 10);
-        flip(hoursTensRef, Math.floor(hours / 10));
-        flip(hoursOnesRef, hours % 10);
-        flip(minutesTensRef, Math.floor(minutes / 10));
-        flip(minutesOnesRef, minutes % 10);
-        flip(secondsTensRef, Math.floor(seconds / 10));
-        flip(secondsOnesRef, seconds % 10);
-      }, 1000);
-    });
-  }
-  Timer();
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      flip(daysTensRef, Math.floor(days / 10));
+      flip(daysOnesRef, days % 10);
+      flip(hoursTensRef, Math.floor(hours / 10));
+      flip(hoursOnesRef, hours % 10);
+      flip(minutesTensRef, Math.floor(minutes / 10));
+      flip(minutesOnesRef, minutes % 10);
+      flip(secondsTensRef, Math.floor(seconds / 10));
+      flip(secondsOnesRef, seconds % 10);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timerData]);
+
 
   const flip = (flipCardRef, newNumber) => {
     if (!flipCardRef || !flipCardRef.current) {
@@ -76,6 +86,8 @@ export default function CountDown() {
     });
     flipCardRef.current.append(topFlip, bottomFlip);
   };
+
+
   return (
     <div
       className={`text-center mb-4 d-flex justify-content-center align-items-center ${styles["countdown-box"]}`}
