@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import AdminRegister from '@/components/elements/admin/register';
 import Link from "next/link";
-import supabase from '@/api/supabase';
+import supabase from '@/pages/api/supabase';
 
 export default function RegisterPage() {
     const router = useRouter();

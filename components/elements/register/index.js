@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import BackgroundSide from "@/assets/images/bg_login.png";
 import PendaftaranTutup from "../afterRegister/tutup";
 
@@ -180,7 +180,7 @@ export default function FormRegister(){
                       type="number"
                       id="noTelp"
                       name="noTelp"
-                      inputmode="none"
+                      inputMode="none"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setTelp(e.target.value)}
                     />

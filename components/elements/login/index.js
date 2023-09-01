@@ -5,7 +5,7 @@ import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import Cookies from "js-cookie";
 import BackgroundSide from "@/assets/images/bg_login.png";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import Lottie from "lottie-react";
 import profileImage from "@/assets/gifs/profile-blue.json";
 import Logout from "@/components/elements/logout";

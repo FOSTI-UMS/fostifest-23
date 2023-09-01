@@ -1,11 +1,12 @@
 import styles from "./style.module.css";
 import Link from "next/link";
-import supabase from "@/api/supabase";
+import supabase from "@/pages/api/supabase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 import Cookies from "js-cookie";
+import timer from "@/pages/api/[timerName]";
 
 export default function FileCollection() {
   const router = useRouter();
@@ -15,6 +16,8 @@ export default function FileCollection() {
   const [statusUpload, setStatus] = useState();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [dataTime, setDataTime] = useState({});
+  const todai = new Date().getTime();
 
   const formatDate = (date) => {
     const options = {
@@ -37,7 +40,7 @@ export default function FileCollection() {
   const cekFile = async () => {
     const user = await supabase.auth.getUser();
     const usermail = user.data.user.email;
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("submit_status")
       .select("*")
       .eq("email", usermail);
@@ -75,10 +78,7 @@ export default function FileCollection() {
       alert("File terlalu besar, maksimal 10MB");
       return;
     } else {
-      const parts = file.name.split("_");
-      const namaPeserta = parts[0];
-      const judulKarya = parts[1];
-      const ext = judulKarya.split(".").pop();
+      const ext = file.name.split(".").pop();
       const allowedExt = ["zip", "7z", "rar", "tar"];
       if (!allowedExt.includes(ext)) {
         alert("File yang diupload harus berupa file arsip");
@@ -87,7 +87,7 @@ export default function FileCollection() {
         const user = await supabase.auth.getUser();
         const usermail = user.data.user.email;
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from("file_submitted")
           .upload(`public/${file.name}`, file, {
             cacheControl: "3600",
@@ -99,16 +99,13 @@ export default function FileCollection() {
           .insert([
             {
               email: usermail,
-              nama_file: file.name,
-              nama_peserta: namaPeserta,
-              judul_karya: judulKarya.split(".")[0],
+              nama_file: file.name
             },
           ]);
 
         if (insertErr) {
           alert("insert err: " + insertErr.message);
         } else if (error) {
-          // Buat FE: Edit alert ini jadi modal popup
           alert("upld err: " + error.message);
         }
         Cookies.set("successUploaded", "true");
@@ -130,6 +127,15 @@ export default function FileCollection() {
   };
 
   useEffect(() => {
+    async function fetchTimerData() {
+      const data = await timer("pengumpulan");
+      setDataTime(data);
+    }
+
+    fetchTimerData();
+  }, []);
+
+  useEffect(() => {
     cekUploadFile();
     cekFile();
     openModal();
@@ -144,35 +150,58 @@ export default function FileCollection() {
         >
           Pengumpulan Hasil Desain Landing Page
         </div>
-        <form onSubmit={upload}>
-          <div className={`input-group mb-3 ${styles["input-box"]}`}>
-            <input
-              type="file"
-              className={`form-control ${styles["input"]}`}
-              id="inputGroupFile02"
-              accept=".zip, .rar, .7z, .tar"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </div>
-          <div className="d-flex justify-content-center">
-            <button
-              type="submit"
-              className="btn btn-success rounded-4"
-              disabled={isItDisabled}
-              onClick={() => setLoading(true)}
-            >
-              {loading ? (
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-              ) : (
-                "Kirim"
-              )}
-            </button>
-          </div>
-        </form>
+        {
+          todai < new Date(dataTime.time_start).getTime() ? (
+            <div className="text-center mb-5">
+              <p className="fw-bold mb-3">
+                Waktu Pengumpulan Akan Dimulai Pada
+              </p>
+              <p className="fw-bold mb-3">
+                {formatDate(new Date(dataTime.time_start))} Jam{" "}
+                {formatTime(new Date(dataTime.time_start))}
+              </p>
+            </div>
+          ) : (
+            todai > new Date(dataTime.time_end).getTime() ? (
+              <div className="text-center mb-5">
+                <p className="fw-bold mb-3">
+                  Waktu Pengumpulan Telah Berakhir
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={upload} className="mb-5">
+                <div className={`input-group mb-3 ${styles["input-box"]}`}>
+                  <input
+                    type="file"
+                    className={`form-control ${styles["input"]}`}
+                    id="inputGroupFile02"
+                    accept=".zip, .rar, .7z, .tar"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    className="btn btn-success rounded-4"
+                    disabled={isItDisabled}
+                    onClick={() => setLoading(true)}
+                  >
+                    {loading ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    ) : (
+                      "Kirim"
+                    )}
+                  </button>
+                </div>
+              </form>
+            )
+          )
+
+        }
         <div>
           <p>
             Status: <span dangerouslySetInnerHTML={{ __html: statusUpload }} />
@@ -183,9 +212,10 @@ export default function FileCollection() {
           <div>
             Note : <br />
             1. Format File Zip, Rar, 7z, Tar <br />
-            2. Nama File ( contoh : Nama Kalian_Judul Karya.zip) <br />
+            2. Nama File ( contoh : LPFOSTIFEST_NamaLengkap.zip) <br />
             3. Ukuran File Maksimal 10 MB <br />
-            4. Hanya dapat mengumpulkan 1 kali, pastikan file sudah benar
+            4. Hanya dapat mengumpulkan 1 kali, pastikan file dan format nama sudah benar <br />
+            5. Batas waktu Submit pada hari {formatDate(new Date(dataTime.time_end))} Jam {formatTime(new Date(dataTime.time_end))} WIB
           </div>
         </div>
       </div>
