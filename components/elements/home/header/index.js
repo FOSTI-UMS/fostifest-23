@@ -79,7 +79,7 @@ export default function Header() {
                     minute: '2-digit'
                   })
                 )
-              }
+              } WIB
             </small>
           </div>
           <div className="col">
