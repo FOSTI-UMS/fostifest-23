@@ -14,7 +14,6 @@ export default function CountDown() {
     time_start: new Date(),
     time_end: new Date()
   });
-
   useEffect(() => {
     async function fetchTimerData() {
       const res = await fetch("/api/pendaftaran");
@@ -72,7 +71,7 @@ export default function CountDown() {
         );
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+        
         flip(daysTensRef, Math.floor(days / 10));
         flip(daysOnesRef, days % 10);
         flip(hoursTensRef, Math.floor(hours / 10));
