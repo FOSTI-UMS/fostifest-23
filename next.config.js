@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    base_url: 'https://fostifest.fostiums.org/',
+    base_url: 'https://fostifest-23-pu8dvujp6-fostiums.vercel.app',
   }
 }
 

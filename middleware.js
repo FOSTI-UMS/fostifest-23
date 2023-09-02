@@ -6,7 +6,7 @@ export async function middleware(req) {
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
   const sekarang = new Date();
-  const d = await fetch(base_url + 'api/pendaftaran');
+  const d = await fetch(base_url + '/api/pendaftaran');
   const daftar = await d.json();
 
   const {
