@@ -1,4 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
+import InstagramLogo from "@/assets/images/instagram.png";
+import GithubLogo from "@/assets/images/github-logo.png";
+import WaLogo from "@/assets/images/wa.png";
 
 export default function SocialMedia() {
   return (
@@ -13,17 +17,17 @@ export default function SocialMedia() {
       <div className="row justify-content-center">
         <div className="col-md-1 col-2 d-flex justify-content-center">
           <Link href="https://www.instagram.com/fosti_ums">
-            <img src="https://img.freepik.com/premium-vector/purple-gradiend-social-media-logo_197792-1883.jpg" alt="ig" height={50} width={50} />
+            <Image src={InstagramLogo} alt="ig" height={35} width={35} />
           </Link>
         </div>
         <div className="col-md-1 col-2 d-flex justify-content-center">
           <Link href="https://github.com/FOSTI-UMS">
-            <img src="https://www.pngmart.com/files/22/GitHub-PNG-Isolated-Transparent-Image.png" alt="github" height={50} width={50} />
+            <Image src={GithubLogo} alt="github" height={35} width={35} />
           </Link>
         </div>
         <div className="col-md-1 col-2 d-flex justify-content-center">
           <Link href="/whatsapp">
-            <img src="https://static.vecteezy.com/system/resources/previews/022/101/124/original/whatsapp-logo-transparent-free-png.png" alt="wa" height={50} width={50} />
+            <Image src={WaLogo} alt="wa" height={35} width={35} />
           </Link>
         </div>
       </div>

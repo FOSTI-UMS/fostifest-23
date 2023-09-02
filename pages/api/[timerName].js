@@ -2,7 +2,6 @@ import supabase from "./supabase";
 
 export default async function timer(req, res) {
     const {timerName} = req.query;
-    console.log(timerName,'✅🔥');
 
     const timer = {
         time_start: "",
