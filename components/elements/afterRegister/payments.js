@@ -10,16 +10,17 @@ export default function Payments() {
         </div>
         <div className="row mb-3">
           <p className={styles["description"]}>
-            1. Registrasi dengan E-Wallet ataupun Rekening <br />
+            1. Peserta Membayar 35.000 <br />
             2. Metode pembayaran yang di sediakan : <br />
-            • Rekening : Transfer Bank BSI dengan No Rekening :
-            ****************** AN Dizzo <br />
-            • E-Wallet : Kirim DANA dengan No Telp : ****************** AN Dizzo
+            • Rekening : Transfer Bank BRI dengan No Rekening :
+            0182-01-058297-50-0 AN HANIFAH EKA CAHYANI <br />
+            • E-Wallet : Kirim Shopeepay dengan No Telp : +62 882-3265-8417 AN
+            HANIFAH
+            <br />
+            • E-Wallet : Kirim Sea Bank dengan No : 901979030610 AN HANIFAH
             <br />
             3. Setelah melakukan pembayaran harap menghubungi admin kami untuk
-            validasi pembayaran : <br />
-            • Admin 1 +628********** (Rekening ) <br />• Admin 2 +628**********
-            ( E-Wallet )
+            validasi pembayaran : <br />• Admin 1 +62 812-4653-1544 (Viki)
           </p>
         </div>
         <div className="row">
