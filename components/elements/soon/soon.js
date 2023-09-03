@@ -11,7 +11,7 @@ export default function Soon() {
   useEffect(() => {
     async function fetchTimerData() {
       const res = await fetch("/api/pendaftaran");
-      const d = await res.json();
+      const d = await res.json()
       setTimerData(d.timer);
     }
 
@@ -34,7 +34,9 @@ export default function Soon() {
           />
         </div>
         <div className="col-lg text-center" data-aos="fade-up">
-          <h3 className="fw-bold fs-2">Pendaftaran Belum Dibuka</h3>
+          <h3 className="fw-bold fs-2">
+            Pendaftaran Belum Dibuka
+          </h3>
           <br />
           <p className="fw-bolder text-secondary">
             Waktu Pendaftaran Akan Dimulai

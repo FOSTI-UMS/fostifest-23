@@ -12,9 +12,9 @@ export default function CountDown() {
   const secondsOnesRef = useRef(null);
   const [timerData, setTimerData] = useState({
     time_start: new Date(),
-    time_end: new Date(),
+    time_end: new Date()
   });
-
+  
   useEffect(() => {
     async function fetchTimerData() {
       const response = await fetch("/api/pendaftaran");
