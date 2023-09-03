@@ -9,8 +9,6 @@ export async function middleware(req) {
   const d = await fetch(base_url + '/api/pendaftaran');
   const daftar = await d.json();
 
-  console.log(sekarang + '--- ' + daftar.timer.time_end.getTime());
-
   const {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
