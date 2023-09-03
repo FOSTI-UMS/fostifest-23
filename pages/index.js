@@ -8,6 +8,7 @@ import FostiFest from "@/components/elements/home/fostiFest";
 import RoadShow from "@/components/elements/home/roadShow";
 import TimelineImg from "@/assets/images/timeline.png";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Index() {
   return (
