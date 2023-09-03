@@ -14,6 +14,7 @@ export async function middleware(req) {
   } = await supabaseMiddleware.auth.getUser();
 
   if (req.nextUrl.pathname == '/register') {
+    console.log(sekarang);
     if (sekarang < new Date(daftar.timer.time_start).getTime()) {
       return NextResponse.redirect(new URL('/soon', req.url));
     }
