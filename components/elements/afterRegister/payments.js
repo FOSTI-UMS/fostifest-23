@@ -10,7 +10,7 @@ export default function Payments() {
         </div>
         <div className="row mb-3">
           <p className={styles["description"]}>
-            1. Peserta Membayar 35.000 <br />
+            1. Peserta Membayar 35.000 (Lomba) dan 15.000 (Seminar) <br />
             2. Metode pembayaran yang di sediakan : <br />
             • Rekening : Transfer Bank BRI dengan No Rekening :
             0182-01-058297-50-0 AN HANIFAH EKA CAHYANI <br />
