@@ -18,10 +18,12 @@ export default function Soon() {
     fetchTimerData();
   }, []);
 
-
   return (
     <div className="container">
-      <div className="row justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <div
+        className="row justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
         <div className="col-lg">
           <Lottie
             animationData={SoonImage}
@@ -41,17 +43,16 @@ export default function Soon() {
           </p>
           <CountDown />
           <p className="fw-bolder text-secondary">
-            {
-              timerData.time_start &&
-              new Date(timerData.time_start).toLocaleString('id-ID', {
-                timeZone: 'Asia/Jakarta',
-                year: 'numeric',
-                month: 'long',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-              })
-            } WIB
+            {timerData.time_start &&
+              new Date(timerData.time_start).toLocaleString("id-ID", {
+                timeZone: "Asia/Jakarta",
+                year: "numeric",
+                month: "long",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+            WIB
           </p>
           <div className="row">
             <div className="col">
