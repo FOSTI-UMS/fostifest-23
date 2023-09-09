@@ -5,7 +5,10 @@ export async function middleware(req) {
   const base_url = process.env.base_url;
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
-  const sekarang = new Date().getTime();
+  const serverTime = new Date();
+  const gmt7f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta' });
+  const gmt7s = gmt7f.format(serverTime);
+  const sekarang = new Date(gmt7s).getTime();
   const d = await fetch(base_url + '/api/pendaftaran');
   const daftar = await d.json();
 
@@ -41,6 +44,10 @@ export async function middleware(req) {
         return NextResponse.redirect(new URL('/profile', req.url));
       }
     }
+
+    if (req.nextUrl.pathname.startsWith('/payments')) {
+      return res;
+    }
   }
 
   // ADMIN CHECKER
@@ -71,5 +78,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/', '/profile', '/file-collection', '/admin/:path*', '/register'],
+  matcher: ['/', '/profile', '/file-collection', '/admin/:path*', '/register', '/payments'],
 };
