@@ -5,10 +5,9 @@ export async function middleware(req) {
   const base_url = process.env.base_url;
   const res = NextResponse.next();
   const supabaseMiddleware = createMiddlewareClient({ req, res });
-  const serverTime = new Date();
-  const gmt7f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Jakarta' });
-  const gmt7s = gmt7f.format(serverTime);
-  const sekarang = new Date(gmt7s).getTime();
+  const gmt7TimeZone = 'Asia/Bangkok'; // GMT+7 timezone
+  const now = new Date().toLocaleString('en-US', { timeZone: gmt7TimeZone });
+  const sekarang = new Date(now).getTime();
   const d = await fetch(base_url + '/api/pendaftaran');
   const daftar = await d.json();
 
@@ -17,6 +16,7 @@ export async function middleware(req) {
   } = await supabaseMiddleware.auth.getUser();
 
   if (req.nextUrl.pathname == '/register') {
+    console.log(sekarang);
     if (sekarang < new Date(daftar.timer.time_start).getTime()) {
       return NextResponse.redirect(new URL('/soon', req.url));
     }
