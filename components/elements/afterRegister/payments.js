@@ -14,8 +14,7 @@ export default function Payments() {
             2. Metode pembayaran yang di sediakan : <br />
             • Rekening : Transfer Bank BRI dengan No Rekening :
             0182-01-058297-50-0 AN HANIFAH EKA CAHYANI <br />
-            • E-Wallet : Kirim Shopeepay dengan No Telp : +62 882-3265-8417 AN
-            HANIFAH
+            • E-Wallet : Kirim Shopeepay dengan No Telp : +62 812-4963-9524
             <br />
             • E-Wallet : Kirim Sea Bank dengan No : 901979030610 AN HANIFAH
             <br />
