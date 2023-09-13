@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import Timeline from "@/assets/images/timeline.png";
-import FostifestCompetition from "@/assets/images/Fostifest-competition.png";
-import FostifestSeminar from "@/assets/images/Fostifest-seminar.png";
+import FostifestCompetition from "@/assets/images/Fostifest-Competition.png";
+import FostifestSeminar from "@/assets/images/Fostifest-Seminar.png";
 
 const PosterEvent = () => {
   return (
