@@ -6,6 +6,7 @@ import HimakomLogo from "@/assets/images/himakom-logo.jpg";
 import InformatikaLogo from "@/assets/images/informatika-logo.png";
 import HMPLogo from "@/assets/images/HMP.png";
 import KineLogo from "@/assets/images/kine-logo.PNG";
+import RadikLogo from "@/assets/images/radik-logo.png";
 
 export default function MediaPartner() {
   return (
@@ -37,6 +38,9 @@ export default function MediaPartner() {
         </div>
         <div className="col d-flex justify-content-center">
           <Image src={KineLogo} alt="kine" className="w-75 h-50" />
+        </div>
+        <div className="col d-flex justify-content-center">
+          <Image src={RadikLogo} alt="radik" className="w-75 h-50" />
         </div>
       </div>
     </div>
