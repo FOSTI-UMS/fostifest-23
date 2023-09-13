@@ -44,6 +44,10 @@ export async function middleware(req) {
         return NextResponse.redirect(new URL('/profile', req.url));
       }
     }
+
+    if (req.nextUrl.pathname.startsWith('/payments')) {
+      return res;
+    }
   }
 
   // ADMIN CHECKER
@@ -74,5 +78,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/', '/profile', '/file-collection', '/admin/:path*', '/register'],
+  matcher: ['/', '/profile', '/file-collection', '/admin/:path*', '/register', '/payments'],
 };
