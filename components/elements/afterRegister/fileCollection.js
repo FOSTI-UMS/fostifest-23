@@ -128,8 +128,9 @@ export default function FileCollection() {
 
   useEffect(() => {
     async function fetchTimerData() {
-      const data = await timer("pengumpulan");
-      setDataTime(data);
+      const res = await fetch("/api/pengumpulan");
+      const d = await res.json()
+      setDataTime(d.timer);
     }
 
     fetchTimerData();
