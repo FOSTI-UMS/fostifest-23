@@ -7,6 +7,8 @@ import InformatikaLogo from "@/assets/images/informatika-logo.png";
 import HMPLogo from "@/assets/images/HMP.png";
 import KineLogo from "@/assets/images/kine-logo.PNG";
 import RadikLogo from "@/assets/images/radik-logo.png";
+import SkimLogo from "@/assets/images/skim-logo.png";
+import LaosLogo from "@/assets/images/laos-logo.png";
 
 export default function MediaPartner() {
   return (
@@ -41,6 +43,12 @@ export default function MediaPartner() {
         </div>
         <div className="col d-flex justify-content-center">
           <Image src={RadikLogo} alt="radik" className="w-75 h-50" />
+        </div>
+        <div className="col d-flex justify-content-center">
+          <Image src={SkimLogo} alt="skim" className="w-75 h-50" />
+        </div>
+        <div className="col d-flex justify-content-center">
+          <Image src={LaosLogo} alt="laos" className="w-75 h-50" />
         </div>
       </div>
     </div>
