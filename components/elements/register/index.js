@@ -24,6 +24,14 @@ export default function FormRegister() {
 
   const handleNext = () => {
     if (nama.length != 0 && alamat.length != 0 && no_telp.length != 0) {
+      setNote((previousState) => {
+        return {
+          ...previousState,
+          noteName: null,
+          noteAddres: null,
+          noteTelp: null,
+        };
+      });
       setPage("second");
     } else {
       if (nama.length == 0) {
