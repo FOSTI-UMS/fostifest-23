@@ -9,7 +9,7 @@ import supabase from "@/pages/api/supabase";
 import BackgroundSide from "@/assets/images/bg_login.png";
 import PendaftaranTutup from "../afterRegister/tutup";
 
-export default function FormRegister(){ 
+export default function FormRegister() {
   const [page, setPage] = useState("first");
   const router = useRouter();
   const [nama, setNama] = useState("");
@@ -110,28 +110,32 @@ export default function FormRegister(){
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center p-0" style={{ minHeight: "100vh" }} 
-    data-aos="fade"
+    <div
+      className="container d-flex justify-content-center align-items-center p-0"
+      style={{ minHeight: "100vh" }}
+      data-aos="fade"
     >
-    <div className="row card container mx-3 d-flex flex-row shadow border border-none p-0" style={{ minHeight: "80vh" }}>
       <div
-        className="col-md-6 d-none d-lg-block border-end rounded-start-2"
-        style={{ 
-          backgroundImage: `url(${BackgroundSide.src})`,
-          backgroundSize: "cover",
-          height: "100%",
-        }}
+        className="row card container mx-3 d-flex flex-row shadow border border-none p-0"
+        style={{ minHeight: "80vh" }}
       >
         <div
-          className="d-flex justify-content-center" 
+          className="col-md-6 d-none d-lg-block border-end rounded-start-2"
+          style={{
+            backgroundImage: `url(${BackgroundSide.src})`,
+            backgroundSize: "cover",
+            height: "100%",
+          }}
         >
-          <Lottie animationData={LoginGif} style={{ width: "75%", minHeight: "85vh" }} />
+          <div className="d-flex justify-content-center">
+            <Lottie
+              animationData={LoginGif}
+              style={{ width: "75%", minHeight: "85vh" }}
+            />
+          </div>
         </div>
-      </div>
         <div className="col-lg-6">
-          <div
-            className={`${styles["card-width"]}`}
-          >
+          <div className={`${styles["card-width"]}`}>
             <div className="card-body">
               <div className="fs-2 my-2 text-center">Register</div>
               <form onSubmit={handleRegist}>
@@ -178,6 +182,7 @@ export default function FormRegister(){
                     </label>
                     <input
                       type="number"
+                      pattern="\d*"
                       id="noTelp"
                       name="noTelp"
                       inputMode="none"
