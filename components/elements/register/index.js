@@ -109,6 +109,7 @@ export default function FormRegister() {
     return capitalizedNames.join(" ");
   }
 
+  
   return (
     <div
       className="container d-flex justify-content-center align-items-center p-0"
@@ -181,11 +182,11 @@ export default function FormRegister() {
                       No Telp
                     </label>
                     <input
-                      type="tel"
-                      // pattern="\d*"
+                      type="number"
+                      pattern="[0-9]*"
                       id="noTelp"
                       name="noTelp"
-                      inputMode="none"
+                      inputMode="decimal"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setTelp(e.target.value)}
                     />
