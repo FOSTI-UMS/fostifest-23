@@ -22,6 +22,58 @@ export default function FormRegister() {
   const [note, setNote] = useState({});
   const defaultPayment = false;
 
+  const handleNext = () => {
+    if (nama.length != 0 && alamat.length != 0 && no_telp.length != 0) {
+      setPage("second");
+    } else {
+      if (nama.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteName: "*Nama wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteName: null,
+          };
+        });
+      }
+      if (alamat.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteAddres: "*Alamat wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteAddres: null,
+          };
+        });
+      }
+      if (no_telp.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteTelp: "*Nomer telepon wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteTelp: null,
+          };
+        });
+      }
+    }
+  };
+
   const handlePhoneNumberChange = (e) => {
     const numberOnlyPattern = /^\d+$/;
     const inputValue = e.target.value;
@@ -33,12 +85,12 @@ export default function FormRegister() {
   };
   const handleRegist = async (e) => {
     e.preventDefault();
-    if (password.length < 6) {
+    if (password.length < 6 || password == "") {
       // alert('Password should be at least 6 characters')
       setNote((previousState) => {
         return {
           ...previousState,
-          notePass: "*Password should be at least 6 characters",
+          notePass: "*Password setidaknya berisi 6 karakter",
         };
       });
     } else {
@@ -55,7 +107,14 @@ export default function FormRegister() {
         .from("users")
         .select("email")
         .eq("email", email);
-      if (data.length > 0) {
+      if (email.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteEmail: "*Email wajib diisi",
+          };
+        });
+      } else if (data.length > 0) {
         // alert("Email telah digunakan, gunakan email lain!");
         setNote((previousState) => {
           return {
@@ -118,7 +177,6 @@ export default function FormRegister() {
     return capitalizedNames.join(" ");
   }
 
-  
   return (
     <div
       className="container d-flex justify-content-center align-items-center p-0"
@@ -166,8 +224,17 @@ export default function FormRegister() {
                       name="namaLengkap"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setNama(capitalizeNames(e.target.value))}
-                      required
                     />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteName}
+                    </p>
                   </div>
                   <div className="mb-2">
                     <label
@@ -182,8 +249,17 @@ export default function FormRegister() {
                       name="alamat"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setAlamat(e.target.value)}
-                      required
                     />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteAddres}
+                    </p>
                   </div>
                   <div className="mb-2">
                     <label
@@ -200,8 +276,17 @@ export default function FormRegister() {
                       value={no_telp}
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => handlePhoneNumberChange(e)}
-                      required
                     />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteTelp}
+                    </p>
                   </div>
                   <div className="mb-4">
                     <label
@@ -219,13 +304,12 @@ export default function FormRegister() {
                       onChange={(e) =>
                         setInstansi(e.target.value.toLowerCase())
                       }
-                      required
                     />
                   </div>
                   <div className="d-grid">
                     <button
                       type="button"
-                      onClick={() => setPage("second")}
+                      onClick={() => handleNext()}
                       className={`btn ${styles["btn-login"]} rounded-4`}
                     >
                       Next
@@ -258,7 +342,6 @@ export default function FormRegister() {
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="emailHelpBlock"
                       onChange={(e) => setEmail(e.target.value)}
-                      required
                     />
                     <p
                       style={{
@@ -285,7 +368,6 @@ export default function FormRegister() {
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="passwordHelpBlock"
                       onChange={(e) => setPassword(e.target.value)}
-                      required
                     />
                     <p
                       style={{
