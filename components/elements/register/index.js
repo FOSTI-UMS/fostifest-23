@@ -181,8 +181,8 @@ export default function FormRegister() {
                       No Telp
                     </label>
                     <input
-                      type="number"
-                      pattern="\d*"
+                      type="tel"
+                      // pattern="\d*"
                       id="noTelp"
                       name="noTelp"
                       inputMode="none"
