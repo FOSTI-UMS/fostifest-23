@@ -118,6 +118,7 @@ export default function FormRegister() {
     return capitalizedNames.join(" ");
   }
 
+  
   return (
     <div
       className="container d-flex justify-content-center align-items-center p-0"
