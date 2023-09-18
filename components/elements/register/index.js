@@ -166,6 +166,7 @@ export default function FormRegister() {
                       name="namaLengkap"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setNama(capitalizeNames(e.target.value))}
+                      required
                     />
                   </div>
                   <div className="mb-2">
@@ -181,6 +182,7 @@ export default function FormRegister() {
                       name="alamat"
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => setAlamat(e.target.value)}
+                      required
                     />
                   </div>
                   <div className="mb-2">
@@ -198,6 +200,7 @@ export default function FormRegister() {
                       value={no_telp}
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => handlePhoneNumberChange(e)}
+                      required
                     />
                   </div>
                   <div className="mb-4">
@@ -216,6 +219,7 @@ export default function FormRegister() {
                       onChange={(e) =>
                         setInstansi(e.target.value.toLowerCase())
                       }
+                      required
                     />
                   </div>
                   <div className="d-grid">
@@ -254,6 +258,7 @@ export default function FormRegister() {
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="emailHelpBlock"
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                     <p
                       style={{
@@ -280,6 +285,7 @@ export default function FormRegister() {
                       className={`form-control ${styles["input-custom"]}`}
                       aria-describedby="passwordHelpBlock"
                       onChange={(e) => setPassword(e.target.value)}
+                      required
                     />
                     <p
                       style={{
