@@ -23,33 +23,54 @@ export default function FormRegister() {
   const defaultPayment = false;
 
   const handleNext = () => {
-    if (nama.length == 0) {
-      setNote((previousState) => {
-        return {
-          ...previousState,
-          notePass: "*Name should be fill in",
-        };
-      });
-    }
-    else if (alamat.length == 0) {
-      setNote((previousState) => {
-        return {
-          ...previousState,
-          notePass: "*Address should be fill in",
-        };
-      });
-    }   
-    else if (no_telp.length == 0) {
-      setNote((previousState) => {
-        return {
-          ...previousState,
-          notePass: "*telp number should be fill in",
-        };
-      });
-    }   
-    
-    else {
+    if (nama.length != 0 && alamat.length != 0 && no_telp.length != 0) {
       setPage("second");
+    } else {
+      if (nama.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteName: "*Nama wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteName: null,
+          };
+        });
+      }
+      if (alamat.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteAddres: "*Alamat wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteAddres: null,
+          };
+        });
+      }
+      if (no_telp.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteTelp: "*Nomer telepon wajib diisi",
+          };
+        });
+      } else {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteTelp: null,
+          };
+        });
+      }
     }
   };
 
@@ -69,7 +90,7 @@ export default function FormRegister() {
       setNote((previousState) => {
         return {
           ...previousState,
-          notePass: "*Password should be at least 6 characters",
+          notePass: "*Password setidaknya berisi 6 karakter",
         };
       });
     } else {
@@ -82,8 +103,18 @@ export default function FormRegister() {
     }
 
     try {
-      const { data } = await supabase.from("users").select("email").eq("email", email);
-      if (data.length > 0) {
+      const { data } = await supabase
+        .from("users")
+        .select("email")
+        .eq("email", email);
+      if (email.length == 0) {
+        setNote((previousState) => {
+          return {
+            ...previousState,
+            noteEmail: "*Email wajib diisi",
+          };
+        });
+      } else if (data.length > 0) {
         // alert("Email telah digunakan, gunakan email lain!");
         setNote((previousState) => {
           return {
@@ -119,7 +150,10 @@ export default function FormRegister() {
             })
             .select();
           if (errorInsertUser) {
-            console.log("ERROR while inserting user :", errorInsertUser.message);
+            console.log(
+              "ERROR while inserting user :",
+              errorInsertUser.message
+            );
           }
           // console.log(users);
           Cookies.set("successRegister", "true");
@@ -137,13 +171,22 @@ export default function FormRegister() {
 
   function capitalizeNames(fullName) {
     const nameArray = fullName.split(" ");
-    const capitalizedNames = nameArray.map((name) => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase());
+    const capitalizedNames = nameArray.map(
+      (name) => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+    );
     return capitalizedNames.join(" ");
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center p-0" style={{ minHeight: "100vh" }} data-aos="fade">
-      <div className="row card container mx-3 d-flex flex-row shadow border border-none p-0" style={{ minHeight: "80vh" }}>
+    <div
+      className="container d-flex justify-content-center align-items-center p-0"
+      style={{ minHeight: "100vh" }}
+      data-aos="fade"
+    >
+      <div
+        className="row card container mx-3 d-flex flex-row shadow border border-none p-0"
+        style={{ minHeight: "80vh" }}
+      >
         <div
           className="col-md-6 d-none d-lg-block border-end rounded-start-2"
           style={{
@@ -153,7 +196,10 @@ export default function FormRegister() {
           }}
         >
           <div className="d-flex justify-content-center">
-            <Lottie animationData={LoginGif} style={{ width: "75%", minHeight: "85vh" }} />
+            <Lottie
+              animationData={LoginGif}
+              style={{ width: "75%", minHeight: "85vh" }}
+            />
           </div>
         </div>
         <div className="col-lg-6">
@@ -166,47 +212,137 @@ export default function FormRegister() {
                     <small className="fw-bold text-primary">Step 1</small>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="namaLengkap" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="namaLengkap"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       Nama Lengkap
                     </label>
-                    <input type="text" id="namaLengkap" name="namaLengkap" className={`form-control ${styles["input-custom"]}`} onChange={(e) => setNama(capitalizeNames(e.target.value))}  />
+                    <input
+                      type="text"
+                      id="namaLengkap"
+                      name="namaLengkap"
+                      className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setNama(capitalizeNames(e.target.value))}
+                    />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteName}
+                    </p>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="alamat" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="alamat"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       Alamat
                     </label>
-                    <input type="text" id="alamat" name="alamat" className={`form-control ${styles["input-custom"]}`} onChange={(e) => setAlamat(e.target.value)}  />
+                    <input
+                      type="text"
+                      id="alamat"
+                      name="alamat"
+                      className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => setAlamat(e.target.value)}
+                    />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteAddres}
+                    </p>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="noTelp" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="noTelp"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       No Telp
                     </label>
-                    <input type="text" id="noTelp" name="noTelp" inputMode="none" value={no_telp} className={`form-control ${styles["input-custom"]}`} onChange={(e) => handlePhoneNumberChange(e)}  />
+                    <input
+                      type="text"
+                      id="noTelp"
+                      name="noTelp"
+                      inputMode="none"
+                      value={no_telp}
+                      className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) => handlePhoneNumberChange(e)}
+                    />
+                    <p
+                      style={{
+                        fontSize: " 10px",
+                        paddingLeft: "10px",
+                        paddingTop: "5px",
+                      }}
+                      className="text-danger"
+                    >
+                      {note.noteTelp}
+                    </p>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="instansi" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
-                      Asal Instansi <span className="text-danger">*opsional</span>
+                    <label
+                      htmlFor="instansi"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
+                      Asal Instansi{" "}
+                      <span className="text-danger">*opsional</span>
                     </label>
-                    <input type="text" id="instansi" name="instansi" className={`form-control ${styles["input-custom"]}`} onChange={(e) => setInstansi(e.target.value.toLowerCase())}  />
+                    <input
+                      type="text"
+                      id="instansi"
+                      name="instansi"
+                      className={`form-control ${styles["input-custom"]}`}
+                      onChange={(e) =>
+                        setInstansi(e.target.value.toLowerCase())
+                      }
+                    />
                   </div>
                   <div className="d-grid">
-                    <button type="button" onClick={() => handleNext()} className={`btn ${styles["btn-login"]} rounded-4`}>
+                    <button
+                      type="button"
+                      onClick={() => handleNext()}
+                      className={`btn ${styles["btn-login"]} rounded-4`}
+                    >
                       Next
                     </button>
                   </div>
                 </div>
                 <div className={page === "second" ? "d-block" : "d-none"}>
                   <div className="mb-2 d-flex align-items-center">
-                    <a onClick={() => setPage("first")} className={`${styles["btn-back"]} text-decoration-none ms-2`}>
+                    <a
+                      onClick={() => setPage("first")}
+                      className={`${styles["btn-back"]} text-decoration-none ms-2`}
+                    >
                       Kembali
                     </a>
-                    <small className="fw-bold ms-auto text-primary">Step 2</small>
+                    <small className="fw-bold ms-auto text-primary">
+                      Step 2
+                    </small>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="inputEmail5" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="inputEmail5"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       Email
                     </label>
-                    <input type="email" id="inputEmail5" name="email" className={`form-control ${styles["input-custom"]}`} aria-describedby="emailHelpBlock" onChange={(e) => setEmail(e.target.value)}  />
+                    <input
+                      type="email"
+                      id="inputEmail5"
+                      name="email"
+                      className={`form-control ${styles["input-custom"]}`}
+                      aria-describedby="emailHelpBlock"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                     <p
                       style={{
                         fontSize: " 10px",
@@ -219,10 +355,20 @@ export default function FormRegister() {
                     </p>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="inputPassword5" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="inputPassword5"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       Password
                     </label>
-                    <input type="password" id="inputPassword5" name="password" className={`form-control ${styles["input-custom"]}`} aria-describedby="passwordHelpBlock" onChange={(e) => setPassword(e.target.value)}  />
+                    <input
+                      type="password"
+                      id="inputPassword5"
+                      name="password"
+                      className={`form-control ${styles["input-custom"]}`}
+                      aria-describedby="passwordHelpBlock"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                     <p
                       style={{
                         fontSize: " 10px",
@@ -235,24 +381,41 @@ export default function FormRegister() {
                     </p>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="inputChoose" className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}>
+                    <label
+                      htmlFor="inputChoose"
+                      className={`fw-bold form-label me-auto ms-2 ${styles["label-custom"]}`}
+                    >
                       Pilih Event
                     </label>
-                    <select id="inputChoose" name="event" value={jenis} className={`form-select ${styles["input-custom"]}`} onChange={(e) => setJenis(e.target.value)}>
+                    <select
+                      id="inputChoose"
+                      name="event"
+                      value={jenis}
+                      className={`form-select ${styles["input-custom"]}`}
+                      onChange={(e) => setJenis(e.target.value)}
+                    >
                       <option value="WEBINAR">Webinar</option>
                       <option value="LOMBA DESIGN">Lomba Landing Page</option>
                     </select>
                   </div>
                   <div className="d-grid">
-                    <button type="submit" className={`btn ${styles["btn-login"]} rounded-4`}>
+                    <button
+                      type="submit"
+                      className={`btn ${styles["btn-login"]} rounded-4`}
+                    >
                       Register
                     </button>
                   </div>
                 </div>
               </form>
 
-              <Link href="/login" className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center mt-3">
-                <div className={`${styles["change-page"]}`}>Sudah punya akun?</div>
+              <Link
+                href="/login"
+                className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center mt-3"
+              >
+                <div className={`${styles["change-page"]}`}>
+                  Sudah punya akun?
+                </div>
               </Link>
             </div>
           </div>
