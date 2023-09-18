@@ -22,6 +22,15 @@ export default function FormRegister() {
   const [note, setNote] = useState({});
   const defaultPayment = false;
 
+  const handlePhoneNumberChange = (e) => {
+    const numberOnlyPattern = /^\d+$/;
+    const inputValue = e.target.value;
+    if (numberOnlyPattern.test(inputValue)) {
+      setTelp(inputValue);
+    } else {
+      setTelp("");
+    }
+  };
   const handleRegist = async (e) => {
     e.preventDefault();
     if (password.length < 6) {
@@ -181,13 +190,13 @@ export default function FormRegister() {
                       No Telp
                     </label>
                     <input
-                      type="tel"
-                      // pattern="\d*"
+                      type="text"
                       id="noTelp"
                       name="noTelp"
                       inputMode="none"
+                      value={no_telp}
                       className={`form-control ${styles["input-custom"]}`}
-                      onChange={(e) => setTelp(e.target.value)}
+                      onChange={(e) => handlePhoneNumberChange(e)}
                     />
                   </div>
                   <div className="mb-4">
