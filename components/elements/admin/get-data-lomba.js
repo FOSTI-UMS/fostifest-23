@@ -4,6 +4,7 @@ import supabase from "@/pages/api/supabase";
 import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
 import deleteImage from "@/assets/gifs/delete.json";
+import supabaseAdmin from "@/pages/api/supabase-admin";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
@@ -57,10 +58,10 @@ export default function GetDataLomba() {
     }
   };
 
-  const handleDelete = async (id) => {
-    const { error } = await supabase.from("users").delete().eq("id_user", id);
-    if (error) {
-      alert(error.message);
+  const handleDelete = async (supabase_auth_id) => {
+    const { error:errorAdmin } = await supabaseAdmin.auth.admin.deleteUser(supabase_auth_id);
+    if(errorAdmin){
+      alert(errorAdmin);
     }
     window.location.reload();
   };
@@ -109,7 +110,7 @@ export default function GetDataLomba() {
                         <button className="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-detail`} onClick={() => detail({ id: user.id_user })}>
                           Detail
                         </button>
-                        <button className="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-delete`} onClick={() => setVerif({ name: user.nama, id: user.id_user })}>
+                        <button className="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-delete`} onClick={() => setVerif({ supabase_auth_id: user.supabase_auth_id })}>
                           Hapus
                         </button>
                       </div>
@@ -203,7 +204,7 @@ export default function GetDataLomba() {
                         <small className="fw-bold">Delete User Atas Nama {verif.name} ?</small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.id)}>
+                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.supabase_auth_id)}>
                           Confirm
                         </button>
                         <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">

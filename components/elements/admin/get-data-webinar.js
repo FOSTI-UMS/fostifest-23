@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./admin.module.css";
+import supabaseAdmin from "@/pages/api/supabase-admin";
 import supabase from "@/pages/api/supabase";
 import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
@@ -26,7 +27,6 @@ export default function GetDataWebinar() {
     fetchUsers();
   }, []);
 
-  console.log(verif);
   const handleSearch = (event) => {
     const sortedUser = users.filter((row) => {
       return row.nama.toLowerCase().includes(event.target.value.toLowerCase());
@@ -57,10 +57,10 @@ export default function GetDataWebinar() {
     }
   };
 
-  const handleDelete = async (id) => {
-    const { error } = await supabase.from("users").delete().eq("id_user", id);
-    if (error) {
-      alert(error.message);
+  const handleDelete = async (supabase_auth_id) => {
+    const { error:errorAdmin } = await supabaseAdmin.auth.admin.deleteUser(supabase_auth_id);
+    if(errorAdmin){
+      alert(errorAdmin);
     }
     window.location.reload();
   };
@@ -119,7 +119,7 @@ export default function GetDataWebinar() {
                           className="btn btn-outline-danger btn-sm"
                           data-bs-toggle="modal"
                           data-bs-target={`#modal-delete`}
-                          onClick={() => setVerif({ name: user.nama, id: user.id_user })}
+                          onClick={() => setVerif({ supabase_auth_id: user.supabase_auth_id })}
                         >
                           Hapus
                         </button>
@@ -214,7 +214,7 @@ export default function GetDataWebinar() {
                         <small className="fw-bold">Delete User Atas Nama {verif.name} ?</small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.id)}>
+                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.supabase_auth_id)}>
                           Confirm
                         </button>
                         <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">
