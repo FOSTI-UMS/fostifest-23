@@ -8,15 +8,20 @@ export default function SocialMedia() {
   return (
     <div className="container  my-5 " data-aos="fade-up">
       <h3 className="fw-bold text-center">Frequently Asked Question</h3>
-      <p style={{ fontSize: "14px" }} className="d-none d-md-block w-50 mx-auto text-center">
-        Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi contact person di bawah ini
+      <p
+        style={{ fontSize: "14px" }}
+        className="d-none d-md-block w-50 mx-auto text-center"
+      >
+        Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi
+        contact person di bawah ini
       </p>
       <p style={{ fontSize: "14px" }} className="d-md-none d-block text-center">
-        Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi contact person di bawah ini
+        Jika ada pertanyaan mengenai lomba maupun webinar dapat menghubungi
+        contact person di bawah ini
       </p>
       <div className="row justify-content-center">
         <div className="col-md-1 col-2 d-flex justify-content-center">
-          <Link href="https://www.instagram.com/fosti_ums">
+          <Link href="https://www.instagram.com/fostifest">
             <Image src={InstagramLogo} alt="ig" height={35} width={35} />
           </Link>
         </div>
