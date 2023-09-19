@@ -123,7 +123,6 @@ export default function FormRegister() {
           };
         });
       } else if (data.length > 0) {
-        // alert("Email telah digunakan, gunakan email lain!");
         setNote((previousState) => {
           return {
             ...previousState,
@@ -137,7 +136,7 @@ export default function FormRegister() {
             noteEmail: null,
           };
         });
-        const { data, error } = await supabase.auth.signUp({
+        const { data: {user}, error } = await supabase.auth.signUp({
           email,
           password,
         });
@@ -145,27 +144,29 @@ export default function FormRegister() {
         if (error) {
           console.error("Error signing in:", error.message);
         } else {
-          const { data: users, error: errorInsertUser } = await supabase
-            .from("users")
-            .insert({
-              nama,
-              alamat,
-              instansi,
-              email,
-              jenis,
-              no_telp,
-              payment_verif: defaultPayment,
-            })
-            .select();
+          const { error: errorInsertUser } = await supabase
+          .from("users")
+          .insert({
+            nama,
+            alamat,
+            instansi,
+            email,
+            jenis,
+            no_telp,
+            payment_verif: defaultPayment,
+            supabase_auth_id: user.id
+          })
+          .select();
           if (errorInsertUser) {
             console.log(
               "ERROR while inserting user :",
               errorInsertUser.message
             );
           }
-          // console.log(users);
           Cookies.set("successRegister", "true");
           router.replace("/login");
+
+          // console.log(users);
           // router.push({
           //   pathname: '/profile',
           //   query: { userData: JSON.stringify(data) },
