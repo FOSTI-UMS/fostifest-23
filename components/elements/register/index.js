@@ -284,7 +284,6 @@ export default function FormRegister() {
                       type="text"
                       id="noTelp"
                       name="noTelp"
-                      inputMode="numeric"
                       value={no_telp}
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => handlePhoneNumberChange(e)}
