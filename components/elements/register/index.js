@@ -136,7 +136,10 @@ export default function FormRegister() {
             noteEmail: null,
           };
         });
-        const { data: {user}, error } = await supabase.auth.signUp({
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.signUp({
           email,
           password,
         });
@@ -145,18 +148,18 @@ export default function FormRegister() {
           console.error("Error signing in:", error.message);
         } else {
           const { error: errorInsertUser } = await supabase
-          .from("users")
-          .insert({
-            nama,
-            alamat,
-            instansi,
-            email,
-            jenis,
-            no_telp,
-            payment_verif: defaultPayment,
-            supabase_auth_id: user.id
-          })
-          .select();
+            .from("users")
+            .insert({
+              nama,
+              alamat,
+              instansi,
+              email,
+              jenis,
+              no_telp,
+              payment_verif: defaultPayment,
+              supabase_auth_id: user.id,
+            })
+            .select();
           if (errorInsertUser) {
             console.log(
               "ERROR while inserting user :",
@@ -281,7 +284,6 @@ export default function FormRegister() {
                       type="text"
                       id="noTelp"
                       name="noTelp"
-                      inputMode="none"
                       value={no_telp}
                       className={`form-control ${styles["input-custom"]}`}
                       onChange={(e) => handlePhoneNumberChange(e)}
