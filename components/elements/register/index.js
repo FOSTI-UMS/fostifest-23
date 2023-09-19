@@ -115,14 +115,7 @@ export default function FormRegister() {
         .from("users")
         .select("email")
         .eq("email", email);
-      if (email.length == 0) {
-        setNote((previousState) => {
-          return {
-            ...previousState,
-            noteEmail: "*Email wajib diisi",
-          };
-        });
-      } else if (data.length > 0) {
+      if (data.length > 0) {
         setNote((previousState) => {
           return {
             ...previousState,
@@ -130,12 +123,21 @@ export default function FormRegister() {
           };
         });
       } else {
-        setNote((previousState) => {
-          return {
-            ...previousState,
-            noteEmail: null,
-          };
-        });
+        if (email.length == 0) {
+          setNote((previousState) => {
+            return {
+              ...previousState,
+              noteEmail: "*Email wajib diisi",
+            };
+          });
+        } else {
+          setNote((previousState) => {
+            return {
+              ...previousState,
+              noteEmail: null,
+            };
+          });
+        }
         const {
           data: { user },
           error,
