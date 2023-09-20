@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
 import deleteImage from "@/assets/gifs/delete.json";
 import supabaseAdmin from "@/pages/api/supabase-admin";
+import download from "./dwnld";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
@@ -68,6 +69,7 @@ export default function GetDataLomba() {
 
   return (
     <div className="container pb-3">
+      <button onClick={download}>DONLOT</button>
       <p className="fw-bold">Data User Lomba</p>
       <div className={`mb-3 ${styles["search-box"]}`}>
         <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
