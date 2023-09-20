@@ -5,7 +5,6 @@ import Lottie from "lottie-react";
 import paymentsImage from "@/assets/gifs/payments.json";
 import deleteImage from "@/assets/gifs/delete.json";
 import supabaseAdmin from "@/pages/api/supabase-admin";
-import download from "./dwnld";
 
 export default function GetDataLomba() {
   const [users, setUsers] = useState([]);
@@ -15,7 +14,11 @@ export default function GetDataLomba() {
   const [detailUser, setDetailUser] = useState();
 
   const fetchUsers = async () => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("jenis", "LOMBA DESIGN").order("nama");
+    const { data: usersData, error: fetchError } = await supabase
+      .from("users")
+      .select()
+      .eq("jenis", "LOMBA DESIGN")
+      .order("nama");
     if (fetchError) {
       setError(fetchError);
     } else {
@@ -37,17 +40,23 @@ export default function GetDataLomba() {
   };
 
   const detail = async (id) => {
-    const { data: usersData, error: fetchError } = await supabase.from("users").select().eq("id_user", id.id);
+    const { data: usersData, error: fetchError } = await supabase
+      .from("users")
+      .select()
+      .eq("id_user", id.id);
     if (fetchError) {
       setError(fetchError);
     } else {
       setDetailUser(usersData);
     }
-  }
+  };
 
   const handleVerif = async (id) => {
     try {
-      const { error } = await supabase.from("users").update({ payment_verif: true }).eq("id_user", id);
+      const { error } = await supabase
+        .from("users")
+        .update({ payment_verif: true })
+        .eq("id_user", id);
 
       if (error) {
         throw new Error(error.message);
@@ -60,8 +69,10 @@ export default function GetDataLomba() {
   };
 
   const handleDelete = async (supabase_auth_id) => {
-    const { error:errorAdmin } = await supabaseAdmin.auth.admin.deleteUser(supabase_auth_id);
-    if(errorAdmin){
+    const { error: errorAdmin } = await supabaseAdmin.auth.admin.deleteUser(
+      supabase_auth_id
+    );
+    if (errorAdmin) {
       alert(errorAdmin);
     }
     window.location.reload();
@@ -69,16 +80,24 @@ export default function GetDataLomba() {
 
   return (
     <div className="container pb-3">
-      <button onClick={download}>DONLOT</button>
       <p className="fw-bold">Data User Lomba</p>
       <div className={`mb-3 ${styles["search-box"]}`}>
-        <input type="text" placeholder="Search User's Name" onChange={handleSearch} />
+        <input
+          type="text"
+          placeholder="Search User's Name"
+          onChange={handleSearch}
+        />
       </div>
-      {search.length === 0 && <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>}
+      {search.length === 0 && (
+        <p className="text-danger">Maaf, Tidak/Belum Ada Data Peserta Lomba</p>
+      )}
       {search.length > 0 && (
         <div>
           <div className="table-responsive">
-            <table className={`table table-striped ${styles["table"]}`} style={{ whiteSpace: "nowrap" }}>
+            <table
+              className={`table table-striped ${styles["table"]}`}
+              style={{ whiteSpace: "nowrap" }}
+            >
               <thead>
                 <tr>
                   <th>No</th>
@@ -101,18 +120,44 @@ export default function GetDataLomba() {
                     <td data="Nama">{user.nama}</td>
                     <td data="Email">{user.email}</td>
                     <td data="No Telp">{user.no_telp}</td>
-                    <td data="Status">{user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</td>
+                    <td data="Status">
+                      {user.payment_verif
+                        ? "Terverifikasi"
+                        : "Belum Terverifikasi"}
+                    </td>
                     <td data="Aksi">
                       <div className="d-flex gap-3">
                         {!user.payment_verif && (
-                          <button type="button" className="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-payments`} onClick={() => setVerif({ name: user.nama, id: user.id_user })}>
+                          <button
+                            type="button"
+                            className="btn btn-outline-success btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target={`#modal-payments`}
+                            onClick={() =>
+                              setVerif({ name: user.nama, id: user.id_user })
+                            }
+                          >
                             Verifikasi
                           </button>
                         )}
-                        <button className="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-detail`} onClick={() => detail({ id: user.id_user })}>
+                        <button
+                          className="btn btn-outline-primary btn-sm"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#modal-detail`}
+                          onClick={() => detail({ id: user.id_user })}
+                        >
                           Detail
                         </button>
-                        <button className="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target={`#modal-delete`} onClick={() => setVerif({ supabase_auth_id: user.supabase_auth_id })}>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#modal-delete`}
+                          onClick={() =>
+                            setVerif({
+                              supabase_auth_id: user.supabase_auth_id,
+                            })
+                          }
+                        >
                           Hapus
                         </button>
                       </div>
@@ -122,29 +167,55 @@ export default function GetDataLomba() {
               </tbody>
             </table>
           </div>
-          <div className="modal fade" id={`modal-payments`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div
+            className="modal fade"
+            id={`modal-payments`}
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Verifikasi Pembayaran
                   </h1>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div className="modal-body">
                   {verif && (
                     <div className="container-fluid">
                       <div className="d-flex justify-content-center">
-                        <Lottie animationData={paymentsImage} autoPlay={true} loop={true} className="w-50" />
+                        <Lottie
+                          animationData={paymentsImage}
+                          autoPlay={true}
+                          loop={true}
+                          className="w-50"
+                        />
                       </div>
                       <div className="my-4 text-center">
-                        <small className="fw-bold">Verfikasi Pembayaran Atas Nama {verif.name} ?</small>
+                        <small className="fw-bold">
+                          Verfikasi Pembayaran Atas Nama {verif.name} ?
+                        </small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleVerif(verif.id)}>
+                        <button
+                          type="button"
+                          className="btn btn-success rounded-4"
+                          onClick={() => handleVerif(verif.id)}
+                        >
                           Confirm
                         </button>
-                        <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">
+                        <button
+                          type="button"
+                          className="btn btn-danger ms-3 rounded-4"
+                          data-bs-dismiss="modal"
+                        >
                           Cancel
                         </button>
                       </div>
@@ -155,29 +226,56 @@ export default function GetDataLomba() {
             </div>
           </div>
 
-          <div className="modal fade" id={`modal-detail`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div
+            className="modal fade"
+            id={`modal-detail`}
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Detail User
                   </h1>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div className="modal-body">
                   <div className="container-fluid">
                     <div className="text-center">
-                      <small className="fw-bold">Detail {detailUser && detailUser[0].nama}</small>
+                      <small className="fw-bold">
+                        Detail {detailUser && detailUser[0].nama}
+                      </small>
                       {detailUser &&
                         detailUser.map((user, index) => (
                           <div>
-                            <p>Nama: {user.nama}<br />
-                              Email: {user.email}<br />
-                              Alamat: {user.alamat}<br/>
-                              Instansi: {user.instansi ? (user.instansi).toUpperCase() : "-"}<br />
-                              Jenis: {user.jenis}<br />
-                              No Telp: {user.no_telp}<br />
-                              Status: {user.payment_verif ? "Terverifikasi" : "Belum Terverifikasi"}</p>
+                            <p>
+                              Nama: {user.nama}
+                              <br />
+                              Email: {user.email}
+                              <br />
+                              Alamat: {user.alamat}
+                              <br />
+                              Instansi:{" "}
+                              {user.instansi
+                                ? user.instansi.toUpperCase()
+                                : "-"}
+                              <br />
+                              Jenis: {user.jenis}
+                              <br />
+                              No Telp: {user.no_telp}
+                              <br />
+                              Status:{" "}
+                              {user.payment_verif
+                                ? "Terverifikasi"
+                                : "Belum Terverifikasi"}
+                            </p>
                           </div>
                         ))}
                     </div>
@@ -186,30 +284,56 @@ export default function GetDataLomba() {
               </div>
             </div>
           </div>
-          
-          <div className="modal fade" id={`modal-delete`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+          <div
+            className="modal fade"
+            id={`modal-delete`}
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Delete User
                   </h1>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div className="modal-body">
                   {verif && (
                     <div className="container-fluid">
                       <div className="d-flex justify-content-center">
-                        <Lottie animationData={deleteImage} autoPlay={true} loop={true} className="w-50" />
+                        <Lottie
+                          animationData={deleteImage}
+                          autoPlay={true}
+                          loop={true}
+                          className="w-50"
+                        />
                       </div>
                       <div className="my-4 text-center">
-                        <small className="fw-bold">Delete User Atas Nama {verif.name} ?</small>
+                        <small className="fw-bold">
+                          Delete User Atas Nama {verif.name} ?
+                        </small>
                       </div>
                       <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-success rounded-4" onClick={() => handleDelete(verif.supabase_auth_id)}>
+                        <button
+                          type="button"
+                          className="btn btn-success rounded-4"
+                          onClick={() => handleDelete(verif.supabase_auth_id)}
+                        >
                           Confirm
                         </button>
-                        <button type="button" className="btn btn-danger ms-3 rounded-4" data-bs-dismiss="modal">
+                        <button
+                          type="button"
+                          className="btn btn-danger ms-3 rounded-4"
+                          data-bs-dismiss="modal"
+                        >
                           Cancel
                         </button>
                       </div>
