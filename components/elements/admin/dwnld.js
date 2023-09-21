@@ -24,6 +24,12 @@ export default async function getDataUser() {
       : "Belum Verifikasi";
   });
 
+  user_webinar.forEach((user) => {
+    user.payment_verif = user.payment_verif
+      ? "Terverifikasi"
+      : "Belum Verifikasi";
+  });
+
   const book = XLSX.utils.book_new();
   const sheetLomba = XLSX.utils.json_to_sheet(user_lomba);
   const sheetWebinar = XLSX.utils.json_to_sheet(user_webinar);
