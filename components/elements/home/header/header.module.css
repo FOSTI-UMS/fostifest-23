@@ -16,7 +16,7 @@
 }
 
 .btn-custom {
-  width: 200px;
+  min-width: 200px;
   height: 40px;
   background-color: #5a96e3;
   color: #fff;
