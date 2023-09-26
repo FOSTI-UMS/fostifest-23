@@ -12,7 +12,7 @@ export default function Header() {
   useEffect(() => {
     async function fetchTimerData() {
       const res = await fetch("/api/pendaftaran");
-      const d= await res.json()
+      const d = await res.json();
       setTimerData(d.timer);
     }
 
@@ -39,17 +39,11 @@ export default function Header() {
             <small
               className={`${styles["fostifest-description-font"]} fw-bold text-secondary`}
             >
-              {
-                time_strt > sekarang ? (
-                  "Waktu Pendaftaran Akan Dimulai"
-                ) : (
-                  time_ends > sekarang ? (
-                    "Waktu Pendaftaran Akan Berakhir"
-                  ) : (
-                    "Waktu Pendaftaran Telah Berakhir"
-                  )
-                )
-              }
+              {time_strt > sekarang
+                ? "Waktu Pendaftaran Akan Dimulai"
+                : time_ends > sekarang
+                ? "Waktu Pendaftaran Akan Berakhir"
+                : "Waktu Pendaftaran Telah Berakhir"}
             </small>
           </div>
           <CountDown />
@@ -57,34 +51,40 @@ export default function Header() {
             <small
               className={`${styles["fostifest-description-font"]} fw-bold text-secondary`}
             >
-              {
-                time_strt > sekarang ? (
-                  timerData.time_start &&
-                  new Date(timerData.time_start).toLocaleString('id-ID', {
-                    timeZone: 'Asia/Jakarta',
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
+              {time_strt > sekarang
+                ? timerData.time_start &&
+                  new Date(timerData.time_start).toLocaleString("id-ID", {
+                    timeZone: "Asia/Jakarta",
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
                   })
-                ) : (
-                  timerData.time_end &&
-                  new Date(timerData.time_end).toLocaleString('id-ID', {
-                    timeZone: 'Asia/Jakarta',
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })
-                )
-              } WIB
+                : timerData.time_end &&
+                  new Date(timerData.time_end).toLocaleString("id-ID", {
+                    timeZone: "Asia/Jakarta",
+                    year: "numeric",
+                    month: "long",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+              WIB
             </small>
           </div>
           <div className="col">
             <Link className={`${styles["btn-custom"]} btn`} href={"/register"}>
               Daftar Sekarang
+            </Link>
+          </div>
+          <div className="col d-md-none d-sm-block mt-4">
+            <Link
+              href="/Rulebook.pdf"
+              className="text-decoration-none"
+              target="_blank"
+            >
+              Download RuleBook
             </Link>
           </div>
         </div>
