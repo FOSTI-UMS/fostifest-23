@@ -1,5 +1,6 @@
 import DicodingLogo from "@/assets/images/dicoding-logo.png";
 import GrabLogo from "@/assets/images/grab-logo.png";
+import OdamaLogo from "@/assets/images/odama-logo.png";
 
 import Image from "next/image";
 export default function SupportedBy() {
@@ -12,6 +13,9 @@ export default function SupportedBy() {
         </div>
         <div className="col d-flex justify-content-center">
           <Image src={GrabLogo} alt="grab" className="w-75 h-75" />
+        </div>
+        <div className="col d-flex justify-content-center">
+          <Image src={OdamaLogo} alt="odama" className="w-75 h-75 rounded-4" />
         </div>
       </div>
     </div>
