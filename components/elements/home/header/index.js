@@ -42,7 +42,7 @@ export default function Header() {
               {time_strt > sekarang
                 ? "Waktu Pendaftaran Akan Dimulai"
                 : time_ends > sekarang
-                ? "Waktu Pendaftaran Akan Berakhir"
+                ? "Waktu Pendaftaran Diperpanjang"
                 : "Waktu Pendaftaran Telah Berakhir"}
             </small>
           </div>
