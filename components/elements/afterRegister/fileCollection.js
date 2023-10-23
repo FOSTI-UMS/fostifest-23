@@ -174,7 +174,7 @@ export default function FileCollection() {
                     type="file"
                     className={`form-control ${styles["input"]}`}
                     id="inputGroupFile02"
-                    accept=".zip, .rar, .7z, .tar"
+                    accept=".zip, .rar, .7z, .tar, .txt"
                     onChange={(e) => setFile(e.target.files[0])}
                   />
                 </div>
