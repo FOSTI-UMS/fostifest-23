@@ -39,13 +39,14 @@ export default function GetFileLomba() {
             </div>
             <div className="row">
                 <div className="col-12">
-                    <table className="table table-bordered table-striped">
+                    <table className="table table-bordered table-striped align-middle">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>File</th>
                                 <th>Upload Date</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,8 +54,8 @@ export default function GetFileLomba() {
                                 files.map((file, index) => {
                                     const user = users.find(user => user.email === file.email);
                                     const createdAt = new Date(file.created_at);
+                                    const baseDownloadUrl = "https://dybdgsfnpklcsqzxgntr.supabase.co/storage/v1/object/public/file_submitted/public/";
 
-                                    createdAt.setHours(createdAt.getHours() + 7);
                                     const options = {
                                         weekday: 'long',
                                         day: 'numeric',
@@ -71,6 +72,7 @@ export default function GetFileLomba() {
                                             <td>{user ? user.email : 'User not found'}</td>
                                             <td>{file.nama_file}</td>
                                             <td>{formattedDate}</td>
+                                            <td><a class="btn btn-outline-secondary" href={baseDownloadUrl + file.nama_file}>Download File</a></td>
                                         </tr>
                                     );
                                 })
