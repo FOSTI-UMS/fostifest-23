@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 import Cookies from "js-cookie";
-import timer from "@/pages/api/[timerName]";
 
 export default function FileCollection() {
   const router = useRouter();
@@ -70,18 +69,17 @@ export default function FileCollection() {
     e.preventDefault();
     if (!file) {
       alert("Pilih File terlebih dahulu");
-      return;
     } else if (file.name.split("_").length !== 2) {
       alert("Nama file tidak sesuai format");
       return;
-    } else if (file.size > 10000000) {
-      alert("File terlalu besar, maksimal 10MB");
+    } else if (file.size > 52428800) {
+      alert("File terlalu besar, maksimal 50 MB. Jika lebih, bisa diupload ke Google Drive masing-masing");
       return;
     } else {
       const ext = file.name.split(".").pop();
-      const allowedExt = ["zip", "7z", "rar", "tar"];
+      const allowedExt = ["zip", "7z", "rar", "tar", "txt"];
       if (!allowedExt.includes(ext)) {
-        alert("File yang diupload harus berupa file arsip");
+        alert("File yang diupload harus berupa file arsip atau txt untuk link google drive");
         return;
       } else {
         const user = await supabase.auth.getUser();
@@ -94,7 +92,7 @@ export default function FileCollection() {
             upsert: false,
           });
 
-        const { data: insertStat, error: insertErr } = await supabase
+        const { error: insertErr } = await supabase
           .from("submit_status")
           .insert([
             {
@@ -176,7 +174,7 @@ export default function FileCollection() {
                     type="file"
                     className={`form-control ${styles["input"]}`}
                     id="inputGroupFile02"
-                    accept=".zip, .rar, .7z, .tar"
+                    accept=".zip, .rar, .7z, .tar, .txt"
                     onChange={(e) => setFile(e.target.files[0])}
                   />
                 </div>
@@ -214,9 +212,10 @@ export default function FileCollection() {
             Note : <br />
             1. Format File Zip, Rar, 7z, Tar <br />
             2. Nama File ( contoh : LPFOSTIFEST_NamaLengkap.zip) <br />
-            3. Ukuran File Maksimal 10 MB <br />
-            4. Hanya dapat mengumpulkan 1 kali, pastikan file dan format nama sudah benar <br />
-            5. Batas waktu Submit pada hari {formatDate(new Date(dataTime.time_end))} Jam {formatTime(new Date(dataTime.time_end))} WIB
+            3. Ukuran File Maksimal 50 MB. Jika lebih, bisa diupload ke Google Drive masing-masing <br />
+            4. Kumpulkan alamat google drive dengan akses publik dalam sebuah file txt (LPFOSTIFEST_NamaLengkap.txt) <br />
+            5. Hanya dapat mengumpulkan 1 kali, pastikan file dan format nama sudah benar <br />
+            6. Batas waktu Submit pada hari {formatDate(new Date(dataTime.time_end))} Jam {formatTime(new Date(dataTime.time_end))} WIB
           </div>
         </div>
       </div>

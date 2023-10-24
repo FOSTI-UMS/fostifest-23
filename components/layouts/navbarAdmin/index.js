@@ -53,6 +53,11 @@ const NavbarAdmin = () => {
               </Link>
             </li>
             <li className="nav-item ">
+              <Link className=" nav-link" href="/admin/competition/file">
+                Data Lomba
+              </Link>
+            </li>
+            <li className="nav-item ">
               <Link className=" nav-link " href="/admin/webinar/users">
                 Peserta Webinar
               </Link>
