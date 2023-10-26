@@ -9,7 +9,10 @@ export default function Home() {
           <h3 className="fw-bold text-center">Selamat Datang Admin</h3>
           <p>Statistik:</p>
           <Statistics />
-          <button className="btn btn-outline-primary text-center" onClick={download}>
+          <button
+            className="btn btn-outline-primary text-center"
+            onClick={download}
+          >
             Download Data User
           </button>
         </div>
