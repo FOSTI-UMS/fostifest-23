@@ -34,11 +34,6 @@ const CompetitionEvent = () => {
               pengguna, dan kemampuan mengkomunikasikan pesan yang kuat melalui
               desain web..
             </div>
-            <Link href={"/register"} className="text-decoration-none">
-              <div className={`${styles["btn-custom-2"]} mt-3`}>
-                Daftar Lomba
-              </div>
-            </Link>
           </div>
           <div className="col-12 col-md-5 d-md-block d-none ">
             <Lottie

@@ -34,11 +34,6 @@ export default function EventContent() {
               ini diselenggarakan secara hybrid dengan kouta peserta offline
               diestimasi sebanyak 100 peserta.
             </div>
-            <Link href={"/register"} className="text-decoration-none">
-              <div className={`${styles["btn-custom-2"]} mt-3`}>
-                Daftar Seminar
-              </div>
-            </Link>
           </div>
         </div>
       </div>

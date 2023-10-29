@@ -73,11 +73,6 @@ export default function Header() {
               WIB
             </small>
           </div>
-          <div className="col">
-            <Link className={`${styles["btn-custom"]} btn`} href={"/register"}>
-              Daftar Sekarang
-            </Link>
-          </div>
           <div className="col d-md-none d-sm-block mt-4">
             <Link
               href="/Rulebook.pdf"

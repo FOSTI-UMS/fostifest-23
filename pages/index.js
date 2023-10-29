@@ -8,10 +8,18 @@ import FostiFest from "@/components/elements/home/fostiFest";
 import RoadShow from "@/components/elements/home/roadShow";
 import PosterEvent from "@/components/elements/home/posterEvent";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import Modal from "@/components/elements/modal";
 
 export default function Index() {
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    setIsActive(true);
+  }, []);
+
   return (
     <div className="pb-5">
+      <Modal />
       <Header />
       <FostiFest />
       <RoadShow />
