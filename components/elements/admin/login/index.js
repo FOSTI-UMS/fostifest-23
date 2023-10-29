@@ -1,18 +1,20 @@
 import styles from "./login.module.css";
 import Link from "next/link";
-import LoginGif from "/assets/gifs/login.json";
+import LoginGif from "/assets/gifs/login_2.json";
 import SuccesImage from "@/assets/gifs/succesfully.json";
 import Lottie from "lottie-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import supabase from "@/pages/api/supabase";
 import Cookies from "js-cookie";
+import BackgroundSide from "@/assets/images/bg_login.png";
 
 export default function FormLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,11 +27,13 @@ export default function FormLogin() {
 
       if (error) {
         alert("Error signing in: " + error.message);
+        setLoading(false);
       } else {
         router.push("/profile");
       }
     } catch (error) {
       console.error("Error signing in:", error.message);
+      setLoading(false);
     }
   };
 
@@ -50,20 +54,34 @@ export default function FormLogin() {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row align-items-center" style={{ minHeight: "100vh" }}>
-        <div className="col-md-6 d-none d-md-block">
-          <div className="d-flex justify-content-center" data-aos="fade">
-            <Lottie animationData={LoginGif} style={{ width: "60%" }} />
+    <div
+      className="container d-flex justify-content-center align-items-center p-0"
+      style={{ minHeight: "100vh" }}
+      data-aos="fade"
+    >
+      <div
+        className="row card container mx-3 d-flex flex-row shadow border border-none p-0"
+        style={{ minHeight: "80vh" }}
+      >
+        <div
+          className="col-md-6 d-none d-lg-block border-end rounded-start-2"
+          style={{
+            backgroundImage: `url(${BackgroundSide.src})`,
+            backgroundSize: "cover",
+            height: "100%",
+          }}
+        >
+          <div className="d-flex justify-content-center">
+            <Lottie
+              animationData={LoginGif}
+              style={{ width: "75%", minHeight: "80vh" }}
+            />
           </div>
         </div>
-        <div className="col-md-6">
-          <div
-            className={`card rounded-4 shadow ${styles["card-width"]}`}
-            data-aos="fade"
-          >
+        <div className="col-lg-6">
+          <div className={`${styles["card-width"]}`}>
             <div className="card-body">
-              <div className="fw-bold pt-5 text-center">Login</div>
+              <div className="my-5 fs-2 text-center">ADMIN LOGIN</div>
               <form onSubmit={handleLogin}>
                 <div className="d-flex align-items-center justify-content-center flex-column mb-3 ">
                   <label
@@ -100,15 +118,29 @@ export default function FormLogin() {
                 <div className="text-white fw-bold text-decoration-none d-flex align-items-center justify-content-center">
                   <button
                     type="submit"
-                    className={`mb-3 text-white fw-bold d-flex align-items-center justify-content-center ${styles["btn-login"]}`}
+                    className={`mb-3 rounded-5 text-white d-flex align-items-center justify-content-center ${styles["btn-login"]}`}
+                    onClick={() => setLoading(true)}
                   >
-                    Login
+                    {loading ? (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    ) : (
+                      <span>Login</span>
+                    )}
                   </button>
                 </div>
               </form>
-              <div className={`${styles["change-page"]}`}>
-                Hubungi SIE Karya untuk<br/>mendaftar sebagai Admin
-              </div>
+              <Link
+                href="/"
+                className="text-dark fw-bold text-decoration-none mb-5 d-flex align-items-center justify-content-center"
+              >
+                <div className={`${styles["change-page"]}`}>
+                  Hubungi Sie Karya untuk membuat akun Admin
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -137,7 +169,7 @@ export default function FormLogin() {
                     <div className="mb-4 text-center">
                       <h3 className="fw-bold mb-3">Yeayy Selamat !</h3>
                       <small className="text-secondary">
-                        Anda Telah Berhasil Mendaftar Silahkan Login
+                        Anda Telah Berhasil Mendaftar Silahkan Check Email Anda
                       </small>
                     </div>
                   </div>
