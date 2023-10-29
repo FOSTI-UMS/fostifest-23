@@ -15,41 +15,6 @@ export async function middleware(req) {
     data: { user },
   } = await supabaseMiddleware.auth.getUser();
 
-  if (req.nextUrl.pathname == '/register') {
-    console.log(sekarang);
-    if (sekarang < new Date(daftar.timer.time_start).getTime()) {
-      return NextResponse.redirect(new URL('/soon', req.url));
-    }
-    else if (sekarang > new Date(daftar.timer.time_end).getTime()) {
-      return NextResponse.redirect(new URL('/end', req.url));
-    }
-    else {
-      return res;
-    }
-  }
-
-  // PESERTA LOMBA CHECKER
-  if (user) {
-    const { data: userdata } = await supabaseMiddleware
-      .from('users')
-      .select('jenis')
-      .eq('email', user.email)
-      .single();
-
-    if (req.nextUrl.pathname.startsWith('/file-collection')) {
-      if (userdata && userdata.jenis == 'LOMBA DESIGN') {
-        return res;
-      }
-      else {
-        return NextResponse.redirect(new URL('/profile', req.url));
-      }
-    }
-
-    if (req.nextUrl.pathname.startsWith('/payments')) {
-      return res;
-    }
-  }
-
   // ADMIN CHECKER
   if (user) {
     const { data: userdata } = await supabaseMiddleware
@@ -58,25 +23,25 @@ export async function middleware(req) {
       .eq('email', user.email)
       .single();
 
-    if (req.nextUrl.pathname.startsWith('/admin')) {
-      if (userdata?.is_admin) {
-        return res;
-      }
-      else {
-        return NextResponse.redirect(new URL('/profile', req.url));
+    if (!userdata?.is_admin) {
+      if (req.nextUrl.pathname == '/admin' || req.nextUrl.pathname == '/profile') {
+        return NextResponse.redirect(new URL('/', req.url));
       }
     }
   }
   else if (!user) {
-    if (req.nextUrl.pathname == '/admin/login' || req.nextUrl.pathname.startsWith('/admin/register')) {
+    if (req.nextUrl.pathname == '/admin') {
+      return NextResponse.redirect(new URL('/admin/login', req.url));
+    }
+    else if (req.nextUrl.pathname.startsWith('/admin/login')) {
       return res;
     }
     else if (req.nextUrl.pathname !== '/') {
-      return NextResponse.redirect(new URL('/login', req.url));
+      return NextResponse.redirect(new URL('/', req.url));
     }
   }
 }
 
 export const config = {
-  matcher: ['/', '/profile', '/file-collection', '/admin/:path*', '/register', '/payments'],
+  matcher: ['/', '/login', '/register', '/profile', '/file-collection', '/admin/:path*', '/register', '/payments'],
 };
